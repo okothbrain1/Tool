@@ -1,0 +1,21 @@
+ion-slide {
+  height: 100vh;
+  flex-direction: column;
+}
+ion-img {
+  max-width: 70vw;
+  max-height: 70vh;
+  overflow: hidden;
+}
+ion-content {
+  background: #5b017d;
+  color: #fff;
+}
+
+.labelintro {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.labelintro span {
+  font-size: 14px;
+}

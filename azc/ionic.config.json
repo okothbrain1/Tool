@@ -1,0 +1,7 @@
+{
+  "name": "azc",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

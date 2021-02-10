@@ -1,0 +1,46 @@
+ion-title {
+  font-weight: 100;
+}
+ion-app{
+  background-color:#eee;
+  
+}
+ion-content {
+  --background: transparent;
+  --padding-top: 10vh;
+}
+ion-card {
+  padding: 10px;
+  --background: #fff;
+  --color: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.headers {
+  position: absolute;
+  top: 0;
+}
+ion-img.bkg {
+  width: 100vw;
+  height: auto;
+  padding: 0;
+  margin: 0;
+}
+ion-text {
+  color: #f1f1f1;
+  text-align: center;
+  z-index: 1;
+  font-size: 25px;
+  padding-top: 10vh;
+}
+ion-label {
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+ion-img {
+  height: 7vh;
+  width: auto;
+  margin: auto;
+  display: block;
+}

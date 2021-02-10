@@ -1,0 +1,87 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Beneficiary tool</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+      <ion-label>Take an image of the meeting</ion-label>
+    <ion-item>
+      <ion-button name="camera" (click)="takePicture()"></ion-button>
+      <img [src]="currentImage" *ngIf="currentImage">
+    </ion-item>  
+    </ion-item>
+    <ion-item>
+      <ion-label>Take an Video of the meeting</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date of the meeting</ion-label>
+      <ion-datetime displayFormat="YY MM DD" [(ngModel)]="dob" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Meeting topic</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Name of the field officer</ion-label>
+      <ion-input type = "text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Region</ion-label>
+      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
+        <ion-select-option value="female">Female</ion-select-option>
+        <ion-select-option value="male">Male</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>District</ion-label>
+      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
+        <ion-select-option value="nwoya">Nwoya</ion-select-option>
+        <ion-select-option value="lamwo">Lamwo</ion-select-option>
+         <ion-select-option value="gulu">Gulu</ion-select-option>
+          <ion-select-option value="kaabong">Kaabong</ion-select-option>
+          <ion-select-option value="kotido">Kotido</ion-select-option>
+           <ion-select-option value="kanungu">Acholi</ion-select-option>
+           <ion-select-option value="kisoro">Kisoro</ion-select-option>
+           <ion-select-option value="rukungiri">Rukungiri</ion-select-option>
+           <ion-select-option value="kanungu">Kanungu</ion-select-option>
+           <ion-select-option value="kisoro">Kigezi</ion-select-option>
+           <ion-select-option value="rukungiri">Karamoja</ion-select-option>
+           <ion-select-option value="kanungu">Acholi</ion-select-option>
+           <ion-select-option value="kisoro">Kigezi</ion-select-option>
+           <ion-select-option value="rukungiri">Karamoja</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Subcounty</ion-label>
+      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
+        <ion-select-option value="acholi">Acholi</ion-select-option>
+        <ion-select-option value="kigezi">Kigezi</ion-select-option>
+        <ion-select-option value="karamoja">Karamoja</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-input type = "text" [(ngModel)]="location" (ngModelChange)="location = $event.toLocaleLowerCase()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total number of women in the group</ion-label>
+      <ion-input type = "number" [(ngModel)]="no_total"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Number of women who attended todays meeting</ion-label>
+      <ion-input type = "number" [(ngModel)]="no_women_attending"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Number of mothers breastfeeding</ion-label>
+      <ion-input type = "number" [(ngModel)]="no_mothers_breastfeeding"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Number of mothers breastfeeding</ion-label>
+      <ion-input type = "" [(ngModel)]="no_mothers_breastfeeding"></ion-input>
+    </ion-item>
+
+</ion-content>

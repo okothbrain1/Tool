@@ -1,9 +1,93 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
-    <ion-title>agent</ion-title>
-  </ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Field Agent Registration</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>Name of the field officer</ion-label>
+    <ion-input type = "text" [(ngModel)]="name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Phone number</ion-label>
+    <ion-input type = "number" [(ngModel)]="phonenumber"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Region</ion-label>
+    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="region">
+      <ion-select-option value="Acholi">Acholi</ion-select-option>
+      <ion-select-option value="Kigezi">Kigezi</ion-select-option>
+      <ion-select-option value="Karamoja">Karamoja</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>District</ion-label>
+    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="district">
+      <ion-select-option value="Acholi">Acholi</ion-select-option>
+      <ion-select-option value="Kigezi">Kigezi</ion-select-option>
+      <ion-select-option value="Karamoja">Karamoja</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Subcounty</ion-label>
+    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="subcounty">
+      <ion-select-option value="Acholi">Acholi</ion-select-option>
+      <ion-select-option value="Kigezi">Kigezi</ion-select-option>
+      <ion-select-option value="Karamoja">Karamoja</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Number of Bsp's</ion-label>
+    <ion-input type = "number" [(ngModel)]="bsps"></ion-input>
+  </ion-item>
+
+    <ion-item>
+      <ion-label>Number of VSLA's and farmer groups</ion-label>
+      <ion-input type = "number" [(ngModel)]="vsla"></ion-input>
+    </ion-item>
+
+      <ion-item>
+        <ion-label>Number of MIYCAN</ion-label>
+        <ion-input type = "number" [(ngModel)]="miycan"></ion-input>
+      </ion-item>
+
+        <ion-item>
+          <ion-label>Number of VHTs</ion-label>
+          <ion-input type = "number" [(ngModel)]="vhts"></ion-input>
+        </ion-item>
+
+          <ion-item>
+            <ion-label>Number of DDMC's OR Subcounty DMC's</ion-label>
+            <ion-input type = "number" [(ngModel)]="ddmcs"></ion-input>
+          </ion-item>
+
+            <ion-item>
+              <ion-label>Number of current structures(Leaders working with)</ion-label>
+              <ion-input type = "number" [(ngModel)]="cstructures"></ion-input>
+            </ion-item>
+
+              <ion-item>
+                <ion-label>Number of ICAN champions</ion-label>
+                <ion-input type = "number" [(ngModel)]="champions"></ion-input>
+              </ion-item>
+
+                <ion-item>
+                  <ion-label>Number of schools</ion-label>
+                  <ion-input type = "number" [(ngModel)]="schools"></ion-input>
+                </ion-item>
+
+                  <ion-item>
+                    <ion-label>Number of Radio Stations</ion-label>
+                    <ion-input type = "number" [(ngModel)]="radioStations"></ion-input>
+                  </ion-item>
 
 </ion-content>

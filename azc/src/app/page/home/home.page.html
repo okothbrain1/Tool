@@ -15,41 +15,31 @@
 <ion-text>Hello {{name}}, <p>Welcome to aXiom Collect</p></ion-text>
 <ion-content>
   <ion-grid>
+    
     <ion-row>
       <ion-col col-6>
         <ion-card text-center padding button="true" (click)="opennew()">
           <ion-img src="/assets/icon/list_icon.svg"></ion-img><br/>  
-           <ion-label>New Survey</ion-label>
+           <ion-label>New Activity</ion-label>
         </ion-card>
       </ion-col>
-      <ion-col col-6>
-        <ion-card text-center padding button="true" (click)="openff()">
-          <ion-img src="/assets/icon/gps_icon.svg"></ion-img><br/>
-          <ion-label>Field force</ion-label>
-        </ion-card>
-      </ion-col>
-    </ion-row>  
-    <ion-row>
+
     <ion-col col-6>
       <ion-card text-center padding button="true" (click)="opennotsent()">
         <ion-img src="/assets/icon/notsent_icon.svg"></ion-img><br/>
         <ion-label>Not Sent</ion-label>
       </ion-card>
     </ion-col>
+  </ion-row> 
+
+  <ion-row>
     <ion-col col-6>
       <ion-card text-center padding  button="true" (click)="opensent()">
         <ion-img src="/assets/icon/sent_icon.svg"></ion-img><br/>
         <ion-label>Sent</ion-label>
       </ion-card>
     </ion-col>
-  </ion-row>  
-    <ion-row>
-    <ion-col col-6>
-      <ion-card text-center padding  button="true" (click)="openupdate()">
-       <ion-img src="/assets/icon/update_icon.svg"></ion-img><br/>
-       <ion-label>Update data</ion-label>
-      </ion-card>
-    </ion-col>
+
     <ion-col col-6>
       <ion-card text-center padding  button="true" (click)="opensettings()">
          <ion-img src="/assets/icon/settings_icon.svg"></ion-img><br/>

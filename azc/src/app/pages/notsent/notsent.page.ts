@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotsentPage implements OnInit {
 
+  public form = [
+    { val: 'dummy.....', isChecked: false },
+  ];
+
   constructor() { }
 
   ngOnInit() {

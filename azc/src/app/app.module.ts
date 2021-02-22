@@ -13,10 +13,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccessProviders } from './page/providers/access-providers'
 import { root } from 'rxjs/internal/util/root';
 import { Camera } from '@ionic-native/camera/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
+import { SQLite } from '@ionic-native/sqlite/ngx';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+
+import { FormsModule } from '@angular/forms'  
+import { ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +32,9 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
   IonicModule.forRoot(), 
   AppRoutingModule,
   IonicStorageModule.forRoot(),
-  HttpClientModule
+  HttpClientModule,
+  FormsModule,
+  ReactiveFormsModule
 ],
   providers: [
     StatusBar,
@@ -34,6 +42,9 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     Camera,
     Geolocation,
     NativeGeocoder,
+    Network,
+    SQLite,
+    SQLitePorter,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

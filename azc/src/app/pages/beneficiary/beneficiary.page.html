@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Beneficiary tool</ion-title>
+    <ion-title>Weekly Activities</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
 
   <ion-item>
     <ion-label>Region</ion-label>
-    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
+    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="region">
       <ion-select-option value="Acholi">Acholi</ion-select-option>
       <ion-select-option value="Kigezi">Kigezi</ion-select-option>
       <ion-select-option value="Karamoja">Karamoja</ion-select-option>
@@ -19,7 +19,7 @@
 
   <ion-item>
     <ion-label>District</ion-label>
-      <ion-select interface="popover"[(ngModel)]="gender">
+      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="district">
         <ion-select-option (click)="lamwo" value="Lamwo">Lamwo</ion-select-option>
           <ion-select-option value="Gulu">Gulu</ion-select-option>
           <ion-select-option value="Kaabong">Kaabong</ion-select-option>
@@ -33,7 +33,7 @@
 
   <ion-item>
     <ion-label>Subcounty</ion-label>
-    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
+    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="subcounty">
           <ion-select-option value="Anaka">Anaka</ion-select-option>
           <ion-select-option value="Koch goma">Koch Goma</ion-select-option>
           <ion-select-option value="Purongo">Purongo</ion-select-option>
@@ -43,21 +43,20 @@
   
   <ion-item>
     <ion-label>Select the Topic</ion-label>
-      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
-        <ion-select-option value="Lamwo">Lamwo</ion-select-option>
-          <ion-select-option value="Gulu">Gulu</ion-select-option>
-          <ion-select-option value="Kaabong">Kaabong</ion-select-option>
-          <ion-select-option value="Kotido">Kotido</ion-select-option>
-         <ion-select-option value="Kanungu">Kanungu</ion-select-option>
-         <ion-select-option value="Kisoro">Kisoro</ion-select-option>
-        <ion-select-option value="Rukungiri">Rukungiri</ion-select-option>
-       <ion-select-option value="Nwoya">Nwoya</ion-select-option>
+      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="topic">
+        <ion-select-option value="Livelihood">Livelihood</ion-select-option>
+          <ion-select-option value="Vsla/village meeting">Vsla/village meeting</ion-select-option>
+          <ion-select-option value="Farming group meeting">Farming group meeting</ion-select-option>
+          <ion-select-option value="Agro input Dealer">Agro input Dealer</ion-select-option>
+         <ion-select-option value="Linkage to bank">Linkage to bank</ion-select-option>
+         <ion-select-option value="Linkage to off-take market">Linkage to off-take market</ion-select-option>
+        <ion-select-option value="Link to government activities">Linkage to government activities</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label>Select the activity performed</ion-label>
-      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
+      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="activity">
         <ion-select-option value="Lamwo">Lamwo</ion-select-option>
           <ion-select-option value="Gulu">Gulu</ion-select-option>
           <ion-select-option value="Kaabong">Kaabong</ion-select-option>
@@ -68,153 +67,54 @@
        <ion-select-option value="Nwoya">Nwoya</ion-select-option>
     </ion-select>
   </ion-item>
-
-  <ion-item>
-    <ion-label>Select the activity performed</ion-label>
-      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
-        <ion-select-option value="Lamwo">Lamwo</ion-select-option>
-          <ion-select-option value="Gulu">Gulu</ion-select-option>
-          <ion-select-option value="Kaabong">Kaabong</ion-select-option>
-          <ion-select-option value="Kotido">Kotido</ion-select-option>
-         <ion-select-option value="Kanungu">Kanungu</ion-select-option>
-         <ion-select-option value="Kisoro">Kisoro</ion-select-option>
-        <ion-select-option value="Rukungiri">Rukungiri</ion-select-option>
-       <ion-select-option value="Nwoya">Nwoya</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Select the activity performed</ion-label>
-      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
-        <ion-select-option value="Lamwo">Lamwo</ion-select-option>
-          <ion-select-option value="Gulu">Gulu</ion-select-option>
-          <ion-select-option value="Kaabong">Kaabong</ion-select-option>
-          <ion-select-option value="Kotido">Kotido</ion-select-option>
-         <ion-select-option value="Kanungu">Kanungu</ion-select-option>
-         <ion-select-option value="Kisoro">Kisoro</ion-select-option>
-        <ion-select-option value="Rukungiri">Rukungiri</ion-select-option>
-       <ion-select-option value="Nwoya">Nwoya</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Select the activity performed</ion-label>
-      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
-        <ion-select-option value="Lamwo">Lamwo</ion-select-option>
-          <ion-select-option value="Gulu">Gulu</ion-select-option>
-          <ion-select-option value="Kaabong">Kaabong</ion-select-option>
-          <ion-select-option value="Kotido">Kotido</ion-select-option>
-         <ion-select-option value="Kanungu">Kanungu</ion-select-option>
-         <ion-select-option value="Kisoro">Kisoro</ion-select-option>
-        <ion-select-option value="Rukungiri">Rukungiri</ion-select-option>
-       <ion-select-option value="Nwoya">Nwoya</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Select the activity performed</ion-label>
-      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
-        <ion-select-option value="Lamwo">Lamwo</ion-select-option>
-          <ion-select-option value="Gulu">Gulu</ion-select-option>
-          <ion-select-option value="Kaabong">Kaabong</ion-select-option>
-          <ion-select-option value="Kotido">Kotido</ion-select-option>
-         <ion-select-option value="Kanungu">Kanungu</ion-select-option>
-         <ion-select-option value="Kisoro">Kisoro</ion-select-option>
-        <ion-select-option value="Rukungiri">Rukungiri</ion-select-option>
-       <ion-select-option value="Nwoya">Nwoya</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Select the activity performed</ion-label>
-      <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
-        <ion-select-option value="Lamwo">Lamwo</ion-select-option>
-          <ion-select-option value="Gulu">Gulu</ion-select-option>
-          <ion-select-option value="Kaabong">Kaabong</ion-select-option>
-          <ion-select-option value="Kotido">Kotido</ion-select-option>
-         <ion-select-option value="Kanungu">Kanungu</ion-select-option>
-         <ion-select-option value="Kisoro">Kisoro</ion-select-option>
-        <ion-select-option value="Rukungiri">Rukungiri</ion-select-option>
-       <ion-select-option value="Nwoya">Nwoya</ion-select-option>
-    </ion-select>
-  </ion-item>
-    
-  <ion-item>
-      <ion-label>Take an image of the meeting</ion-label>
-      <ion-button name="camera" (click)="takePicture()"></ion-button>
+ 
+   <ion-button name="camera" (click)="takePicture()" expand="block">Take a picture of the Meeting</ion-button>
       <ion-item>
       <img [src]="currentImage" *ngIf="currentImage">
     </ion-item>  
+
+    <ion-item>
+      <ion-label>Image Url</ion-label><br/>
+      <ion-input type = "text" [(ngModel)]="Photo_url" value="{{currentImage}}" readonly></ion-input>
     </ion-item>
     
     <ion-item>
-      <ion-label>Take an Video of the meeting</ion-label>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label>Name of the field officer</ion-label>
-      <ion-input type = "text" [(ngModel)]="name"></ion-input>
+      <ion-label>Number of male members Attended</ion-label><br/>
+      <ion-input type = "number" [(ngModel)]="males"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>District</ion-label>
-        <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
-          <ion-select-option value="Lamwo">Lamwo</ion-select-option>
-            <ion-select-option value="Gulu">Gulu</ion-select-option>
-            <ion-select-option value="Kaabong">Kaabong</ion-select-option>
-            <ion-select-option value="Kotido">Kotido</ion-select-option>
-           <ion-select-option value="Kanungu">Kanungu</ion-select-option>
-           <ion-select-option value="Kisoro">Kisoro</ion-select-option>
-          <ion-select-option value="Rukungiri">Rukungiri</ion-select-option>
-         <ion-select-option value="Nwoya">Nwoya</ion-select-option>
-      </ion-select>
+      <ion-label>Number of Female members</ion-label>
+      <ion-input type = "number" [(ngModel)]="females"clear-input="true"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Location</ion-label>
-      <ion-input type = "text" [(ngModel)]="location" (ngModelChange)="location = $event.toLocaleLowerCase()"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Total number of women in the group</ion-label>
-      <ion-input type = "number" [(ngModel)]="no_total" ></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Number of women who attended todays meeting</ion-label>
-      <ion-input type = "number" [(ngModel)]="no_women_attending"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Number of mothers breastfeeding</ion-label>
-      <ion-input type = "number" [(ngModel)]="no_mothers_breastfeeding"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Number of mothers breastfeeding</ion-label>
-      <ion-input type = "text" [(ngModel)]="no_mothers_breastfeeding"></ion-input>
+      <ion-label>Total Attendance</ion-label>
+      <ion-input type = "number" [(ngModel)]="total" clear-input="true" ></ion-input>
     </ion-item>
 
     <ion-button (click)="getCurrentCoordinates()" expand="block">
       Get Location
     </ion-button>
 
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Location Coordinates</ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-label>
-          Latitue
-        </ion-label>
-        <ion-badge color="danger" slot="end">{{latitude}}</ion-badge>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          Longitude
-        </ion-label>
-        <ion-badge color="danger" slot="end">{{longitude}}</ion-badge>
-      </ion-item>
-      </ion-list>    
+    <ion-item>
+      <ion-label>Longitude</ion-label>
+      <ion-input type="text"[(ngModel)]="lo" value="{{longitude}}"readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Latitude</ion-label>
+      <ion-input type="text"[(ngModel)]="la" value="{{latitude}}"readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Name of Field Officer</ion-label>
+      <ion-input type="text" [(ngModel)]="fo" value="{{name}}"readonly></ion-input>
+    </ion-item>
+
+    
+      <ion-button (click)="Submit()" expand="block">
+        Submit
+      </ion-button>
 
 </ion-content>

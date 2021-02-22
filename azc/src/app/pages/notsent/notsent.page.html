@@ -1,9 +1,21 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
-    <ion-title>notsent</ion-title>
-  </ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Not Sent</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-item>
+    <ion-button >Select All</ion-button>
+    <ion-button (click)="SubmitOne()">Send Selected</ion-button>
+  </ion-item>
 </ion-content>

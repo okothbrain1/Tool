@@ -8,86 +8,86 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label>Name of the field officer</ion-label>
-    <ion-input type = "text" [(ngModel)]="name"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Phone number</ion-label>
-    <ion-input type = "number" [(ngModel)]="phonenumber"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Region</ion-label>
-    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="region">
-      <ion-select-option value="Acholi">Acholi</ion-select-option>
-      <ion-select-option value="Kigezi">Kigezi</ion-select-option>
-      <ion-select-option value="Karamoja">Karamoja</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>District</ion-label>
-    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="district">
-      <ion-select-option value="Acholi">Acholi</ion-select-option>
-      <ion-select-option value="Kigezi">Kigezi</ion-select-option>
-      <ion-select-option value="Karamoja">Karamoja</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Subcounty</ion-label>
-    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="subcounty">
-      <ion-select-option value="Acholi">Acholi</ion-select-option>
-      <ion-select-option value="Kigezi">Kigezi</ion-select-option>
-      <ion-select-option value="Karamoja">Karamoja</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Number of Bsp's</ion-label>
-    <ion-input type = "number" [(ngModel)]="bsps"></ion-input>
-  </ion-item>
-
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label>Number of VSLA's and farmer groups</ion-label>
-      <ion-input type = "number" [(ngModel)]="vsla"></ion-input>
+      <ion-label>Region</ion-label>
+      <ion-select formControlName="country" (ionChange)="onCountryChange()" placeholder="Select One" interface="popover">
+        <ion-select-option *ngFor="let country of countries" [value]="country">{{country}}</ion-select-option>
+      </ion-select>
     </ion-item>
 
-      <ion-item>
-        <ion-label>Number of MIYCAN</ion-label>
-        <ion-input type = "number" [(ngModel)]="miycan"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label>District</ion-label>
+      <ion-select formControlName="state" placeholder="Select One" interface="popover" (ionChange)="onStateChange()">
+        <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-        <ion-item>
-          <ion-label>Number of VHTs</ion-label>
-          <ion-input type = "number" [(ngModel)]="vhts"></ion-input>
-        </ion-item>
+    <ion-item>
+      <ion-label>Subcounty</ion-label>
+      <ion-select formControlName="subcounty" placeholder="Select One" interface="popover">
+        <ion-select-option *ngFor="let subcounty of subcounties" [value]="subcounty">{{subcounty}}</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-          <ion-item>
-            <ion-label>Number of DDMC's OR Subcounty DMC's</ion-label>
-            <ion-input type = "number" [(ngModel)]="ddmcs"></ion-input>
-          </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Name of the field officer</ion-label>
+      <ion-input type = "text" formControlName="name"></ion-input>
+    </ion-item>
 
-            <ion-item>
-              <ion-label>Number of current structures(Leaders working with)</ion-label>
-              <ion-input type = "number" [(ngModel)]="cstructures"></ion-input>
-            </ion-item>
+    <ion-item>
+      <ion-label position="floating">Phone number</ion-label>
+      <ion-input type = "number" formControlName="phone"></ion-input>
+    </ion-item>
 
-              <ion-item>
-                <ion-label>Number of ICAN champions</ion-label>
-                <ion-input type = "number" [(ngModel)]="champions"></ion-input>
-              </ion-item>
+    <ion-item>
+      <ion-label position="floating">Number of Bsp's</ion-label>
+      <ion-input type = "number" formControlName="bsps"></ion-input>
+    </ion-item>
 
-                <ion-item>
-                  <ion-label>Number of schools</ion-label>
-                  <ion-input type = "number" [(ngModel)]="schools"></ion-input>
-                </ion-item>
+   <ion-item>
+     <ion-label position="floating">Number of VSLA's and farmer groups</ion-label>
+     <ion-input type = "number" formControlName="vslas"></ion-input>
+   </ion-item>
 
-                  <ion-item>
-                    <ion-label>Number of Radio Stations</ion-label>
-                    <ion-input type = "number" [(ngModel)]="radioStations"></ion-input>
-                  </ion-item>
+   <ion-item>
+     <ion-label position="floating">Number of MIYCAN</ion-label>
+     <ion-input type = "number" formControlName="miycan"></ion-input>
+   </ion-item>
+
+   <ion-item>
+     <ion-label position="floating">Number of VHTs</ion-label>
+     <ion-input type = "number" formControlName="vhts"></ion-input>
+   </ion-item>
+
+   <ion-item>
+      <ion-label position="floating">Number of DDMC's OR Subcounty DMC's</ion-label>
+      <ion-input type = "number" formControlName="ddmcs"></ion-input>
+   </ion-item>
+
+   <ion-item>
+       <ion-label position="floating">Number of current structures(Leaders working with)</ion-label>
+       <ion-input type = "number" formControlName="cstructures"></ion-input>
+   </ion-item>
+
+   <ion-item>
+       <ion-label position="floating">Number of ICAN champions</ion-label>
+       <ion-input type = "number" formControlName="champions"></ion-input>
+   </ion-item>
+
+   <ion-item>
+      <ion-label position="floating">Number of schools</ion-label>
+      <ion-input type = "number" formControlName="schools"></ion-input>
+   </ion-item>
+
+   <ion-item>
+       <ion-label position="floating">Number of Radio Stations</ion-label>
+       <ion-input type = "number" formControlName="radiostations"></ion-input>
+   </ion-item>
+
+   <ion-button (click)="Submit()" expand="block">Submit</ion-button>
+
+   </form>
 
 </ion-content>

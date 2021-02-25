@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 import { Component, OnInit,  NgZone } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { AccessProviders } from '../../page/providers/access-providers';
+import { DatasetService } from '../../providers/dataset.service';
 import { ApiService } from '../../services/api.service';
 import { Storage } from '@ionic/storage';
 
@@ -22,7 +22,7 @@ district: string="";
 subcounty: string="";
 topic: string="";
 activity: string="";
-Photo_url: string="";
+//Photo_url: string="";
 males: string="";
 females: string="";
 total: string="";
@@ -41,7 +41,7 @@ disabledButton
     private router:Router,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    private accsPrvds : AccessProviders,
+    private accsPrvds : DatasetService,
     private camera: Camera,
 
     private geolocation: Geolocation,
@@ -121,9 +121,9 @@ disabledButton
       this.presentToast('The topic is required');
     }else if(this.activity==""){
       this.presentToast('The activity is required');
-    }else if(this.Photo_url==""){
+    }/*else if(this.Photo_url==""){
       this.presentToast('Take a photo of the event to continue');
-    }else if(this.males==""){
+    }*/else if(this.males==""){
       this.presentToast('The number of male attendance is required');
     }else if(this.females==""){
       this.presentToast('The number of female attendance is required');
@@ -150,7 +150,7 @@ disabledButton
             subcounty:this.subcounty,
             topic:this.topic,
             activity:this.activity,
-            Photo_url:this.Photo_url,
+            //Photo_url:this.Photo_url,
             males:this.males,
             females:this.females,
             total:this.total,
@@ -163,7 +163,7 @@ disabledButton
                             loader.dismiss();
                             this.disabledButton = false;
                             this.presentToast(res.msg);
-                            this.router.navigate(['/newsurvey']);
+                            this.router.navigate(['/beneficiary']);
                         }else{
                           loader.dismiss();
                           this.disabledButton = false;
@@ -172,7 +172,8 @@ disabledButton
                   },(err)=>{
                     loader.dismiss();
                     this.disabledButton = false;
-                    this.presentAlert('Timeout');
+                    this.presentAlert('Timeout ');
+                    console.log('Error ', err);
                   });
       });
     }
@@ -190,7 +191,8 @@ disabledButton
             console.log('Confirm Cancel: blah');
             //action
           }
-        }, {
+        },
+         {
           text: 'Try Again',
           handler: () => {
             this.Submit();

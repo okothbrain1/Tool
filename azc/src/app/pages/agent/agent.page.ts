@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { ToastController, LoadingController, AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-agent',
@@ -8,7 +9,9 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrls: ['./agent.page.scss'],
 })
 export class AgentPage implements OnInit {
+  isSubmitted = false;
   form: FormGroup;
+  product:any;
   countries = ['Acholi', 'Karamoja', 'Kigezi'];
   statesByCountry = {
     Acholi: ['Lamwo', 'Gulu', 'Nwoya'],
@@ -28,28 +31,13 @@ export class AgentPage implements OnInit {
   };
   states = [];
   subcounties = [];
+  http: any;
 
 
-  constructor(fb: FormBuilder,
-    private _cdr: ChangeDetectorRef) {
-this.form = fb.group({
-country: [''],
-state: [''],
-subcounty: [''],
-name: [''],
-phone: [''],
-bsps: [''],
-vslas: [''],
-miycan: [''],
-vhts: [''],
-ddmcs: [''],
-cstructures: [''],
-champions: [''],
-schools: [''],
-radiostations: ['']
-
-});
-}
+  constructor(
+    public fb: FormBuilder,
+    private _cdr: ChangeDetectorRef
+    ) {}
 
 onCountryChange(): void {
 let country = this.form.get('country').value;
@@ -63,11 +51,33 @@ onStateChange(): void {
   this._cdr.detectChanges();
   }
 
-  ngOnInit() {
+  ngOnInit() {  
     imports: [
       BrowserModule /* or CommonModule */, 
       FormsModule, ReactiveFormsModule
   ]
+  this.form = this.fb.group({
+  country: [''],
+  state: [''],
+  subcounty: [''],
+  name: ['', [Validators.required, Validators.minLength(2)]],
+  phone: ['', [Validators.required, Validators.pattern('[0-9]+$')]],
+  bsps: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  
+  vslas: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  
+  miycan: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  
+  vhts: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  
+  ddmcs: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+  cstructures: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+  champions: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+  schools: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+  radiostations: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
+  
+});
+
+  }
+  get errorControl() {
+    return this.form.controls;
   }
 
+ 
 }

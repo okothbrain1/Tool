@@ -35,58 +35,135 @@
       <ion-label position="floating">Name of the field officer</ion-label>
       <ion-input type = "text" formControlName="name"></ion-input>
     </ion-item>
+ <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Name is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Name should be min 2 chars long.
+</span>
 
     <ion-item>
       <ion-label position="floating">Phone number</ion-label>
       <ion-input type = "number" formControlName="phone"></ion-input>
     </ion-item>
+     <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Phone number is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+ Phone number should be numerical.
+</span>
 
     <ion-item>
       <ion-label position="floating">Number of Bsp's</ion-label>
       <ion-input type = "number" formControlName="bsps"></ion-input>
     </ion-item>
+     <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Number of BSP's is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Number of BSP's should be numerical.
+</span>
 
    <ion-item>
      <ion-label position="floating">Number of VSLA's and farmer groups</ion-label>
      <ion-input type = "number" formControlName="vslas"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Name is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Name should be min 2 chars long.
+</span>
 
    <ion-item>
-     <ion-label position="floating">Number of MIYCAN</ion-label>
+     <ion-label position="floating">Number of MIYCAN Groups</ion-label>
      <ion-input type = "number" formControlName="miycan"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Number of MIYCAN groups is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Number of MIYCAN groups should be numerical.
+</span>
 
    <ion-item>
      <ion-label position="floating">Number of VHTs</ion-label>
      <ion-input type = "number" formControlName="vhts"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Number of VHT's is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Number of VHTs should be numerical.
+</span>
 
    <ion-item>
       <ion-label position="floating">Number of DDMC's OR Subcounty DMC's</ion-label>
       <ion-input type = "number" formControlName="ddmcs"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Number of ddmc's is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Number of DDMS's should be numerical.
+</span>
 
    <ion-item>
        <ion-label position="floating">Number of current structures(Leaders working with)</ion-label>
        <ion-input type = "number" formControlName="cstructures"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Name is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Name should be min 2 chars long.
+</span>
 
    <ion-item>
        <ion-label position="floating">Number of ICAN champions</ion-label>
        <ion-input type = "number" formControlName="champions"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Number of Ican champions is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Number of Ican champions should be numerical.
+</span>
 
    <ion-item>
       <ion-label position="floating">Number of schools</ion-label>
       <ion-input type = "number" formControlName="schools"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Number of schools is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Number of schools should be numerical.
+</span>
 
    <ion-item>
        <ion-label position="floating">Number of Radio Stations</ion-label>
        <ion-input type = "number" formControlName="radiostations"></ion-input>
    </ion-item>
+    <!-- Error messages -->
+ <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+  Number of radio stations is required
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+  Number of radio stations should be numerical.
+</span>
 
-   <ion-button (click)="Submit()" expand="block">Submit</ion-button>
+   <ion-button type="submit" expand="block">Submit</ion-button>
 
    </form>
 

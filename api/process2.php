@@ -5,8 +5,8 @@ header("Access-Control-Allow-Methods: POST, GET, POST, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, Content-Type, Authorization, Accept, X-Request-Width, x-xsrf-token");
 header("Content-Type: application/json; charset=utf-8");
 
-define('DB_HOST','localhost');
-define('DB_USER','root');
+define('DB_HOST','3.12.97.246');
+define('DB_USER','collect');
 define('DB_PASSWORD','password');
 define('DB_NAME','ican');
 

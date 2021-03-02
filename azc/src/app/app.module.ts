@@ -24,6 +24,20 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { FormsModule } from '@angular/forms'  
 import { ReactiveFormsModule} from '@angular/forms'
 
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file/ngx';
+
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+
+import { HTTP } from '@ionic-native/http/ngx';
+
+
+
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -44,6 +58,13 @@ import { ReactiveFormsModule} from '@angular/forms'
     NativeGeocoder,
     Network,
     SQLite,
+    FileTransfer,
+    File,
+    HTTP,
+    HttpClientModule,
+    FileChooser,
+    WebView,
+    FilePath,
     SQLitePorter,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

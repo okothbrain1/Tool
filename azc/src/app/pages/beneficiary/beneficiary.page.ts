@@ -10,6 +10,18 @@ import { Storage } from '@ionic/storage';
 import { ToastController, LoadingController, AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file/ngx';
+
+import { HttpClient } from '@angular/common/http';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+
+
+import { Observable } from 'rxjs/Observable';
+
+
 @Component({
   selector: 'app-beneficiary',
   templateUrl: './beneficiary.page.html',
@@ -22,7 +34,7 @@ district: string="";
 subcounty: string="";
 topic: string="";
 activity: string="";
-//Photo_url: string="";
+Photo_url: string="";
 males: string="";
 females: string="";
 total: string="";
@@ -32,10 +44,12 @@ fo: string="";
 disabledButton
 
   currentImage: any;
+
   latitude: any = 0;
   longitude: any = 0;
   name:string;
   datastorage:any;
+
 
   constructor(
     private router:Router,
@@ -48,7 +62,14 @@ disabledButton
     private apiService: ApiService, 
     private plt: Platform,
     private storage : Storage,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private transfer : FileTransfer,
+    private filePath: FilePath,
+    private FileChooser: FileChooser,
+    private webview: WebView,
+    private file: File,
+
+    private http: HttpClient
 
   ) { }
 
@@ -69,7 +90,9 @@ disabledButton
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      correctOrientation: true
     };
 
     this.camera.getPicture(options).then((imageData) => {
@@ -86,6 +109,8 @@ disabledButton
     enableHighAccuracy: true, 
     maximumAge: 3600
   };
+
+
 
   // use geolocation to get user's device coordinates
   getCurrentCoordinates() {
@@ -111,6 +136,19 @@ disabledButton
 
 
   async Submit(){
+
+    console.log(ImageData);
+    console.log(Option);   
+    let url = 'http://3.12.97.246/azcollect/api/upload.php';
+    let postData = new FormData();
+    postData.append('file', this.currentImage);
+    let data:Observable<any> = this.http.post(url, postData);
+    data.subscribe((result) => {
+      console.log(result);
+    })
+
+
+
     if(this.region==""){
         this.presentToast('The region is required');
     }else if(this.district==""){
@@ -150,7 +188,7 @@ disabledButton
             subcounty:this.subcounty,
             topic:this.topic,
             activity:this.activity,
-            //Photo_url:this.Photo_url,
+            Photo_url:this.Photo_url,
             males:this.males,
             females:this.females,
             total:this.total,
@@ -175,6 +213,7 @@ disabledButton
                     this.presentAlert('Timeout ');
                     console.log('Error ', err);
                   });
+
       });
     }
   }

@@ -9,6 +9,8 @@ import { NavController } from '@ionic/angular';
 import { OfflineManagerService } from './services/offline-manager.service';
 
 
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

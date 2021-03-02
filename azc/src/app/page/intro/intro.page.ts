@@ -17,11 +17,11 @@ export class IntroPage implements OnInit {
   { }
   
   ngOnInit() {
-    this.splashScreen.show();
-  
-    this.splashScreen.hide();
-    this.router.navigate(['/login']);
+
   }
-  
+  login(){
+    this.router.navigate(['/login']);
+
+  }
 
 }

@@ -1,9 +1,43 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
-    <ion-title>settings</ion-title>
-  </ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-item>
+    <ion-label>
+      <p>Name</p>
+      <h2>{{name}}</h2>
+    </ion-label>
+  </ion-item>
+<ion-item>
+  <ion-label>
+    <p>Email</p>
+    <h2>{{email}}</h2>
+  </ion-label>
+</ion-item>
+<ion-item>
+<ion-label>
+  <p>Date of birth</p>
+  <h2>{{dob}}</h2>
+</ion-label>
+</ion-item>
+<ion-item>
+<ion-label>
+  <p>Gender</p>
+  <h2>{{gender}}</h2>
+</ion-label>
+</ion-item>
+
+
+
+  <ion-button expand="block" (click)="processlogout()">
+    Logout
+  </ion-button>
 
 </ion-content>

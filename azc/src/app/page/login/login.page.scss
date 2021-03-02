@@ -1,7 +1,19 @@
-.info-1{
-    font-size:14px;
-    color:#999;
+.info-1 {
+  font-size: 14px;
+  color: #999;
 }
-.info-1 span{
-    color:#7ebd1b;
+.info-1 span {
+  color: #7ebd1b;
+}
+ion-content {
+  --background: #5b017d;
+  
+}
+ion-list{
+
+}
+.scroll-content{
+  justify-content: center;
+display: flex!important;
+ align-items: center!important;
 }

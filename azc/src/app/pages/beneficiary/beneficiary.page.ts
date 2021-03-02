@@ -147,8 +147,7 @@ disabledButton
       console.log(result);
     })
 
-
-
+    
     if(this.region==""){
         this.presentToast('The region is required');
     }else if(this.district==""){

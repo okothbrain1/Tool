@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form">
     <ion-item>
       <ion-label>Region</ion-label>
       <ion-select formControlName="country" (ionChange)="onCountryChange()" placeholder="Select One" interface="popover">

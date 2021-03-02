@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastController, LoadingController, AlertController, NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +11,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  datastorage:any;
+  name:string;
+  email:string;
+  gender:string;
+  dob:string;
+  
+
+  constructor(
+    private router: Router,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private storage : Storage,
+    private navCtrl : NavController
+  ) { }
 
   ngOnInit() {
   }
 
+  ionViewDidEnter(){
+    this.storage.get('storage_xxx').then((res)=>{
+        console.log(res);
+        this.datastorage = res;
+        this.name = this.datastorage.name;
+        this.email = this.datastorage.email;
+        this.gender = this.datastorage.gender;
+        this.dob = this.datastorage.dob;
+      });
+}
+
+  async processlogout(){
+    this.storage.clear();
+    this.navCtrl.navigateRoot(['/intro']);
+    const toast = await this.toastCtrl.create({
+      message: 'Logout Successful',
+      duration:1500
+    });
+    toast.present();
+  }
 }

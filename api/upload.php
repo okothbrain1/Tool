@@ -14,7 +14,7 @@ if(isset($_POST['file'])){
     file_put_conents($target_path, $imagedata);
 
     $data['result']=true;
-    $data['image_url']='https://3.12.97.246/ican/upload/media/'
+    $data['image_url']='https://3.12.97.246/ican/upload/media/';
 }
 echo json_encode($data);
 // if you want to find the root path of a folder use the line of code below:

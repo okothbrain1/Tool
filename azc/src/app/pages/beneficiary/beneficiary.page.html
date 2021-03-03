@@ -6,9 +6,9 @@
     <ion-title>Weekly Activities</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="ion-padding">
 
-  <ion-item>
+  <ion-item class="ion-margin">
     <ion-label>Region</ion-label>
     <ion-select placeholder="Select One" interface="popover"[(ngModel)]="region">
       <ion-select-option value="Acholi">Acholi</ion-select-option>
@@ -17,7 +17,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-item>
+  <ion-item class="ion-margin">
     <ion-label>District</ion-label>
       <ion-select placeholder="Select One" interface="popover"[(ngModel)]="district">
         <ion-select-option value="Lamwo">Lamwo</ion-select-option>
@@ -31,7 +31,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-item>
+  <ion-item class="ion-margin">
     <ion-label>Subcounty</ion-label>
     <ion-select placeholder="Select One" interface="popover"[(ngModel)]="subcounty">
           <ion-select-option value="Anaka">Anaka</ion-select-option>
@@ -41,7 +41,7 @@
     </ion-select>
   </ion-item>
   
-  <ion-item>
+  <ion-item class="ion-margin">
     <ion-label>Select the Topic</ion-label>
       <ion-select placeholder="Select One" interface="popover"[(ngModel)]="topic">
         <ion-select-option value="Livelihood">Livelihood</ion-select-option>
@@ -54,7 +54,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-item>
+  <ion-item class="ion-margin">
     <ion-label>Select the activity performed</ion-label>
       <ion-select placeholder="Select One" interface="popover"[(ngModel)]="activity">
         <ion-select-option value="Lamwo">Lamwo</ion-select-option>
@@ -73,22 +73,22 @@
       <img [src]="currentImage" *ngIf="currentImage">
     </ion-item>  
 
-    <ion-item>
+    <ion-item class="ion-margin">
       <ion-label>Image Url</ion-label><br/>
-      <ion-input type = "text" [(ngModel)]="Photo_url" value="{{currentImage}}" readonly></ion-input>
+      <ion-input type = "text" [(ngModel)]="Photo_url" value="{{imageData}}" readonly></ion-input>
     </ion-item>
     
-    <ion-item>
+    <ion-item class="ion-margin">
       <ion-label>Number of male members Attended</ion-label><br/>
       <ion-input type = "number" [(ngModel)]="males"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="ion-margin">
       <ion-label>Number of Female members</ion-label>
       <ion-input type = "number" [(ngModel)]="females"clear-input="true"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="ion-margin">
       <ion-label>Total Attendance</ion-label>
       <ion-input type = "number" [(ngModel)]="total" clear-input="true" ></ion-input>
     </ion-item>
@@ -97,17 +97,17 @@
       Get Location
     </ion-button>
 
-    <ion-item>
+    <ion-item class="ion-margin">
       <ion-label>Longitude</ion-label>
       <ion-input type="text"[(ngModel)]="lo" value="{{longitude}}"readonly></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="ion-margin">
       <ion-label>Latitude</ion-label>
       <ion-input type="text"[(ngModel)]="la" value="{{latitude}}"readonly></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="ion-margin">
       <ion-label>Name of Field Officer</ion-label>
       <ion-input type="text" [(ngModel)]="fo" value="{{name}}"readonly></ion-input>
     </ion-item>

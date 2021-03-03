@@ -7,45 +7,52 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-   <div>
-    <ion-label>Email</ion-label>
-   <ion-item>
+<ion-content class="ion-padding">
+     <h1>Create Account</h1>
+    
+   <ion-item class="ion-margin">
+    <ion-label  position="floating">Email</ion-label>
    <ion-input type = "email" placeholder="youlooknicetoday@email.com" [(ngModel)]="email"></ion-input>
    </ion-item>
-   <ion-label>Username</ion-label>
-   <ion-item>
+
+   <ion-item class="ion-margin">
+    <ion-label position="floating">Username</ion-label>
    <ion-input type = "text" placeholder="i am ..." [(ngModel)]="name"></ion-input>
    </ion-item>
-   <ion-item>
-    <ion-label>Gender</ion-label>
+
+   <ion-item class="ion-margin">
+    <ion-label >Gender</ion-label>
     <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
       <ion-select-option value="female">Female</ion-select-option>
       <ion-select-option value="male">Male</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item>
-    <ion-label>Date of birth</ion-label>
-    <ion-datetime displayFormat="YY MM DD" [(ngModel)]="dob" placeholder="Select Date"></ion-datetime>
+
+  <ion-item class="ion-margin">
+    <ion-label >Date of birth (Y-M-D)</ion-label>
+    <ion-datetime displayFormat="YYYY MM DD" [(ngModel)]="dob" placeholder="Select Date"></ion-datetime>
   </ion-item>
-  <ion-label>Phone</ion-label>
-   <ion-item>
+
+   <ion-item class="ion-margin">
+    <ion-label  position="floating">Phone</ion-label>
    <ion-input type = "number" placeholder="call me on" [(ngModel)]="phone"></ion-input>
    </ion-item>
+
    <!--<ion-text>Project id</ion-text>
    <ion-item>
    <ion-input type = "text" placeholder="i am working on " [(ngModel)]="proj_id"></ion-input>
    </ion-item>-->
-   <ion-label>Password</ion-label>
-   <ion-item>
+
+   <ion-item class="ion-margin">
+    <ion-label position="floating">Password</ion-label>
      <ion-input type = "password" placeholder="sshhh....." [(ngModel)]="password"></ion-input>
    </ion-item>
-   <ion-label>Repeat password</ion-label>
-   <ion-item>
+
+   <ion-item class="ion-margin">
+    <ion-label  position="floating">Repeat password</ion-label>
    <ion-input type = "password" placeholder="sshh......" [(ngModel)]="rep_password"></ion-input>
    </ion-item>
-   <ion-button expand="full"class="ion_padding"color="success" (click)="tryRegister()"[disabled]="disabledButton">Register</ion-button>
- </div>
-   </ion-list>
+
+   <ion-button expand="full" class="ion_padding" (click)="tryRegister()"[disabled]="disabledButton">Register</ion-button>
+
  </ion-content>

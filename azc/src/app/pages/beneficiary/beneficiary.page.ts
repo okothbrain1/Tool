@@ -107,7 +107,12 @@ disabledButton
   options = {
     timeout: 10000, 
     enableHighAccuracy: true, 
-    maximumAge: 3600
+    maximumAge: 3600,
+    saveToPhotoAlbum: true,
+    targetWidth: 50,
+    targetHeight: 50,
+    correctOrientation:true
+
   };
 
 
@@ -115,7 +120,8 @@ disabledButton
   // use geolocation to get user's device coordinates
   getCurrentCoordinates() {
     this.geolocation.getCurrentPosition({
-      timeout:1000,
+      timeout:30000,
+      maximumAge: 60000, 
       enableHighAccuracy: true
     }).then((resp) => {
       this.latitude = resp.coords.latitude;
@@ -204,7 +210,8 @@ disabledButton
                         }else{
                           loader.dismiss();
                           this.disabledButton = false;
-                          this.presentToast(res.msg);
+                          //this.presentToast(res.msg);
+                          this.presentAlertb('Submission Successfull');
                         }
                   },(err)=>{
                     loader.dismiss();
@@ -217,6 +224,36 @@ disabledButton
     }
   }
   
+  async presentAlertb(a) {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: a,
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Close',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+            //action
+            this.region ="";
+            this.district ="";
+            this.subcounty ="";
+            this.topic ="";
+            this.activity ="";
+            this.Photo_url ="";
+            this.males ="";
+            this.females ="";
+            this.total ="";
+            this.lo ="";
+            this.la ="";
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   async presentAlert(a) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',

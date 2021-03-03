@@ -38,6 +38,7 @@ export class SettingsPage implements OnInit {
         this.email = this.datastorage.email;
         this.gender = this.datastorage.gender;
         this.dob = this.datastorage.dob;
+        this.phone = this.datastorage.phone;
       });
 }
 

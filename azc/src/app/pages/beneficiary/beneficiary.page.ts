@@ -43,8 +43,8 @@ la: string="";
 fo: string="";
 disabledButton
 
-  currentImage: any;
-
+  //currentImage: any;
+  image: any;
   latitude: any = 0;
   longitude: any = 0;
   name:string;
@@ -59,8 +59,7 @@ disabledButton
     private camera: Camera,
 
     private geolocation: Geolocation,
-    private apiService: ApiService, 
-    private plt: Platform,
+
     private storage : Storage,
     private toastCtrl: ToastController,
     private transfer : FileTransfer,
@@ -96,7 +95,27 @@ disabledButton
     };
 
     this.camera.getPicture(options).then((imageData) => {
-      this.currentImage = 'data:image/jpeg;base64,' + imageData;
+      this.image = 'data:image/jpeg;base64,' + imageData;
+
+  
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      let options1: FileUploadOptions = {
+         fileKey: 'file',
+         fileName: 'img.jpg',
+         headers: {}
+      }
+
+      fileTransfer.upload(imageData, 'https://3.12.97.246/azcollect/api//upload.php', options1)
+      .then((data) => {
+        // success
+        alert("success");
+      }, (err) => {
+        // error
+        alert("error"+JSON.stringify(err));
+      });
+     
+     
+     
     }, (err) => {
       // Handle error
       console.log("Camera issue:" + err);
@@ -104,6 +123,8 @@ disabledButton
     });
   }
 
+
+  
   options = {
     timeout: 10000, 
     enableHighAccuracy: true, 
@@ -114,6 +135,9 @@ disabledButton
     correctOrientation:true
 
   };
+
+  
+  
 
 
 
@@ -143,17 +167,8 @@ disabledButton
 
   async Submit(){
 
-    console.log(ImageData);
-    console.log(Option);   
-    let url = 'http://3.12.97.246/azcollect/api/upload.php';
-    let postData = new FormData();
-    postData.append('file', this.currentImage);
-    let data:Observable<any> = this.http.post(url, postData);
-    data.subscribe((result) => {
-      console.log(result);
-    })
 
-    
+
     if(this.region==""){
         this.presentToast('The region is required');
     }else if(this.district==""){

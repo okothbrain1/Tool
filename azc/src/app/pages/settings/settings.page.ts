@@ -16,6 +16,7 @@ export class SettingsPage implements OnInit {
   email:string;
   gender:string;
   dob:string;
+  phone:string;
   
 
   constructor(

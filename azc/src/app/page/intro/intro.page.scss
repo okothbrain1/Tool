@@ -35,5 +35,16 @@ ion-button {
 }
 .labelintro {
   color: #333;
-  font-size: 14px;
+  font-size: 16px;
+}
+.footer{
+  color:#333;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:auto;
+}
+.footer p{
+  text-align:center;
+  font-size:13px;
 }

@@ -2,7 +2,12 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+@font-face {
+  font-family: AppFont;
+  src: url("../assets/fonts/Roboto-Regular.ttf"); //change url accordingly
+}
 :root {
+   --ion-font-family: 'AppFont';
   /** primary *
   --ion-color-az: #5b017d;
   --ion-color-az-rgb: 91, 1, 125;

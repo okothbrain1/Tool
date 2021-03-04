@@ -18,7 +18,13 @@ if($_FILES['file']){
 }
 } */
 
-header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Methods: POST, GET, POST, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Origin, Content-Type, Authorization, Accept, X-Request-Width, x-xsrf-token");
+header("Content-Type: application/json; charset=utf-8");
+header("Content-Type: image/jpeg;");
+header("Content-Type: image/jpg;");
 
 
 

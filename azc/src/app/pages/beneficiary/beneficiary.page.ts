@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { File, IWriteOptions, FileEntry } from '@ionic-native/file/ngx';
 
 import { HttpClient } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -57,6 +57,7 @@ disabledButton
     private alertCtrl: AlertController,
     private accsPrvds : DatasetService,
     private camera: Camera,
+    private dataset: DatasetService,
 
     private geolocation: Geolocation,
 
@@ -72,8 +73,9 @@ disabledButton
 
   ) { }
 
-  ngOnInit() {
+  ngOnInit(){
   }
+  
 
   ionViewDidEnter(){
     this.storage.get('storage_xxx').then((res)=>{
@@ -84,60 +86,46 @@ disabledButton
     });
 }
 
-  takePicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      correctOrientation: true
-    };
-
-    this.camera.getPicture(options).then((imageData) => {
-      this.image = 'data:image/jpeg;base64,' + imageData;
-
-  
-      const fileTransfer: FileTransferObject = this.transfer.create();
-      let options1: FileUploadOptions = {
-         fileKey: 'file',
-         fileName: 'img.jpg',
-         headers: {}
-      }
-
-      fileTransfer.upload(imageData, 'https://3.12.97.246/azcollect/api//upload.php', options1)
-      .then((data) => {
-        // success
-        alert("success");
-      }, (err) => {
-        // error
-        alert("error"+JSON.stringify(err));
-      });
-     
-     
-     
-    }, (err) => {
-      // Handle error
-      console.log("Camera issue:" + err);
-      this.presentToast('Error taking Photo ' + err);
+readFile(file: any) {
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    const imgBlob = new Blob([reader.result], {
+      type: file.type
     });
-  }
-
-
-  
-  options = {
-    timeout: 10000, 
-    enableHighAccuracy: true, 
-    maximumAge: 3600,
-    saveToPhotoAlbum: true,
-    targetWidth: 50,
-    targetHeight: 50,
-    correctOrientation:true
-
+    const formData = new FormData();
+    formData.append('name', 'Hello');
+    formData.append('file', imgBlob, file.name);
+    this.dataset.uploadFile(formData).subscribe(dataRes => {
+      console.log(dataRes);
+    });
   };
+  reader.readAsArrayBuffer(file);
+}
 
-  
-  
+options = {
+  timeout: 10000, 
+  enableHighAccuracy: true, 
+  maximumAge: 3600,
+  saveToPhotoAlbum: true,
+  targetWidth: 50,
+  targetHeight: 50,
+  correctOrientation:true
+};
+
+
+takePicture() {
+  this.camera.getPicture(this.options).then((imageData) => {
+    this.file.resolveLocalFilesystemUrl(imageData).then((entry: 
+      FileEntry) => {
+      entry.file(file => {
+        console.log(file);
+        this.readFile(file);
+      });
+    });
+  }, (err) => {
+    // Handle error
+  });
+}
 
 
 
@@ -166,9 +154,6 @@ disabledButton
 
 
   async Submit(){
-
-
-
     if(this.region==""){
         this.presentToast('The region is required');
     }else if(this.district==""){

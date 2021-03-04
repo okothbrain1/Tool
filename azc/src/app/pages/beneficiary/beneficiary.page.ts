@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-import { File, IWriteOptions, FileEntry } from '@ionic-native/file/ngx';
+import { File, FileEntry } from '@ionic-native/file/ngx';
 
 import { HttpClient } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -43,8 +43,8 @@ la: string="";
 fo: string="";
 disabledButton
 
-  //currentImage: any;
-  image: any;
+  currentImage: any;
+
   latitude: any = 0;
   longitude: any = 0;
   name:string;
@@ -57,10 +57,10 @@ disabledButton
     private alertCtrl: AlertController,
     private accsPrvds : DatasetService,
     private camera: Camera,
-    private dataset: DatasetService,
 
     private geolocation: Geolocation,
-
+    private apiService: ApiService, 
+    private plt: Platform,
     private storage : Storage,
     private toastCtrl: ToastController,
     private transfer : FileTransfer,
@@ -73,9 +73,8 @@ disabledButton
 
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
   }
-  
 
   ionViewDidEnter(){
     this.storage.get('storage_xxx').then((res)=>{
@@ -86,46 +85,37 @@ disabledButton
     });
 }
 
-readFile(file: any) {
-  const reader = new FileReader();
-  reader.onloadend = () => {
-    const imgBlob = new Blob([reader.result], {
-      type: file.type
+  takePicture() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      correctOrientation: true
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.currentImage = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      // Handle error
+      console.log("Camera issue:" + err);
+      this.presentToast('Error taking Photo ' + err);
     });
-    const formData = new FormData();
-    formData.append('name', 'Hello');
-    formData.append('file', imgBlob, file.name);
-    this.dataset.uploadFile(formData).subscribe(dataRes => {
-      console.log(dataRes);
-    });
+  }
+
+  options = {
+    timeout: 10000, 
+    enableHighAccuracy: true, 
+    maximumAge: 3600,
+    saveToPhotoAlbum: true,
+    targetWidth: 50,
+    targetHeight: 50,
+    correctOrientation:true
+
   };
-  reader.readAsArrayBuffer(file);
-}
 
-options = {
-  timeout: 10000, 
-  enableHighAccuracy: true, 
-  maximumAge: 3600,
-  saveToPhotoAlbum: true,
-  targetWidth: 50,
-  targetHeight: 50,
-  correctOrientation:true
-};
-
-
-takePicture() {
-  this.camera.getPicture(this.options).then((imageData) => {
-    this.file.resolveLocalFilesystemUrl(imageData).then((entry: 
-      FileEntry) => {
-      entry.file(file => {
-        console.log(file);
-        this.readFile(file);
-      });
-    });
-  }, (err) => {
-    // Handle error
-  });
-}
+  
 
 
 
@@ -154,6 +144,18 @@ takePicture() {
 
 
   async Submit(){
+
+    console.log(ImageData);
+    console.log(Option);   
+    let url = 'http://3.12.97.246/azcollect/api/upload.php';
+    let postData = new FormData();
+    postData.append('file', this.currentImage);
+    let data:Observable<any> = this.http.post(url, postData);
+    data.subscribe((result) => {
+      console.log(result);
+    })
+
+    
     if(this.region==""){
         this.presentToast('The region is required');
     }else if(this.district==""){

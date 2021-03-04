@@ -24,7 +24,7 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { FormsModule } from '@angular/forms'  
 import { ReactiveFormsModule} from '@angular/forms'
 
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file/ngx';
@@ -62,6 +62,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     File,
     HTTP,
     HttpClientModule,
+    FileTransferObject,
     FileChooser,
     WebView,
     FilePath,

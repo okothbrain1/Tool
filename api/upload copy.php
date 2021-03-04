@@ -20,6 +20,6 @@ if($_FILES['file']){
 
 
 $array = 'data:image/jpeg;base64,/9j/4ASJDNREJWFDKRHT5NI4FMRVW4WFERIOENFCQMXEIWVERCNM.jpg';
-$acc = explode('/', $array);
-echo $acc[3];
+$acc = explode(',', $array);
+echo $acc[1];
 ?>

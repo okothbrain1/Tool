@@ -116,9 +116,6 @@ disabledButton
   };
 
   
-
-
-
   // use geolocation to get user's device coordinates
   getCurrentCoordinates() {
     this.geolocation.getCurrentPosition({
@@ -141,7 +138,6 @@ disabledButton
     });
     toast.present();
   }
-
 
   async Submit(){
 

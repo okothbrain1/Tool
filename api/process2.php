@@ -18,6 +18,10 @@ $today = date('Y-m-d H:i:s');
 $null = 'null';
 
 if($postjson['aski']=="submit"){
+
+    $base64 = $postjson['Photo_url'];
+    $acc = explode(',', $base64);
+    $areal = $acc[1];
        
     $insert = mysqli_query($mysqli, "INSERT INTO dataset_mobile SET
     submission_Date = '$today',
@@ -26,7 +30,7 @@ if($postjson['aski']=="submit"){
     subcounty = '$postjson[subcounty]',
     topic = '$postjson[topic]',
     activity = '$postjson[activity]',
-    capture_meeting_image = '$postjson[Photo_url]',
+    capture_meeting_image = $areal,
     male_member_attendance = '$postjson[males]',
     female_member_attendance = '$postjson[females]',
     total_attendance = '$postjson[total]',

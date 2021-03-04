@@ -212,8 +212,8 @@ disabledButton
                         }else{
                           loader.dismiss();
                           this.disabledButton = false;
-                          //this.presentToast(res.msg);
-                          this.presentAlertb('Submission Successfull');
+                          this.presentToast(res.msg);
+                          //this.presentAlertb('Submission Successfull');
                         }
                   },(err)=>{
                     loader.dismiss();

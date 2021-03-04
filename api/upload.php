@@ -11,5 +11,3 @@ echo $target_path;
     echo "There was an error uploading the file, please try again!";
 }
 ?>
-
-

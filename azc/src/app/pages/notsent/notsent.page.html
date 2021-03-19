@@ -7,11 +7,16 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-item>
+
+<ion-list>
+  <ion-item button *ngFor="let dev of developers" [routerLink]="['/', 'developers', dev.id]">
+    <ion-avatar slot="start">
+      <img [src]="dev.img">
+    </ion-avatar>
     <ion-label>
-      <p>Comming Soon !!!</p>
+      <h2>{{ dev.topic }}</h2>
+      <p>{{ dev.activity }}</p>
+      
     </ion-label>
   </ion-item>
-
-</ion-content>
+</ion-list>

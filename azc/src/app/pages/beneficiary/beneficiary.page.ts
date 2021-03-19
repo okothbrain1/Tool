@@ -5,6 +5,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { DatasetService } from '../../providers/dataset.service';
 import { ApiService } from '../../services/api.service';
+import { NetworkService } from '../../services/network.service';
+
 import { Storage } from '@ionic/storage';
 
 import { ToastController, LoadingController, AlertController, NavController } from '@ionic/angular';
@@ -21,6 +23,8 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 import { Observable } from 'rxjs/Observable';
 
+import { DatabaseService, Dev } from './../../services/database.service';
+
 
 @Component({
   selector: 'app-beneficiary',
@@ -29,6 +33,15 @@ import { Observable } from 'rxjs/Observable';
 })
 export class BeneficiaryPage implements OnInit {
 
+
+ 
+developers: Dev[] = [];
+
+products: Observable<any[]>;
+developer = {};
+product = {};
+
+selectedView = 'devs';
 region: string="";
 district: string="";
 subcounty: string="";
@@ -44,13 +57,14 @@ fo: string="";
 disabledButton
 
   currentImage: any;
+  ib: any;
 
   latitude: any = 0;
   longitude: any = 0;
   name:string;
   datastorage:any;
-
-
+  
+  
   constructor(
     private router:Router,
     private loadingCtrl: LoadingController,
@@ -69,12 +83,27 @@ disabledButton
     private webview: WebView,
     private file: File,
 
-    private http: HttpClient
+    private network: NetworkService,
 
-  ) { }
+    private http: HttpClient,
+    private db: DatabaseService
+  ) { 
+
+  }
 
   ngOnInit() {
+    this.db.getDatabaseState().subscribe(rdy => {
+      if (rdy) {
+        this.db.getDevs().subscribe(devs => {
+          this.developers = devs;
+        })
+        this.products = this.db.getProducts();
+      }
+    });
   }
+
+  
+
 
   ionViewDidEnter(){
     this.storage.get('storage_xxx').then((res)=>{
@@ -83,6 +112,7 @@ disabledButton
         this.name = this.datastorage.name;
         this.disabledButton = false;
     });
+
 }
 
   takePicture() {
@@ -97,6 +127,7 @@ disabledButton
 
     this.camera.getPicture(options).then((imageData) => {
       this.currentImage = 'data:image/jpeg;base64,' + imageData;
+      this.ib = imageData;
     }, (err) => {
       // Handle error
       console.log("Camera issue:" + err);
@@ -112,7 +143,6 @@ disabledButton
     targetWidth: 50,
     targetHeight: 50,
     correctOrientation:true
-
   };
 
   
@@ -131,17 +161,35 @@ disabledButton
      });
   }
 
+
   async presentToast(a){
     const toast = await this.toastCtrl.create({
       message: a,
-      duration:1500,
+      duration:2000,
     });
     toast.present();
   }
 
-  async Submit(){
+  addDeveloper() {
+    this.db.addDeveloper(this.developer['region'], this.developer['district'], this.developer['subcounty'], this.developer['topic'], this.developer['activity'], this.developer['Photo_url'], this.developer['males'], this.developer['females'], this.developer['total'], this.developer['la'], this.developer['lo'], this.developer['fo'])
+    .then(_ => {
+      this.developer = {};
+      console.log(this.developer);
+    }).catch((error) => {
+      console.log('Error from beneficiaries inserting into db ', error);
+    });
+  }
+  /*addDeveloper() {
+    this.db.addDeveloper(this.region, this.district, this.subcounty, this.topic, this.activity, this.Photo_url, this.males, this.females, this.total, this.la, this.lo, this.fo)
+    .then(_ => {
+      this.developer = {};
+    }).catch((error) => {
+      console.log('Error from beneficiaries inserting into ', error);
+    });
+  }*/
 
-    console.log(ImageData);
+  async Submit(){
+    /*console.log(ImageData);
     console.log(Option);   
     let url = 'http://3.12.97.246/azcollect/api/upload.php';
     let postData = new FormData();
@@ -149,8 +197,7 @@ disabledButton
     let data:Observable<any> = this.http.post(url, postData);
     data.subscribe((result) => {
       console.log(result);
-    })
-
+    })*/
     
     if(this.region==""){
         this.presentToast('The region is required');
@@ -220,6 +267,8 @@ disabledButton
 
       });
     }
+  
+
   }
   
   async presentAlertb(a) {

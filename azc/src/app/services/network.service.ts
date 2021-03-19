@@ -24,7 +24,6 @@ export class NetworkService {
   }
 
   public initializeNetworkEvents() {
- 
     this.network.onDisconnect().subscribe(() => {
       if (this.status.getValue() === ConnectionStatus.Online) {
         console.log('WE ARE OFFLINE');

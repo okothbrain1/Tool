@@ -20,6 +20,7 @@ $null = 'null';
 if($postjson['aski']=="submit"){
 
     define('UPLOAD_DIR', 'upload/');
+    //define('UPLOAD_DIR', '/var/www/html/ican/upload/');
     $image_type = $postjson['Photo_Url'];
     $image_base64 = base64_decode($image_type);
     $file = UPLOAD_DIR . uniqid() . '.png';

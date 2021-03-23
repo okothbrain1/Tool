@@ -100,7 +100,6 @@
         <ion-select-option value="Linkage to bank">Linkage to bank</ion-select-option>
         <ion-select-option value="Linkage with off-take market">Linkage with off-take market</ion-select-option>
         <ion-select-option value="Link to government activities">Link to government activities</ion-select-option>
-        <ion-select-option value="Local Leaders meetings"></ion-select-option>
         <ion-select-option value="Local leaders meetings">Local leaders meetings</ion-select-option>
         <ion-select-option value="Radio event">Radio event</ion-select-option>
         <ion-select-option value="Subcounty meetings">Subcounty meetings</ion-select-option>
@@ -138,7 +137,8 @@
       <ion-label>Total Attendance</ion-label>
       <ion-input type = "number" [(ngModel)]="total" clear-input="true" ></ion-input>
     </ion-item>
-<ion-label class = "notice"></ion-label>
+
+<ion-label class="notice">Please make sure your devie location is on</ion-label>
     <ion-button (click)="getCurrentCoordinates()" expand="block">
       Get Location
     </ion-button>

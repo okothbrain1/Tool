@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
                   },(err)=>{
                     loader.dismiss();
                     this.disabledButton = false;
-                    this.presentToast('Error Please contact support');
+                    this.presentToast('Error, Please try again,if error persists contact support');
                   });
       });
     }

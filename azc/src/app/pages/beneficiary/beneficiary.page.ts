@@ -165,7 +165,7 @@ disabledButton
   async presentToast(a){
     const toast = await this.toastCtrl.create({
       message: a,
-      duration:4000,
+      duration:5000,
     });
     toast.present();
   }

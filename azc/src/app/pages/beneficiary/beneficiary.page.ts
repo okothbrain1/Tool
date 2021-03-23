@@ -117,12 +117,12 @@ disabledButton
 
   takePicture() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA,
-      correctOrientation: true
+      correctOrientation: true,
     };
 
     this.camera.getPicture(options).then((imageData) => {
@@ -165,7 +165,7 @@ disabledButton
   async presentToast(a){
     const toast = await this.toastCtrl.create({
       message: a,
-      duration:2000,
+      duration:4000,
     });
     toast.present();
   }
@@ -256,7 +256,17 @@ disabledButton
                           loader.dismiss();
                           this.disabledButton = false;
                           this.presentToast(res.msg);
-                          //this.presentAlertb('Submission Successfull');
+                          this.region ="";
+                          this.district ="";
+                          this.subcounty ="";
+                          this.topic ="";
+                          this.activity ="";
+                          this.Photo_url ="";
+                          this.males ="";
+                          this.females ="";
+                          this.total ="";
+                          this.lo ="";
+                          this.la ="";
                         }
                   },(err)=>{
                     loader.dismiss();

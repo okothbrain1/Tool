@@ -8,7 +8,7 @@ import 'rxjs/add/operator/timeout';
 })
 export class AccessProviders {
     //api json
-    server: string ="http://3.12.97.246/azcollect/api/";
+    server: string ="http://3.12.97.246/ican/azcollect/api/";
 
     constructor(
         private http: HttpClient

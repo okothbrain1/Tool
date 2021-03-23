@@ -9,6 +9,8 @@ include "config.php";
 
 $postjson = json_decode(file_get_contents('php://input'), true);
 
+date_default_timezone_set('Africa/Nairobi');
+
 $today = date('Y-m-d H:i:s');
 
 if($postjson['aski']=="proses_register"){

@@ -70,13 +70,12 @@
   <ion-item class="ion-margin">
     <ion-label>Select the Topic</ion-label>
       <ion-select placeholder="Select One" interface="popover"[(ngModel)]="topic">
-        <ion-select-option value="Agro input Dealer">Agro input Dealer</ion-select-option>
-        <ion-select-option value="Farming group meeting">Farming group meeting</ion-select-option>
+        <ion-select-option value="Administration">Administration</ion-select-option>
+        <ion-select-option value="Education">Education</ion-select-option>
+        <ion-select-option value="Governance">Governance</ion-select-option>
         <ion-select-option value="Livelihood">Livelihood</ion-select-option>
-         <ion-select-option value="Linkage to bank">Linkage to bank</ion-select-option>
-         <ion-select-option value="Linkage to off-take market">Linkage to off-take market</ion-select-option>
-        <ion-select-option value="Link to government activities">Linkage to government activities</ion-select-option>
-        <ion-select-option value="Vsla/village meeting">Vsla/village meeting</ion-select-option>
+        <ion-select-option value="Nutrition">Nutrition</ion-select-option>
+        <ion-select-option value="SBCC">SBCC</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -86,6 +85,7 @@
         <ion-select-option value="Assesement or piloting">Assesement or piloting</ion-select-option>
         <ion-select-option value="Agro input dealer">Agro input dealer</ion-select-option>
         <ion-select-option value="BSP monthly meetings">BSP monthly meetings</ion-select-option>
+        <ion-select-option value="Campaigns">Campaigns</ion-select-option>
         <ion-select-option value="Community meetings">Community meetings</ion-select-option>
         <ion-select-option value="Community dialogue/baraza meetings">Community dialogue/baraza meetings</ion-select-option>
         <ion-select-option value="Community joint action activities"></ion-select-option>
@@ -106,9 +106,8 @@
         <ion-select-option value="Subcounty meetings">Subcounty meetings</ion-select-option>
         <ion-select-option value="Subcounty/political meetings">Subcounty/political meetings</ion-select-option>
         <ion-select-option value="SMC/PTA meetings">SMC/PTA meetings</ion-select-option>
-        <ion-select-option value="Subcounty meetings">Subcounty meetings</ion-select-option>
-        <ion-select-option value="Subcounty/political leaders">Subcounty/political leaders</ion-select-option>
         <ion-select-option value="Training of BSP's">Training of BSP's</ion-select-option>
+        <ion-select-option value="Training of matrons/patrons/other">Training of champions</ion-select-option>
         <ion-select-option value="Training of matrons/patrons/other">Training of matrons/patrons/other</ion-select-option>
         <ion-select-option value="VHT monthly meetings">VHT monthly meetings</ion-select-option>
         <ion-select-option value="Vsla/Vilage meeting">Vsla/Vilage meeting</ion-select-option>
@@ -139,7 +138,7 @@
       <ion-label>Total Attendance</ion-label>
       <ion-input type = "number" [(ngModel)]="total" clear-input="true" ></ion-input>
     </ion-item>
-
+<ion-label class = "notice"></ion-label>
     <ion-button (click)="getCurrentCoordinates()" expand="block">
       Get Location
     </ion-button>

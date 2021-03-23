@@ -14,6 +14,7 @@ define('DB_NAME','ican');
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 $postjson = json_decode(file_get_contents('php://input'), true);
+date_default_timezone_set('Africa/Nairobi');
 
 $today = date('Y-m-d H:i:s');
 

@@ -13,6 +13,7 @@ define('DB_NAME','ican');
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 $postjson = json_decode(file_get_contents('php://input'), true);
+date_default_timezone_set('Africa/Nairobi');
 
 $today = date('Y-m-d H:i:s');
 $null = 'null';
@@ -20,7 +21,6 @@ $null = 'null';
 if($postjson['aski']=="submit"){
 
     define('UPLOAD_DIR', 'upload/');
-    //define('UPLOAD_DIR', '/var/www/html/ican/upload/');
     $image_type = $postjson['Photo_Url'];
     $image_base64 = base64_decode($image_type);
     $file = UPLOAD_DIR . uniqid() . '.png';

@@ -20,8 +20,13 @@ $null = 'null';
 
 if($postjson['aski']=="submit"){
 
+    //$encoded = "encoded---text---here===";
+    //$file = fopen("mypicture.png", "w"); //(you can put jpg, png or any other extension)
+    //fwrite($file, base64_decode($encoded));
+    //fclose($file); 
+
     define('UPLOAD_DIR', 'upload/');
-    $image_type = $postjson['Photo_Url'];
+    $image_type = $postjson['Photo_url'];
     $image_base64 = base64_decode($image_type);
     $file = UPLOAD_DIR . uniqid() . '.png';
     file_put_contents($file, $image_base64);

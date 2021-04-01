@@ -38,7 +38,7 @@ if($postjson['aski']=="submit"){
     subcounty = '$postjson[subcounty]',
     topic = '$postjson[topic]',
     activity = '$postjson[activity]',
-    capture_meeting_image = '$postjson[Photo_url]',
+    capture_meeting_image = $postjson[Photo_url]'',
     capture_meeting_image = '$file',
     male_member_attendance = '$postjson[males]',
     female_member_attendance = '$postjson[females]',

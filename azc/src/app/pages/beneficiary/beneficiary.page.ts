@@ -117,7 +117,7 @@ disabledButton
 
   takePicture() {
     const options: CameraOptions = {
-      quality: 50,
+      quality: 60,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -165,7 +165,7 @@ disabledButton
   async presentToast(a){
     const toast = await this.toastCtrl.create({
       message: a,
-      duration:5000,
+      duration:50000,
     });
     toast.present();
   }
@@ -209,9 +209,9 @@ disabledButton
       this.presentToast('The topic is required');
     }else if(this.activity==""){
       this.presentToast('The activity is required');
-    }/*else if(this.Photo_url==""){
+    }else if(this.Photo_url==""){
       this.presentToast('Take a photo of the event to continue');
-    }*/else if(this.males==""){
+    }else if(this.males==""){
       this.presentToast('The number of male attendance is required');
     }else if(this.females==""){
       this.presentToast('The number of female attendance is required');
@@ -252,21 +252,21 @@ disabledButton
                             this.disabledButton = false;
                             this.presentToast(res.msg);
                             this.router.navigate(['/beneficiary']);
+                            this.region ="";
+                            this.district ="";
+                            this.subcounty ="";
+                            this.topic ="";
+                            this.activity ="";
+                            this.Photo_url ="";
+                            this.males ="";
+                            this.females ="";
+                            this.total ="";
+                            this.lo ="";
+                            this.la ="";
                         }else{
                           loader.dismiss();
                           this.disabledButton = false;
                           this.presentToast(res.msg);
-                          this.region ="";
-                          this.district ="";
-                          this.subcounty ="";
-                          this.topic ="";
-                          this.activity ="";
-                          this.Photo_url ="";
-                          this.males ="";
-                          this.females ="";
-                          this.total ="";
-                          this.lo ="";
-                          this.la ="";
                         }
                   },(err)=>{
                     loader.dismiss();
@@ -281,36 +281,6 @@ disabledButton
 
   }
   
-  async presentAlertb(a) {
-    const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
-      header: a,
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'Close',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-            //action
-            this.region ="";
-            this.district ="";
-            this.subcounty ="";
-            this.topic ="";
-            this.activity ="";
-            this.Photo_url ="";
-            this.males ="";
-            this.females ="";
-            this.total ="";
-            this.lo ="";
-            this.la ="";
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
   async presentAlert(a) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',

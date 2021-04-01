@@ -33,8 +33,6 @@ import { DatabaseService, Dev } from './../../services/database.service';
 })
 export class BeneficiaryPage implements OnInit {
 
-
- 
 developers: Dev[] = [];
 
 products: Observable<any[]>;
@@ -50,7 +48,6 @@ activity: string="";
 Photo_url: string="";
 males: string="";
 females: string="";
-total: string="";
 lo: string="";
 la: string="";
 fo: string="";
@@ -215,8 +212,6 @@ disabledButton
       this.presentToast('The number of male attendance is required');
     }else if(this.females==""){
       this.presentToast('The number of female attendance is required');
-    }else if(this.total==""){
-      this.presentToast('The total attendance is required');
     }else if(this.lo==""){
       this.presentToast('Press the Get location button to get current location');
     }else if(this.la==""){
@@ -241,7 +236,7 @@ disabledButton
             Photo_url:this.Photo_url,
             males:this.males,
             females:this.females,
-            total:this.total,
+            //total:this.total,
             lo:this.lo,
             la:this.la,
             fo:this.fo
@@ -260,7 +255,6 @@ disabledButton
                             this.Photo_url ="";
                             this.males ="";
                             this.females ="";
-                            this.total ="";
                             this.lo ="";
                             this.la ="";
                         }else{

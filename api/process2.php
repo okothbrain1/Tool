@@ -31,6 +31,8 @@ if($postjson['aski']=="submit"){
     $file = UPLOAD_DIR . uniqid() . '.png';
     file_put_contents($file, $image_base64);
   
+    $total = $postjson['males'] + $postjson['females'];
+    
     $insert = mysqli_query($mysqli, "INSERT INTO dataset_mobile SET
     submission_Date = '$today',
     region = '$postjson[region]',
@@ -41,7 +43,7 @@ if($postjson['aski']=="submit"){
     capture_meeting_image = '$file',
     male_member_attendance = '$postjson[males]',
     female_member_attendance = '$postjson[females]',
-    total_attendance = '$postjson[total]',
+    total_attendance = $total,
     meeting_latitude = '$postjson[la]',
     meeting_longitude = '$postjson[lo]',
     submitter_name = '$postjson[fo]'

@@ -1,13 +1,50 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Weekly Activities</ion-title>
-    </ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="success" size="medium" (click)="Submit()">
+        <ion-icon name="add-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <center><ion-button [routerLink]="['/notsent']" fill="outline">View not-sent Activities</ion-button></center>
 </ion-header>
-<ion-content class="ion-padding">
-
+<ion-content>
+<!--
+  <div id="container" *ngIf="hideShowMe">
+    <ion-list>
+      <ion-item>
+        <h6>A list of Locally saved activities that need to be submitted appears here. You can choose to Submit them or Discard them</h6>
+      </ion-item>
+      <ion-item lines="inset" *ngFor="let detail of details;index as slNo">
+        <ion-label ngStyle>
+          <p>ID: {{detail.id}}</p>
+          <h4>Region: {{detail.region}}</h4>
+          <h4>District: {{detail.district}}</h4>
+          <h4>Subcounty: {{detail.subcounty}}</h4>
+          <h4>Topic: {{detail.topic}}</h4>
+          <h4>Activity: {{detail.activity}}</h4>
+          <h4>Photo_url: {{detail.Photo_url}}</h4>
+          <h4>Males: {{detail.males}}</h4>
+          <h4>Females: {{detail.females}}</h4>
+          <h4>Total: {{detail.total}}</h4>
+          <h4>Latitude: {{detail.la}}</h4>
+          <h4>Longitude: {{detail.lo}}</h4>
+          <h4>Field Officer: {{detail.fo}}</h4>
+        </ion-label>
+        <ion-button color="danger" (click)="presentAlertforDelete('Are you sure?', detail.id)" slot="end">
+          <ion-icon name="trash-sharp"></ion-icon>
+        </ion-button>
+        <ion-button color="primary" (click)="SubmitOfflineData(detail.id,detail.region,detail.district,detail.subcounty,detail.topic,detail.activity,detail.Photo_url,detail.males, detail.females,detail.total,detail.la, detail.lo, detail.fo)" slot="end">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+-->
   <ion-item class="ion-margin">
     <ion-label>Region</ion-label>
     <ion-select placeholder="Select One" interface="popover"[(ngModel)]="region">
@@ -119,7 +156,7 @@
   </ion-item>
  
    <ion-button name="camera" (click)="takePicture()" expand="block">Take a picture of the Meeting</ion-button>
-      <ion-item>
+    <ion-item>
       <img [src]="currentImage" *ngIf="currentImage">
     </ion-item>  
 
@@ -138,11 +175,6 @@
       <ion-input type = "number" [(ngModel)]="females"clear-input="true"></ion-input>
     </ion-item>
 
-    <ion-item class="ion-margin">
-      <ion-label>Total Attendance</ion-label>
-      <ion-input type = "number" [(ngModel)]="total" clear-input="true" ></ion-input>
-    </ion-item>
-
 <ion-label class="notice">Please make sure your device location is on</ion-label>
     <ion-button (click)="getCurrentCoordinates()" expand="block">
       Get Location
@@ -157,18 +189,16 @@
       <ion-label>Latitude</ion-label>
       <ion-input type="text"[(ngModel)]="la" value="{{latitude}}"readonly></ion-input>
     </ion-item>
-
-    <!--<ion-item class="ion-margin">
+    <!--checking for accuracy start-->
+    <!--checking for accuracy start-->
+   <ion-item class="ion-margin">
       <ion-label>Name of Field Officer</ion-label>
       <ion-input type="text" [(ngModel)]="fo" value="{{name}}"readonly></ion-input>
-    </ion-item>-->
+    </ion-item>
 
       <ion-button (click)="Submit()" expand="block">
         Submit
       </ion-button>
-      <!--<ion-button (click)="addDeveloper()" expand="block">
-       Save locally
-      </ion-button>-->
-
-
 </ion-content>
+
+

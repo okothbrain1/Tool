@@ -23,7 +23,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 import { Observable } from 'rxjs/Observable';
 
-import { DatabaseService, Dev } from './../../services/database.service';
+import { DatabaseService, DetailsInterface } from './../../services/database.service';
 
 
 @Component({
@@ -33,13 +33,8 @@ import { DatabaseService, Dev } from './../../services/database.service';
 })
 export class BeneficiaryPage implements OnInit {
 
-developers: Dev[] = [];
-
-products: Observable<any[]>;
-developer = {};
-product = {};
-
 selectedView = 'devs';
+id: number;
 region: string="";
 district: string="";
 subcounty: string="";
@@ -51,7 +46,7 @@ females: string="";
 lo: string="";
 la: string="";
 fo: string="";
-disabledButton
+disabledButton;
 
   currentImage: any;
   ib: any;
@@ -61,7 +56,9 @@ disabledButton
   name:string;
   datastorage:any;
   
-  
+  details: DetailsInterface[];
+
+
   constructor(
     private router:Router,
     private loadingCtrl: LoadingController,
@@ -88,29 +85,128 @@ disabledButton
 
   }
 
+
   ngOnInit() {
-    this.db.getDatabaseState().subscribe(rdy => {
-      if (rdy) {
-        this.db.getDevs().subscribe(devs => {
-          this.developers = devs;
-        })
-        this.products = this.db.getProducts();
-      }
-    });
+    
   }
 
   
 
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.storage.get('storage_xxx').then((res)=>{
-        console.log(res);
-        this.datastorage = res;
-        this.name = this.datastorage.name;
-        this.disabledButton = false;
-    });
+      console.log(res);
+      this.datastorage = res;
+      this.name = this.datastorage.name;
+      this.disabledButton = false;
+  });
+    this.db.getAllDetails().then(data => this.details = data);
+    //Checking for the network connectivity every after some milliseconds
+    setInterval(() => {
+      this.network.initializeNetworkEvents();
+    }, 300);
 
+  }
+
+  
+  addDetails(region: string, district:string, subcounty:string,topic:string,activity:string,Photo_url:string,males:string,females:string,la:string,lo:string,fo:string) {
+    
+  if(this.region==""){
+      this.presentToast('The region is required');
+  }else if(this.district==""){
+    this.presentToast('The district is required');
+  }else if(this.subcounty==""){
+    this.presentToast('The subcounty is required');
+  }else if(this.topic==""){
+    this.presentToast('The topic is required');
+  }else if(this.activity==""){
+    this.presentToast('The activity is required');
+  }else if(this.Photo_url==""){
+    this.presentToast('Take a photo of the event to continue');
+  }else if(this.males==""){
+    this.presentToast('The number of male attendance is required');
+  }else if(this.females==""){
+    this.presentToast('The number of female attendance is required');
+  }else if(this.lo==""){
+    this.presentToast('Press the Get location button to get current location');
+  }else if(this.la==""){
+    this.presentToast('Press the Get location button to get current location');
+  }else{
+      this.db.addDetails(region, district, subcounty,topic,activity,Photo_url,males,females,la,lo,fo).then(data => {
+        this.details = data;
+
+      });
+      this.presentToast("Your activity has been saved locally, you can submit it later");
+      this.disabledButton = false;
+      this.region ="";
+      this.district ="";
+      this.subcounty ="";
+      this.topic ="";
+      this.activity ="";
+      this.Photo_url ="";
+      this.males ="";
+      this.females ="";
+      this.lo ="";
+      this.la ="";
+      this.currentImage="";
+      this.router.navigate(['/beneficiary']);
+      
+    }
 }
+   
+    deleteDetails(id: number) {
+      this.db.deleteDetails(id)
+        .then(data => this.details = data);
+        this.presentToast("You have deleted this activity");     
+    }
+    
+
+    dismissOnSubmit(id: number){
+      this.db.deleteDetails(id)
+        .then(data => this.details = data);
+
+        this.presentToast("You activity has been submitted successfully");
+    }
+
+    async presentAlertforDelete(a:string, id:number) {
+      const alert = await this.alertCtrl.create({
+        cssClass: 'my-custom-class',
+        header: a,
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: 'Delete Activity',
+            handler: () => {
+              this.deleteDetails(id);
+            }
+          },
+           {
+            text: 'Cancel',
+            handler: () => {
+             // this.Submit();
+            }
+          }
+          
+        ]
+      });
+  
+      await alert.present();
+    }
+
+    //show or hide the div when the button is clicked
+    hideShowMe=false;
+    buttonTitle:string = "Click to show";
+    hideShow() {
+      if(this.hideShowMe==false){
+        this.hideShowMe = true;
+        this.buttonTitle;
+      }
+      else{
+        this.hideShowMe = false;
+        this.buttonTitle="Click to hide";
+      }
+    }
+    
 
   takePicture() {
     const options: CameraOptions = {
@@ -162,29 +258,75 @@ disabledButton
   async presentToast(a){
     const toast = await this.toastCtrl.create({
       message: a,
-      duration:50000,
+      duration:5000,
     });
     toast.present();
   }
 
-  addDeveloper() {
-    this.db.addDeveloper(this.developer['region'], this.developer['district'], this.developer['subcounty'], this.developer['topic'], this.developer['activity'], this.developer['Photo_url'], this.developer['males'], this.developer['females'], this.developer['total'], this.developer['la'], this.developer['lo'], this.developer['fo'])
-    .then(_ => {
-      this.developer = {};
-      console.log(this.developer);
-    }).catch((error) => {
-      console.log('Error from beneficiaries inserting into db ', error);
-    });
-  }
-  /*addDeveloper() {
-    this.db.addDeveloper(this.region, this.district, this.subcounty, this.topic, this.activity, this.Photo_url, this.males, this.females, this.total, this.la, this.lo, this.fo)
-    .then(_ => {
-      this.developer = {};
-    }).catch((error) => {
-      console.log('Error from beneficiaries inserting into ', error);
-    });
-  }*/
 
+//adding sqlite offline data to the end point.
+async SubmitOfflineData(id: number, region: string, district:string, subcounty:string, topic:string,activity:string,Photo_url:string,males:string,females:string,la:string,lo:string,fo:string){
+    this.disabledButton = true;
+    const loader = await this.loadingCtrl.create({
+      message: 'please wait as we upload your offline data',
+    });
+    loader.present();
+
+    return new Promise(resolve => {
+        let body = {
+          aski:'submit',
+          region:region,
+          district:district,
+          subcounty:subcounty,
+          topic:topic,
+          activity:activity,
+          Photo_url:Photo_url,
+          males:males,
+          females:females,
+          lo:lo,
+          la:la,
+          fo:fo
+          }
+          this.accsPrvds.postData(body, 'process2.php').subscribe((res:any)=> {
+                      if(res.success==true){
+                          loader.dismiss();
+                          this.disabledButton = false;
+                          this.presentToast(res.msg);
+                          this.router.navigate(['/beneficiary']);
+                          this.dismissOnSubmit(id);
+                          this.region ="";
+                          this.district ="";
+                          this.subcounty ="";
+                          this.topic ="";
+                          this.activity ="";
+                          this.Photo_url ="";
+                          this.males ="";
+                          this.females ="";
+                          this.lo ="";
+                          this.la ="";
+                          this.currentImage="";
+
+                      }else{
+                        loader.dismiss();
+                        this.disabledButton = false;
+                        this.presentToast(res.msg);
+                      }
+                },(err)=>{
+                  loader.dismiss();
+                  this.disabledButton = false;
+                  this.AlertforOfflineSubmission('Check your internet');
+                  console.log('Error ', err);
+          });
+
+    });
+
+}   
+
+//pending submission 
+
+
+
+// submit data to the end point when you have an active internet connection
   async Submit(){
     /*console.log(ImageData);
     console.log(Option);   
@@ -236,12 +378,11 @@ disabledButton
             Photo_url:this.Photo_url,
             males:this.males,
             females:this.females,
-            //total:this.total,
             lo:this.lo,
             la:this.la,
             fo:this.fo
             }
-                  this.accsPrvds.postData(body, 'process2.php').subscribe((res:any)=> {
+            this.accsPrvds.postData(body, 'process2.php').subscribe((res:any)=> {
                         if(res.success==true){
                             loader.dismiss();
                             this.disabledButton = false;
@@ -257,6 +398,8 @@ disabledButton
                             this.females ="";
                             this.lo ="";
                             this.la ="";
+                            this.currentImage="";
+                            
                         }else{
                           loader.dismiss();
                           this.disabledButton = false;
@@ -265,16 +408,16 @@ disabledButton
                   },(err)=>{
                     loader.dismiss();
                     this.disabledButton = false;
-                    this.presentAlert('Timeout ');
+                    this.presentAlert('You are offline');
                     console.log('Error ', err);
-                  });
+            });
 
       });
     }
   
 
   }
-  
+
   async presentAlert(a) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
@@ -282,10 +425,9 @@ disabledButton
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Close',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-            //action
+          text: 'Save and submit when online',
+          handler: () => {
+            this.addDetails(this.region, this.district, this.subcounty,this.topic,this.activity,this.Photo_url,this.males,this.females,this.la,this.lo,this.fo);
           }
         },
          {
@@ -293,7 +435,41 @@ disabledButton
           handler: () => {
             this.Submit();
           }
+        },
+        {
+          text: 'Cancel',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
         }
+        
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async AlertforOfflineSubmission(a) {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: a,
+      backdropDismiss: false,
+      buttons: [
+         {
+          text: 'Try Again',
+          handler: () => {
+            this.SubmitOfflineData(this.id,this.region, this.district, this.subcounty,this.topic,this.activity,this.Photo_url,this.males,this.females,this.la,this.lo,this.fo);
+            
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+            //this.deleteDetails(this.db);
+          }
+        }
+        
       ]
     });
 

@@ -7,16 +7,41 @@
     </ion-toolbar>
 </ion-header>
 
+<ion-content>
+  <ion-list>
+    <ion-item button *ngFor="let dev of developers" [routerLink]="['/', 'developers', dev.id]">
+      <ion-avatar slot="start">
+        <img [src]="dev.img">
+      </ion-avatar>
+    </ion-item>
+      <ion-list>
+        <ion-item>
+          <h6>Data that was saved but not sent appears here, you can choose to submit it or discard it</h6>
+        </ion-item>
+        <ion-item lines="inset" *ngFor="let detail of details;index as slNo">
+          <ion-label ngStyle>
+            <p>ID: {{detail.id}}</p>
+            <h4>Region: {{detail.region}}</h4>
+            <h4>District: {{detail.district}}</h4>
+            <h4>Subcounty: {{detail.subcounty}}</h4>
+            <h4>Topic: {{detail.topic}}</h4>
+            <h4>Activity: {{detail.activity}}</h4>
+            <h4>Photo_url: {{detail.Photo_url}}</h4>
+            <h4>Males: {{detail.males}}</h4>
+            <h4>Females: {{detail.females}}</h4>
+            <h4>Total: {{detail.total}}</h4>
+            <h4>Latitude: {{detail.la}}</h4>
+            <h4>Longitude: {{detail.lo}}</h4>
+            <h4>Field Officer: {{detail.fo}}</h4>
+          </ion-label>
+          <ion-button color="danger" (click)="presentAlertforDelete('Are you sure?', detail.id)" slot="end">
+            <ion-icon name="trash-sharp"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" (click)="SubmitOfflineData(detail.id,detail.region,detail.district,detail.subcounty,detail.topic,detail.activity,detail.Photo_url,detail.males, detail.females,detail.total,detail.la, detail.lo, detail.fo)" slot="end">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+  </ion-list>
+</ion-content>
 
-<ion-list>
-  <ion-item button *ngFor="let dev of developers" [routerLink]="['/', 'developers', dev.id]">
-    <ion-avatar slot="start">
-      <img [src]="dev.img">
-    </ion-avatar>
-    <ion-label>
-      <h2>{{ dev.topic }}</h2>
-      <p>{{ dev.activity }}</p>
-      
-    </ion-label>
-  </ion-item>
-</ion-list>

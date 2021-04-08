@@ -70,7 +70,11 @@ if($postjson['aski']=="submit"){
             /*success message*/  
             $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
         }
-            } endif;
+            } else{
+
+                $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
+
+            }
        
 }
     }else{

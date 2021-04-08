@@ -16,14 +16,11 @@ $postjson = json_decode(file_get_contents('php://input'), true);
 date_default_timezone_set('Africa/Nairobi');
 
 $today = date('Y-m-d H:i:s');
-$null = 'null';
+$null = 'Null';
+$completed = 'Yes';
 
 if($postjson['aski']=="submit"){
 
-    //$encoded = "encoded---text---here===";
-    //$file = fopen("mypicture.png", "w"); //(you can put jpg, png or any other extension)
-    //fwrite($file, base64_decode($encoded));
-    //fclose($file); 
 
     define('UPLOAD_DIR', 'upload/');
     $image_type = $postjson['Photo_url'];
@@ -31,6 +28,9 @@ if($postjson['aski']=="submit"){
     $file = UPLOAD_DIR . uniqid() . '.png';
     file_put_contents($file, $image_base64);
   
+    $topic = $postjson['topic'];
+    $activity = $postjson['activity'];
+    $field_officer= $postjson['fo'];
     $total = $postjson['males'] + $postjson['females'];
     
     $insert = mysqli_query($mysqli, "INSERT INTO dataset_mobile SET
@@ -49,7 +49,30 @@ if($postjson['aski']=="submit"){
     submitter_name = '$postjson[fo]'
     ");
     if($insert){ 
-        $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
+       
+        $sql = "SELECT topic, activity, field_officer FROM schedule WHERE topic = ? AND activity = ? AND field_officer = ?";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+           echo 'sql error1';
+        } else {
+            mysqli_stmt_bind_param($stmt, "sss", $topic, $activity, $field_officer);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            $resultcheck = mysqli_stmt_num_rows($stmt);
+            if ($resultcheck > 0) {
+                $sql = "UPDATE schedule SET completed = ? WHERE topic='$topic' AND activity='$activity' AND field_officer='$field_officer'";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            echo 'sql error2';  
+        } else {
+            mysqli_stmt_bind_param($stmt, "s", $completed);
+            mysqli_stmt_execute($stmt);
+            /*success message*/  
+            $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
+        }
+            } endif;
+       
+}
     }else{
         $result = json_encode(array('success'=>false, 'msg'=>'Submission failed'));
     }

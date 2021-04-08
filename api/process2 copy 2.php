@@ -50,16 +50,28 @@ if($postjson['aski']=="submit"){
     ");
     if($insert){ 
        
-        $sql = "UPDATE schedule SET completed = ? WHERE topic='$topic' AND activity='$activity' AND field_officer='$field_officer'";
+        $sql = "SELECT topic, activity, field_officer FROM schedule WHERE topic = ? AND activity = ? AND field_officer = ?";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            //echo 'sql error2';  
+           echo 'sql error1';
+        } else {
+            mysqli_stmt_bind_param($stmt, "sss", $topic, $activity, $field_officer);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            $resultcheck = mysqli_stmt_num_rows($stmt);
+            if ($resultcheck > 0) {
+                $sql = "UPDATE schedule SET completed = ? WHERE topic='$topic' AND activity='$activity' AND field_officer='$field_officer'";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            echo 'sql error2';  
         } else {
             mysqli_stmt_bind_param($stmt, "s", $completed);
             mysqli_stmt_execute($stmt);
             /*success message*/  
-        }    
-
+        }
+            } else{
+            }    
+}*/
     $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
 
     }else{

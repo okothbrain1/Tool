@@ -59,6 +59,10 @@ const routes: Routes = [
     path: 'beneficiary',
     loadChildren: () => import('./pages/beneficiary/beneficiary.module').then( m => m.BeneficiaryPageModule)
   },
+  {
+    path: 'modal-popup',
+    loadChildren: () => import('./modal-popup/modal-popup.module').then( m => m.ModalPopupPageModule)
+  },
 ];
 
 @NgModule({

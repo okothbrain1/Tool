@@ -7,7 +7,7 @@
   src: url("../assets/fonts/Roboto-Regular.ttf"); //change url accordingly
 }
 :root {
-   --ion-font-family: 'AppFont';
+   --ion-font-family: 'Rubik', sans-serif;
   /** primary *
   --ion-color-az: #5b017d;
   --ion-color-az-rgb: 91, 1, 125;
@@ -16,12 +16,12 @@
   --ion-color-az-shade: #6E0197;
   --ion-color-az-tint: #4C0168;*/
   
-  --ion-color-primary: #5b017d;
+  --ion-color-primary: blue;
   --ion-color-primary-rgb: 91, 1, 125;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #6E0197;
-  --ion-color-primary-tint: #4C0168;
+  --ion-color-primary-shade: #4643f5;
+  --ion-color-primary-tint: #8d1bb6;
 
   /** primary *
   --ion-color-primary: #3880ff;

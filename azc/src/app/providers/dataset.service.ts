@@ -8,7 +8,7 @@ import 'rxjs/add/operator/timeout';
 })
 export class DatasetService {
     //api json
-    server: string ="http://3.12.97.246/ican/azcollect/api/";
+    server: string ="http://localhost/azcollect/api/";
 
     constructor(
         private http: HttpClient

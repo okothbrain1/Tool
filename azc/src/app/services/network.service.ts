@@ -3,9 +3,11 @@ import { Network } from '@ionic-native/network/ngx'
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastController, Platform } from '@ionic/angular';
 
+
 export enum ConnectionStatus {
   Online,
-  Offline
+  Offline,
+  ConnectionStatus
 }
 
 @Injectable({

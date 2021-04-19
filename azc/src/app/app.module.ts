@@ -17,8 +17,6 @@ import { Network } from '@ionic-native/network/ngx';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
-
-import { SQLite } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 
 import { FormsModule } from '@angular/forms'  
@@ -34,8 +32,9 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 
 
+import { SQLite } from '@ionic-native/sqlite/ngx';
 
-
+import { DatabaseService} from './services/database.service';
 
 
 @NgModule({
@@ -67,6 +66,8 @@ import { HTTP } from '@ionic-native/http/ngx';
     WebView,
     FilePath,
     SQLitePorter,
+    SQLite,
+    DatabaseService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

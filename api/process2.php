@@ -5,9 +5,9 @@ header("Access-Control-Allow-Methods: POST, GET, POST, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, Content-Type, Authorization, Accept, X-Request-Width, x-xsrf-token");
 header("Content-Type: application/json; charset=utf-8");
 
-define('DB_HOST','localhost');
+define('DB_HOST','3.12.97.246');
 define('DB_USER','root');
-define('DB_PASSWORD','');
+define('DB_PASSWORD','password');
 define('DB_NAME','centedb');
 
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -399,25 +399,11 @@ probs_of_using_cellphone='$probs_of_using',
 field_officer='$postjson[field_officer]'
 
 ");
-    if($insert){ 
-       
-        $sql = "UPDATE schedule SET completed = ? WHERE topic='$topic' AND activity='$activity' AND field_officer='$field_officer'";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            //echo 'sql error2';  
-        } else {
-            mysqli_stmt_bind_param($stmt, "s", $completed);
-            mysqli_stmt_execute($stmt);
-            /*success message*/  
-            $return["error"];
-            $return["error"] = true;
-        }    
+if($insert){ 
+  $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
+}else{
+  $result = json_encode(array('success'=>false, 'msg'=>'Submission failed'));
+}
 
-    $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
-    //echo json_encode($return);
-    }else{
-        $result = json_encode(array('success'=>false, 'msg'=>'Submission failed'));
-    }
-    echo $result;
-    //echo mysql_errno($insert);
+echo $result;
 }

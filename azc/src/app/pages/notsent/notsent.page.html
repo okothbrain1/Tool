@@ -1,0 +1,38 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Not Sent</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button *ngFor="let dev of developers" [routerLink]="['/', 'developers', dev.id]">
+      <ion-avatar slot="start">
+        <img [src]="dev.img">
+      </ion-avatar>
+    </ion-item>
+      <ion-list>
+        <ion-item>
+          <h6>Data that was saved but not sent appears here, you can choose to submit it or discard it</h6>
+        </ion-item>
+        <ion-item lines="inset" *ngFor="let detail of details;index as slNo">
+          <ion-label ngStyle>
+            <p>ID: {{detail.id}}</p>
+            <h4> consent: {{detail.consent}}</h4>
+            <h4>farmers_name: {{detail.farmers_name}}</h4>
+            <h4>do_you_have_disability{{detail.do_you_have_disability}}</h4>
+            <h4>disability_type: {{detail.disability_type}}</h4>
+          </ion-label>
+          <ion-button color="danger" (click)="presentAlertforDelete('Are you sure?', detail.id)" slot="end">
+            <ion-icon name="trash-sharp"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" (click)="SubmitOfflineData(detail.id,detail.consent,detail.farmers_name,detail.do_you_have_disability,detail.disability_type)" slot="end">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+  </ion-list>
+</ion-content>

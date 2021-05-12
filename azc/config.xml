@@ -154,6 +154,5 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://localhost:8100" sessionid="21741ae3" />
-    <allow-navigation href="http://localhost:8101" sessionid="65e3b6d8" />
-    <allow-navigation href="http://localhost:8102" sessionid="c510cb45" />
+    <allow-navigation href="http://localhost:8101" sessionid="feffcc07" />
 </widget>

@@ -1,0 +1,383 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>casaupdate</ion-title>
+  </ion-toolbar>
+  <ion-searchbar 
+    showcancelbutton=""
+    (ionChange)="getData()"
+></ion-searchbar>
+</ion-header>
+<!-- Search implementation-->
+
+<ion-content>
+<!--  <ion-button (click)="getData()">getData</ion-button>
+<ion-list>
+  <ion-item *ngFor="let cpt of productList">
+      <h2>{{cpt.farmers_name}}</h2>
+  </ion-item>
+</ion-list>-->
+<!--Questionaire starts here-->
+<ion-item class="ion-margin">
+  <ion-label position="floating">Farmer ID</ion-label>
+ <ion-input type = "number" [(ngModel)]="id"clear-input="true"></ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label position="floating">Name of the farmer</ion-label>
+ <ion-input type = "text" [(ngModel)]="farmers_name"clear-input="true"></ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">What is your gender?</ion-label>
+   <ion-select  [(ngModel)]="What_is_your_gender">
+     <ion-select-option value="male">Male</ion-select-option>
+     <ion-select-option value="female">Female</ion-select-option>
+   </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+ <ion-label class="ion-text-wrap" position="floating">Do you have any form of disability?</ion-label>
+  <ion-select  [(ngModel)]="do_you_have_disability">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+</ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="do_you_have_disability=='Yes'">
+ <ion-label class="ion-text-wrap" position="floating">Indicate the form of disability</ion-label>
+  <ion-select  [(ngModel)]="disability_type">
+    <ion-select-option value="vision Impairment">Vision Impairment</ion-select-option>
+    <ion-select-option value="deaf or hard of hearing">Deaf or hard of hearing</ion-select-option>
+    <ion-select-option value="Mental health conditions">Mental health conditions</ion-select-option>
+    <ion-select-option value="intellectual disability">Intellectual disability</ion-select-option>
+    <ion-select-option value="acquired brain injury">Acquired brain injury</ion-select-option>
+    <ion-select-option value="autism spectrum disorder">Autism spectrum disorder</ion-select-option>
+    <ion-select-option value="physical disability">physical disability</ion-select-option>
+</ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">What is the primary  telephone number?</ion-label>
+ <ion-input type = "tel"  [attr.maxlength]="9" placeholder="Start with 7.."[(ngModel)]="tel_no1"clear-in put="true"></ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Are you registered on mobile money?</ion-label>
+   <ion-select [(ngModel)]="mm_reg_status">
+     <ion-select-option value="yes_with_a_transaction_in_the_last_6_months">Yes with a transaction in the last 6 months</ion-select-option>
+     <ion-select-option value="yes_but_dormant">Yes but dormant</ion-select-option>
+     <ion-select-option value="no">No</ion-select-option>
+   </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">What is your National id number (NIN)?</ion-label><br/>
+ <ion-input placeholder="14 characters start with CF or CM" type = "text" [attr.maxlength]="14" [(ngModel)]="nin"clear-in put="false"></ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Are you a member of CASA partners?</ion-label>
+ <ion-select  [(ngModel)]="farmer_org">
+   <ion-select-option  value="Yes">Yes</ion-select-option>
+   <!--<ion-select-option  value="No">No</ion-select-option>-->
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="farmer_org=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">What is the name of the CASA partner organisation you operate under?</ion-label>
+ <ion-select  [(ngModel)]="name_of_farmer_org">
+   <ion-select-option  value="CEDO">CEDO</ion-select-option>
+   <ion-select-option  value="ORUM">ORUM</ion-select-option>
+   <ion-select-option  value="Nyakyera ACE">Nyakyera ACE</ion-select-option>
+   <ion-select-option  value="Green Firm AfricaORUM">Green Firm Africa</ion-select-option>
+   <ion-select-option  value="Lira Resort Enterprise">Lira Resort Enterprise</ion-select-option>
+   <ion-select-option  value="Equator commodities LTD">Equator commodities LTD</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">In which season did you start having extension services and your produce aggregated</ion-label>
+ <ion-select   [(ngModel)]="year_services">
+ <ion-select-option *ngFor="let service of yearofservice " value="{{service}}">{{service}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Confirm the Production of the following crops on your farm</ion-label>
+ <ion-select   [(ngModel)]="Main_crop_enterprise">
+   <ion-select-option  value="beans">beans</ion-select-option>
+   <ion-select-option  value="sesame">sesame</ion-select-option>
+ </ion-select>
+</ion-item>
+<!--here-->
+<ion-item class="ion-margin" *ngIf="Main_crop_enterprise=='beans'">
+  <ion-label class="ion-text-wrap" position="floating">Specify the variety used for {{Main_crop_enterprise}}</ion-label>
+ <ion-select   [(ngModel)]="Variety_of_mainenterprise">
+ <ion-select-option *ngFor="let variety of mainenterprise1 " value="{{variety}}">{{variety}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="Main_crop_enterprise=='sesame'">
+  <ion-label class="ion-text-wrap" position="floating">Specify the variety used for {{Main_crop_enterprise}}</ion-label>
+ <ion-select   [(ngModel)]="Variety2_of_mainenterprise">
+ <ion-select-option *ngFor="let variet of mainenterprise2 " value="{{variet}}">{{variet}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="Main_crop_enterprise">
+  <ion-label class="ion-text-wrap" position="floating">On what size of your land do you intend to carry out the main crop</ion-label>
+ <ion-input type="number"[(ngModel)]="landsize_main_crop_enterprise" ></ion-input>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="Main_crop_enterprise">
+  <ion-label class="ion-text-wrap" position="floating">During which season do you prefer to produce {{Main_crop_enterprise}}</ion-label>
+ <ion-select   [(ngModel)]="season_of_planting">
+ <ion-select-option *ngFor="let season of seasons " value="{{season}}">{{season}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<!--This question is not part of the update tool but it has been added because it determines other fields-->
+<ion-item>  
+  <ion-label class="ion-text-wrap" position="floating">What crops did you grow last season ?</ion-label>  
+ <ion-select multiple="true" cancelText="Cancel" okText="Ok" [(ngModel)]="crops_grown_last_season">  
+   <ion-select-option *ngFor= "let crop of last_season" value="{{crop}}">{{crop}}</ion-select-option>    
+ </ion-select>
+</ion-item>
+
+<div *ngFor="let seed_much of crops_grown_last_season; let i=index">
+  <ion-item class="ion-margin" *ngIf="crops_grown_last_season">
+    <ion-label class="ion-text-wrap" position="floating">How much seed did you use in kgs for {{seed_much}} per acre</ion-label>
+   <ion-input type="number"[(ngModel)]="how_much_seed[i]" ></ion-input>
+  </ion-item>
+</div>
+<div *ngIf="crop_use=='commercial'">
+  <div *ngFor="let commercial of crops_grown_last_season; let i=index" >
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">Please specify the volume for subsistence for {{commercial}} (kgs)?</ion-label>
+     <ion-input type="text" [(ngModel)]="crop_commercial[i]"></ion-input>
+    </ion-item>
+  </div>
+</div>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Are you involved in bulking and collective marketing</ion-label>
+  <ion-select   [(ngModel)]="involved_in_marketing" >
+    <ion-select-option  value="yes_under_CasaPartner">Yes under CasaPartner</ion-select-option>
+    <ion-select-option  value="yes_with_others">Yes with others</ion-select-option>
+    <ion-select-option  value="no">no</ion-select-option>
+  </ion-select>
+</ion-item>
+<!--Where do you mainly sell your produce -->
+<ion-item class="ion-margin" *ngIf="name_of_farmer_org=='Nyakyera'">
+  <!--if involved under casa partner include the casa partner member that you selected as the first choice-->
+   <ion-label class="ion-text-wrap" position="floating">Where do you mainly sell your produce?</ion-label>
+  <ion-select   [(ngModel)]="sell_of_produce_Nyakyera" >
+    <ion-select-option  value="Nyakyera">Nyakyera</ion-select-option>
+    <ion-select-option  value="At your farm">At your farm</ion-select-option>
+    <ion-select-option  value="Open market">Open market</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="name_of_farmer_org=='GreenFirmAfrica'">
+   <ion-label class="ion-text-wrap" position="floating">Where do you mainly sell your produce?</ion-label>
+  <ion-select   [(ngModel)]="sell_of_produce_green" >
+    <ion-select-option  value="GreenFirmAfrica">GreenFirmAfrica</ion-select-option>
+    <ion-select-option  value="At your farm">At your farm</ion-select-option>
+    <ion-select-option  value="Open market">Open market</ion-select-option>
+    <ion-select-option  value="Grain marketing board">Grain marketing board</ion-select-option>
+    <ion-select-option  value="Middle men">Middle men</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="name_of_farmer_org=='EquatorCommodities'">
+   <ion-label class="ion-text-wrap" position="floating">Where do you mainly sell your produce?</ion-label>
+  <ion-select   [(ngModel)]="sell_of_produce_equator" >
+    <ion-select-option  value="EquatorCommodities">EquatorCommodities</ion-select-option>
+    <ion-select-option  value="At your farm">At your farm</ion-select-option>
+    <ion-select-option  value="Open market">Open market</ion-select-option>
+    <ion-select-option  value="Grain marketing board">Grain marketing board</ion-select-option>
+    <ion-select-option  value="Middle men">Middle men</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="name_of_farmer_org=='LiraResortLtd'">
+   <ion-label class="ion-text-wrap" position="floating">Where do you mainly sell your produce?</ion-label>
+  <ion-select   [(ngModel)]="sell_of_produce_liraresort" >
+    <ion-select-option  value="LiraResortLtd">LiraResortLtd</ion-select-option>
+    <ion-select-option  value="At your farm">At your farm</ion-select-option>
+    <ion-select-option  value="Open market">Open market</ion-select-option>
+    <ion-select-option  value="Grain marketing board">Grain marketing board</ion-select-option>
+    <ion-select-option  value="Middle men">Middle men</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="name_of_farmer_org=='CEDO'">
+   <ion-label class="ion-text-wrap" position="floating">Where do you mainly sell your produce?</ion-label>
+  <ion-select   [(ngModel)]="sell_of_produce_cedo" >
+    <ion-select-option  value="CEDO">CEDO</ion-select-option>
+    <ion-select-option  value="At your farm">At your farm</ion-select-option>
+    <ion-select-option  value="Open market">Open market</ion-select-option>
+    <ion-select-option  value="Grain marketing board">Grain marketing board</ion-select-option>
+    <ion-select-option  value="Middle men">Middle men</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="name_of_farmer_org=='ORUM'">
+   <ion-label class="ion-text-wrap" position="floating">Where do you mainly sell your produce?</ion-label>
+  <ion-select   [(ngModel)]="sell_of_produce_cedo" >
+    <ion-select-option  value="ORUM">ORUM</ion-select-option>
+    <ion-select-option  value="At your farm">At your farm</ion-select-option>
+    <ion-select-option  value="Open market">Open market</ion-select-option>
+    <ion-select-option  value="Grain marketing board">Grain marketing board</ion-select-option>
+    <ion-select-option  value="Middle men">Middle men</ion-select-option>
+  </ion-select>
+</ion-item>
+
+
+<ion-item class="ion-margin" *ngIf="name_of_farmer_org">
+  <ion-label >How does your produce reach {{name_of_farmer_org}}</ion-label>
+  <ion-select   [(ngModel)]="Marketlink" >
+    <ion-select-option  value="through Village agent">through Village agent</ion-select-option>
+    <ion-select-option  value="from community collection point">from community collection point</ion-select-option>
+    <ion-select-option  value="Through farmer groups">Through farmer groups</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Provide the name of the agent that collects/buys produce from you</ion-label>
+ <ion-select [(ngModel)]="agent_name">
+   <ion-select-option *ngFor="let agent of agents" value="{{agent}}">{{agent}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">By what means do you mainly deliver you produce to the market</ion-label>
+ <ion-select  [(ngModel)]="produce_transport" >
+   <ion-select-option  value="Vehicle">Vehicle</ion-select-option>
+   <ion-select-option  value="Bicycle">Bicycle</ion-select-option>
+   <ion-select-option  value="Motorcycle">Motorcycle</ion-select-option>
+   <ion-select-option  value="Human labor">Human labor</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Do you have access to training/ services from CASApartner?</ion-label>
+ <ion-select   [(ngModel)]="access_to_agric_ext_services" >
+   <ion-select-option  value="Yes">Yes</ion-select-option>
+   <ion-select-option  value="No">No</ion-select-option>
+ </ion-select>
+</ion-item>
+
+<ion-item>  
+  <ion-label class="ion-text-wrap" position="floating">What training/services have you received from CASA partners </ion-label>  
+ <ion-select multiple="true" cancelText="Cancel" okText="Ok" [(ngModel)]="extension_type_channel_receive">  
+   <ion-select-option  value="access to inputs (seeds, fertilisers, pesticides)">access to inputs (seeds, fertilisers, pesticides)</ion-select-option> 
+   <ion-select-option  value="financial literacy (credit access, insurance, financial mgt)">financial literacy (credit access, insurance, financial mgt)</ion-select-option> 
+   <ion-select-option  value="Nutrition_education">Nutrition_education</ion-select-option> 
+   <ion-select-option  value="Climate smart practices (GAP,land management)">Climate smart practices (GAP,land management)</ion-select-option>
+   <ion-select-option  value="market access">market access</ion-select-option>
+   <ion-select-option  value="Postharvest management (value addition)">Postharvest management (value addition)</ion-select-option>
+   <ion-select-option  value="Bulking & collective marketing">Bulking & collective marketing</ion-select-option>
+   <ion-select-option  value="Leadership skills">Leadership skills</ion-select-option>
+   <ion-select-option  value="gender mainstreaming ">gender mainstreaming </ion-select-option>
+ </ion-select>  
+</ion-item>
+<ion-item *ngIf="extension_type_channel_receive">  
+  <ion-label class="ion-text-wrap" position="floating">which practices have you adopted</ion-label>  
+ <ion-select multiple="true" cancelText="Cancel" okText="Ok" [(ngModel)]="adopted_practices">  
+   <ion-select-option *ngFor= "let adopt of adopted" value="{{adopt}}">{{adopt}}</ion-select-option>    
+ </ion-select>  
+</ion-item>
+<ion-item class="ion-margin" *ngIf="adopted_practices">
+  <ion-label class="ion-text-wrap" position="floating">Of the pracices which one do you use most</ion-label>
+ <ion-select   [(ngModel)]="most_mostadoptedpractice">
+   <ion-select-option *ngFor="let mostadopt of mostadopted" value="{{mostadopt}}">{{mostadopt}}</ion-select-option>
+ </ion-select>
+</ion-item> 
+<ion-item>  
+  <ion-label class="ion-text-wrap" position="floating">Rate the quality of services/training provided to you</ion-label>  
+ <ion-select ion-select    [(ngModel)]="Rate_services_training">  
+   <ion-select-option  value="very good">very good</ion-select-option> 
+   <ion-select-option  value="good">good</ion-select-option> 
+   <ion-select-option  value="average">average</ion-select-option> 
+   <ion-select-option  value="poor">poor</ion-select-option>
+   <ion-select-option  value="very poor">very poor</ion-select-option>
+ </ion-select>  
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">How frequently do you access extension services?</ion-label>
+ <ion-select   [(ngModel)]="frequently_access_ext_svcs" >
+   <ion-select-option  value="Every month">Every month</ion-select-option>
+   <ion-select-option  value="Quarterly">Quarterly</ion-select-option>
+   <ion-select-option  value="Bi-annually">Bi-annually</ion-select-option>
+   <ion-select-option  value="Once a year">Once a year</ion-select-option>
+   <ion-select-option  value="Other">Other</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">How accurate is the information?</ion-label>
+ <ion-select  [(ngModel)]="How_accurate_is_the_info" >
+   <ion-select-option  value="Very accurate">Very accurate</ion-select-option>
+   <ion-select-option  value="Sometimes accurate">Sometimes accurate</ion-select-option>
+   <ion-select-option  value="Not accurate">Not accurate</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="adopted_practices">
+  <ion-label class="ion-text-wrap" position="floating">Of practices you have adopted from the training, whats the main benefit you have achieved</ion-label>
+ <ion-select   [(ngModel)]="benefits_of_practices">
+   <ion-select-option *ngFor="let benefit of benefits" value="{{benefit}}">{{benefit}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Do you pay anything to access the extension services?</ion-label>
+ <ion-select   [(ngModel)]="pay_anything_to_access_ext_svc" >
+   <ion-select-option  value="Yes">Yes</ion-select-option>
+   <ion-select-option  value="No">No</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">who decides on what to plant</ion-label>
+  <ion-select  [(ngModel)]="hhplanting_decision">
+    <ion-select-option *ngFor="let plant of planting" value="{{plant}}">{{plant}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin" >
+  <ion-label class="ion-text-wrap" position="floating">who is involved in crop production phase </ion-label>
+ <ion-select   [(ngModel)]="hhproductionphase_decision">
+   <ion-select-option *ngFor="let produces of productions" value="{{produces}}">{{produces}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" >
+  <ion-label class="ion-text-wrap" position="floating">who is involved in the postharvet management phase in the household </ion-label>
+ <ion-select [(ngModel)]="hhpostharvet_decision">
+   <ion-select-option *ngFor="let harvest of harvesting" value="{{harvest}}">{{harvest}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" >
+  <ion-label class="ion-text-wrap" position="floating">who is involved in marketing and sale of produce in household </ion-label>
+ <ion-select   [(ngModel)]="hhmarketing_decision">
+   <ion-select-option *ngFor="let market of marketing" value="{{market}}">{{market}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" >
+  <ion-label class="ion-text-wrap" position="floating">Who decides on how and what to spend on the household income from the produce </ion-label>
+ <ion-select   [(ngModel)]="hhincome_decision">
+   <ion-select-option *ngFor="let income of incomes" value="{{income}}">{{income}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" >
+  <ion-label class="ion-text-wrap" position="floating">How many times do you have meals in a day </ion-label>
+ <ion-select   [(ngModel)]="meals_a_day">
+   <ion-select-option *ngFor="let meal of meals" value="{{meal}}">{{meal}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item class="ion-margin" >
+<ion-label class="ion-text-wrap" position="floating">How often do you eat vegetables </ion-label>
+ <ion-select   [(ngModel)]="Vegetables">
+   <ion-select-option *ngFor="let veg of vegetable" value="{{veg}}">{{veg}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item>
+<ion-label class="ion-text-wrap" position="floating">How often do you eat carbohydrates </ion-label>
+ <ion-select   [(ngModel)]="Carbohydrates">
+   <ion-select-option *ngFor="let carbo of carbohydrate" value="{{carbo}}">{{carbo}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item>
+<ion-label class="ion-text-wrap" position="floating">how often do you eat fruits </ion-label>
+ <ion-select   [(ngModel)]="fruits">
+   <ion-select-option *ngFor="let fruit of fruity" value="{{fruit}}">{{fruit}}</ion-select-option>
+ </ion-select>
+</ion-item>
+<ion-item>
+  <ion-label class="ion-text-wrap" position="floating">	how often to do you eat proteins </ion-label>
+   <ion-select   [(ngModel)]="proteins">
+     <ion-select-option *ngFor="let prot of proteiny" value="{{prot}}">{{prot}}</ion-select-option>
+   </ion-select>
+</ion-item>
+<ion-button (click)="UpdateData()" expand="block">
+  Submit
+</ion-button>
+
+</ion-content>

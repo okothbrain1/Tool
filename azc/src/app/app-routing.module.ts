@@ -63,6 +63,14 @@ const routes: Routes = [
     path: 'modal-popup',
     loadChildren: () => import('./modal-popup/modal-popup.module').then( m => m.ModalPopupPageModule)
   },
+  //{
+    //path: 'casaupdate',
+    //loadChildren: () => import('./casaupdate/casaupdate.module').then( m => m.CasaupdatePageModule)
+  //},
+  {
+    path: 'casaupdate',
+    loadChildren: () => import('./pages/casaupdate/casaupdate.module').then( m => m.CasaupdatePageModule)
+  },
 ];
 
 @NgModule({

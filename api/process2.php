@@ -387,8 +387,8 @@ if($postjson['aski']=="submit"){
         other_crops_intended='$postjson[other_crops_intended]',
 
         repeat_landsize_under_production_count='$count_crop_new_season',/**to be worked on*/
-        item_post1='',
-        item_name='',
+        item_post1='$crops',
+        item_name1='$crops',
         landsize_cropselected='$landsize_select',
         yield_per_acre='$yield_acreage',
         in_business_since='$business',
@@ -661,74 +661,9 @@ if($postjson['aski']=="submit"){
 
 if($insert){ 
   $result= json_encode(array('success'=>true, 'msg'=>'Submission successful'));
-}else{
-	//if (!mysqli_query($mysqli,$insert)) {
-		//printf("Error: %s\n", mysqli_error($conn));	  
-    $result = json_encode(array('success'=>false, 'msg'=>'Submission failed '.mysqli_error($mysqli).''));
-	//}
-  //$result = json_encode(array('success'=>false, 'msg'=>'Submission failed'));
+}else{  
+  $result = json_encode(array('success'=>false, 'msg'=>'Submission failed '.mysqli_error($mysqli).''));
 }
 
 echo $result;
 }
-
-//Performing an update on the database
-//$sql = "UPDATE cpt SET farmers_name='Doe' WHERE id=2";
-if($postjson['aski']=="update"){
-$id = $postjson['id'];
-$update = mysqli_query($mysqli, "UPDATE cpt SET 
-        farmers_name = '$postjson[farmers_name]'
-WHERE meta_instanceID='$id'");
-
-if($update){ 
-  $result= json_encode(array('success'=>true, 'msg'=>'Update Submission successful'));
-}else{
-	//if (!mysqli_query($mysqli,$insert)) {
-		//printf("Error: %s\n", mysqli_error($conn));	  
-    $result = json_encode(array('success'=>false, 'msg'=>'Update Submission failed '.mysqli_error($mysqli).''));
-	//}
-  //$result = json_encode(array('success'=>false, 'msg'=>'Submission failed'));
-}
-
-echo $result;
-}
-}
-
-
-//Creating a search on the database
-		/*if($postjson['aski']=="search")){
-			//$name = $_GET['name'];
-      $searchvalue=$postjson['farmers_name'];
-      //$insert = mysqli_query($mysqli, "INSERT INTO cpt SET
-			$searchquery =mysqli_query($mysqli "SELECT * FROM cpt WHERE farmers_name LIKE '%" .$searchvalue. "%'");
-		else {
-			$query = "SELECT * FROM cpt";
-    }
-    if($searchquery){
-      $data= json_encode(array('success'=>true, 'msg'=>'Search successful'));
-    }
-    else{
-      $data = json_encode(array('success'=>false, 'msg'=>'Search failed'.mysqli_error($mysqli).''));
-    }
-    echo $data;
-  }
-*/
-
-//Fetching all the data from the database
-  /*$searchData = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM cpt "));       
-      $data = array(
-      'farmers_name'  => $searchData['farmers_name'],
-      'tel_no1' => $searchData['tel_no1']
-      );
-      if($searchData){ 
-          $result= json_encode(array('success'=>true, 'result'=>$data));
-      }else{
-          $result = json_encode(array('success'=>false));
-      }
-  echo $result;
-*/
-
-//id int(13) 
-//ALTER TABLE centetable
-//  MODIFY id int(13)  AUTO_INCREMENT, AUTO_INCREMENT=311;
-//COMMIT;

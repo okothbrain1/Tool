@@ -9,8 +9,8 @@ import 'rxjs/add/operator/timeout';
 export class AgentService {
   //api json
   //server: string ="http://3.12.97.246/cente-api/api/";
-  //server: string ="http://localhost/azcollect/api/";
-  server:string ="http://3.12.97.246/casa/casa_api/";
+  server: string ="http://localhost/azcollect/api/";
+  //server:string ="http://3.12.97.246/casa/casa_api/";
 
   constructor(   
       private http: HttpClient

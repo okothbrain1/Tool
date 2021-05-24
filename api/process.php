@@ -183,4 +183,18 @@ elseif($postjson['aski']=="update"){
     
     echo $result;
     }
-    
+
+/* Counting the total number of submissions for each user*/
+elseif($postjson['aski']=="checkNumbers"){
+$sqli = "SELECT COUNT(SubmitterName) AS total FROM cpt WHERE SubmitterName= '$postjson[field_officer]'";
+$res = mysqli_query($mysqli, $sqli);
+$values = mysqli_fetch_assoc($res);
+$number_rows = $values['total'];
+//echo $number_rows;
+if($res){ 
+    $result= json_encode(array('success'=>true, 'result'=>$number_rows));
+}else{
+    $result = json_encode(array('success'=>false));
+}
+echo $result;
+}   

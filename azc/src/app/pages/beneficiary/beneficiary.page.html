@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-button fill="solid"  size="medium" (click)="Alertforback('You are about to lose your data')">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>CREATE PROFILE</ion-title>
     <ion-buttons slot="end" *ngIf="consent">
@@ -20,8 +22,10 @@
      <p>Please note that on acceptance of profiling,you agree and consent to your data being showed and shared to different institutions and organisations for business purposes only </p>
      <p>Note: You can only submit this form once you accept the terms and conditions.</p>
     </ion-item>
+    <ion-item>
+      <ion-badge slot="start">{{profiles}} Profile submitted</ion-badge>
+    </ion-item>
       <ion-item >
-
          <ion-label class="ion-text-wrap" ><strong>Click to Accept terms and conditions</strong></ion-label>
         <ion-checkbox slot="start" [(ngModel)]="consent" [indeterminate]="indeterminateState" (click)="hideShow()"></ion-checkbox>
       </ion-item>
@@ -29,17 +33,17 @@
        <ion-label class="ion-text-wrap" position="floating">Name of Field Officer</ion-label>
       <ion-input type="text" [(ngModel)]="fo" value="{{name}}"readonly></ion-input>
     </ion-item>
-    </ion-list>
-  
+    </ion-list>  
     <!--Centenary fields start-->
   <div> 
     <ion-item class="ion-margin">
        <ion-label position="floating">Name of the farmer</ion-label>
-      <ion-input type = "text" [(ngModel)]="farmers_name"clear-input="true"></ion-input>
+      <ion-input  type = "text" [(ngModel)]="farmers_name" clear-input="true" ></ion-input>
     </ion-item>
+
     <ion-item class="ion-margin">
         <ion-label class="ion-text-wrap" position="floating">What is your gender?</ion-label>
-         <ion-select  [(ngModel)]="What_is_your_gender">
+         <ion-select  [(ngModel)]="What_is_your_gender" >
            <ion-select-option value="male">Male</ion-select-option>
            <ion-select-option value="female">Female</ion-select-option>
          </ion-select>
@@ -119,9 +123,9 @@
           <ion-select-option value="no">No</ion-select-option>
         </ion-select>
     </ion-item>
-    <ion-item class="ion-margin" *ngIf="mm_reg_status=='yes_with_a_transaction_in_the_last_6_months' || 'yes_but_dormant'">
+    <ion-item class="ion-margin" *ngIf="mm_reg_status=='yes_with_a_transaction_in_the_last_6_months' || mm_reg_status=='yes_but_dormant'">
       <ion-label position="floating" >Which is the registered number?</ion-label>
-      <ion-input type = "text" [(ngModel)]="registered_mm_number"clear-in put="true"></ion-input>
+      <ion-input type = "tel" [attr.maxlength]="9" placeholder="Start with 7.." [(ngModel)]="registered_mm_number"clear-in put="true"></ion-input>
     </ion-item>
     <ion-item class="ion-margin">
        <ion-label class="ion-text-wrap" position="floating">What is your National id number (NIN)?</ion-label><br/>
@@ -339,7 +343,13 @@
         <ion-select-option *ngFor="let mobileliteracy of mobileLiteracys" value="{{mobileliteracy}}">{{mobileliteracy}}</ion-select-option>
       </ion-select>
     </ion-item>
-    
+    <!--Google maps-->
+    <ion-button>Start Geoshape</ion-button>
+    <!-- Div for the maps start-->
+    <button ion-button (click)="startBackgroundGeolocation()">Start Background Geolocation</button>
+    <button ion-button (click)="stopBackgroundGeolocation()">Stop Background Geolocation</button>
+
+    <!-- Div for the maps end-->
     <ion-item class="ion-margin">
        <ion-label class="ion-text-wrap" position="floating">Do you have any dependants?</ion-label>
       <ion-select  [(ngModel)]="any_dependants">
@@ -487,12 +497,12 @@
        <ion-label class="ion-text-wrap" position="floating">What are the other sources of income(e.g carpentry, mechanic)</ion-label>
       <ion-input type="text"[(ngModel)]="other_income_activity" ></ion-input>
     </ion-item>
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" *ngIf="other_income_activity">
        <ion-label class="ion-text-wrap" position="floating">Since when have you been involved in {{other_income_activity}}</ion-label>
       <ion-input type="date"[(ngModel)]="years_of_experince" ></ion-input>
     </ion-item>
 
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" *ngIf="other_income_activity">
        <ion-label class="ion-text-wrap" position="floating">reliability of other income in {{other_income_activity}}</ion-label>
       <ion-select  [(ngModel)]="other_income_reliability">
         <ion-select-option  value="monthly">monthly</ion-select-option>
@@ -500,7 +510,7 @@
         <ion-select-option  value=" sporodic"> sporodic</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" *ngIf="other_income_activity">
        <ion-label class="ion-text-wrap" position="floating">amount earned in {{other_income_activity}}</ion-label>
       <ion-input type="number"[(ngModel)]="amount" ></ion-input>
     </ion-item>

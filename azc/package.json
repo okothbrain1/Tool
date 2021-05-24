@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
     "@ionic-native/android-permissions": "^5.32.0",
+    "@ionic-native/background-geolocation": "^5.33.0",
     "@ionic-native/camera": "^5.29.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/file": "^5.31.1",
@@ -29,8 +30,10 @@
     "@ionic-native/geolocation": "^5.31.1",
     "@ionic-native/http": "^5.31.1",
     "@ionic-native/ionic-webview": "^5.31.1",
+    "@ionic-native/local-notifications": "^5.33.0",
     "@ionic-native/location-accuracy": "^5.32.0",
     "@ionic-native/native-geocoder": "^5.31.1",
+    "@ionic-native/native-storage": "^5.33.0",
     "@ionic-native/network": "^5.31.1",
     "@ionic-native/splash-screen": "^5.29.0",
     "@ionic-native/sqlite": "^5.31.1",
@@ -59,6 +62,7 @@
     "cordova-android": "^9.0.0",
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-advanced-http": "^3.1.0",
+    "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^5.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.2",
@@ -68,6 +72,7 @@
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-nativegeocoder": "^3.4.1",
     "cordova-plugin-network-information": "^2.0.2",
     "cordova-plugin-request-location-accuracy": "^2.3.0",
@@ -96,7 +101,10 @@
       "cordova-sqlite-storage": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-nativegeocoder": {},
-      "cordova-plugin-geolocation": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To track your walks",
+        "GPS_REQUIRED": "true"
+      },
       "cordova-plugin-network-information": {},
       "cordova-plugin-x-toast": {},
       "cordova-plugin-whitelist": {},
@@ -112,7 +120,8 @@
       "cordova-plugin-advanced-http": {},
       "cordova-plugin-request-location-accuracy": {
         "PLAY_SERVICES_LOCATION_VERSION": "16.+"
-      }
+      },
+      "cordova-plugin-local-notification": {}
     },
     "platforms": [
       "android"

@@ -36,6 +36,10 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 
 import { DatabaseService} from './services/database.service';
 
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -68,8 +72,14 @@ import { DatabaseService} from './services/database.service';
     SQLitePorter,
     SQLite,
     DatabaseService,
+    NativeStorage,
+    BackgroundGeolocation,
+    LocalNotifications,
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule{
+  
+}

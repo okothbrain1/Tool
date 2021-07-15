@@ -34,7 +34,7 @@ export class CasaupdatePage implements OnInit {
   //farmers_name:string="";
   disabledButton;
   productList: any;
-
+  farmer_id:number=null;
   farmers_name:string="";
   do_you_have_disability:string="";
   disability_type:string="";
@@ -83,12 +83,14 @@ export class CasaupdatePage implements OnInit {
   Carbohydrates:string="";
   fruits:string="";
   proteins:string="";
-  id: number;
+  //farmer_id: number;
   What_is_your_gender: string="";
   fo: string="";
   datastorage: any;
   name: any;
   field_officer=this.fo;
+
+  details: DetailsInterface[];
   
   constructor(
     private router:Router,
@@ -123,6 +125,14 @@ export class CasaupdatePage implements OnInit {
       this.name = this.datastorage.name;
       this.disabledButton = false;
   });
+  
+  setInterval(() => {
+    this.storage.set('farmerData', [this.farmer_id, this.farmers_name,  this.do_you_have_disability, this.disability_type, this.tel_no1,this.nin, this.What_is_your_gender,  this.farmer_org,this.name_of_farmer_org, this.year_services, this.Main_crop_enterprise, this.Variety_of_mainenterprise, this.Variety2_of_mainenterprise, this.landsize_main_crop_enterprise, this.season_of_planting, this.crops_grown_last_season, this.how_much_seed, this.crop_commercial, this.involved_in_marketing, this.sell_of_produce_Nyakyera, this.sell_of_produce_green, this.sell_of_produce_equator, this.sell_of_produce_liraresort, this.sell_of_produce_cedo, this.sell_of_produce_orum, this.Marketlink, this.agent_name, this.produce_transport, this.access_to_agric_ext_services, this.extension_type_channel_receive, this.adopted_practices, this.most_mostadoptedpractice, this.Rate_services_training, this.frequently_access_ext_svcs, this.benefits_of_practices, this.pay_anything_to_access_ext_svc, this.How_accurate_is_the_info, this.hhplanting_decision, this.hhproductionphase_decision, this.hhpostharvet_decision, this.hhmarketing_decision, this.hhincome_decision, this.meals_a_day, this.Vegetables, this.Carbohydrates, this.fruits, this.proteins]);
+  }, 3000);
+  this.storage.get('farmerData').then((res)=>{
+    console.log(res);
+    [this.farmer_id, this.farmers_name,  this.do_you_have_disability, this.disability_type, this.tel_no1,this.nin, this.What_is_your_gender,  this.farmer_org,this.name_of_farmer_org, this.year_services, this.Main_crop_enterprise, this.Variety_of_mainenterprise, this.Variety2_of_mainenterprise, this.landsize_main_crop_enterprise, this.season_of_planting, this.crops_grown_last_season, this.how_much_seed, this.crop_commercial, this.involved_in_marketing, this.sell_of_produce_Nyakyera, this.sell_of_produce_green, this.sell_of_produce_equator, this.sell_of_produce_liraresort, this.sell_of_produce_cedo, this.sell_of_produce_orum, this.Marketlink, this.agent_name, this.produce_transport, this.access_to_agric_ext_services, this.extension_type_channel_receive, this.adopted_practices, this.most_mostadoptedpractice, this.Rate_services_training, this.frequently_access_ext_svcs, this.benefits_of_practices, this.pay_anything_to_access_ext_svc, this.How_accurate_is_the_info, this.hhplanting_decision, this.hhproductionphase_decision, this.hhpostharvet_decision, this.hhmarketing_decision, this.hhincome_decision, this.meals_a_day, this.Vegetables, this.Carbohydrates, this.fruits, this.proteins]=res;
+});
   }
 
   adopted=[
@@ -628,7 +638,7 @@ export class CasaupdatePage implements OnInit {
     "Ziwa John"
     ];
     async UpdateData(){
-      if(this.id==null){
+      if(this.farmer_id==null){
         this.presentToast('Farmer ID is required');
       }
       else if(this.farmers_name==""){
@@ -965,7 +975,7 @@ export class CasaupdatePage implements OnInit {
         return new Promise(resolve => {
             let body = {
               aski:'update',
-              id: this.id,
+              id: this.farmer_id,
               farmers_name:this.farmers_name,
               What_is_your_gender:this.What_is_your_gender,
               do_you_have_disability:this.do_you_have_disability,
@@ -1022,7 +1032,7 @@ export class CasaupdatePage implements OnInit {
               this.disabledButton = false;
               this.presentToast(res.msg);
               this.router.navigate(['/casaupdate']);
-              this.id=null;
+              this.farmer_id=null;
               this.farmers_name="";
               this.What_is_your_gender="";
               this.do_you_have_disability="";
@@ -1088,15 +1098,79 @@ export class CasaupdatePage implements OnInit {
         }
       
     }
-  
-  //Fetch all the data from the database
-  getData(){
-    this.http.get("http://localhost/azcollect/api/process2.php").subscribe( output => {
-    this.productList = JSON.parse(output["_body"]); 
-    }, err =>{
-    console.log(err); 
-    }); 
-  }  
+addDetailsUpdate(farmer_id :number, farmers_name :string,  do_you_have_disability :string, disability_type :string, tel_no1 :string, nin :string, What_is_your_gender :string, farmer_org:string, name_of_farmer_org :string, year_services :string, Main_crop_enterprise :string, Variety_of_mainenterprise :string, Variety2_of_mainenterprise :string, landsize_main_crop_enterprise :number, season_of_planting :string, crops_grown_last_season :any[], how_much_seed :any[], crop_commercial :any[], involved_in_marketing :string, sell_of_produce_Nyakyera :string, sell_of_produce_green :string, sell_of_produce_equator :string, sell_of_produce_liraresort :string, sell_of_produce_cedo :string, sell_of_produce_orum :string, Marketlink :string, agent_name :string, produce_transport :string, access_to_agric_ext_services :string, extension_type_channel_receive :any[], adopted_practices :any[], most_mostadoptedpractice :string, Rate_services_training :string, frequently_access_ext_svcs :string, benefits_of_practices :string, pay_anything_to_access_ext_svc :string, How_accurate_is_the_info :string, hhplanting_decision :string, hhproductionphase_decision :string, hhpostharvet_decision :string, hhmarketing_decision :string, hhincome_decision :string, meals_a_day :string, Vegetables :string, Carbohydrates :string, fruits :string, proteins:string
+) {  
+    if(this.farmer_id==null){
+        this.presentToast('The farmer ID is required');
+    }/*else if(this.farmers_name==""){
+      this.presentToast('The farmers_name is required');
+    }else if(this.do_you_have_disability==""){
+      this.presentToast('The do_you_have_disability is required');
+    }/*else if(this.disability_type==""){
+      this.presentToast('The disability_type is required');
+    }*/else{
+        this.db.addDetailsUpdate(farmer_id, farmers_name,  do_you_have_disability, disability_type, tel_no1, nin, What_is_your_gender,  farmer_org,name_of_farmer_org, year_services, Main_crop_enterprise, Variety_of_mainenterprise, Variety2_of_mainenterprise, landsize_main_crop_enterprise, season_of_planting, crops_grown_last_season, how_much_seed, crop_commercial, involved_in_marketing, sell_of_produce_Nyakyera, sell_of_produce_green, sell_of_produce_equator, sell_of_produce_liraresort, sell_of_produce_cedo, sell_of_produce_orum, Marketlink, agent_name, produce_transport, access_to_agric_ext_services, extension_type_channel_receive, adopted_practices, most_mostadoptedpractice, Rate_services_training, frequently_access_ext_svcs, benefits_of_practices, pay_anything_to_access_ext_svc, How_accurate_is_the_info, hhplanting_decision, hhproductionphase_decision, hhpostharvet_decision, hhmarketing_decision, hhincome_decision, meals_a_day, Vegetables, Carbohydrates, fruits, proteins
+
+          ).then(data => {
+          this.details = data;
+        });
+        this.presentToast("Profile saved locally, you can submit it later");
+        this.disabledButton = false;
+        this.farmer_id=null;
+              this.farmers_name="";
+              this.What_is_your_gender="";
+              this.do_you_have_disability="";
+              this.disability_type="";              
+              this.tel_no1="";             
+              this.mm_reg_status="";
+              this.nin="";
+              //Casa Data 
+              this.farmer_org="";
+              this.name_of_farmer_org="";
+              this.year_services="";              
+              //expenditure
+              this.Main_crop_enterprise;              
+              this.Main_crop_enterprise="";
+
+              this.how_much_seed=[];
+
+            this.crop_commercial=[];  
+            this.involved_in_marketing="";
+            this.sell_of_produce_Nyakyera="";
+            this.sell_of_produce_green="";
+            this.sell_of_produce_equator="";
+            this.sell_of_produce_liraresort="";
+            this.sell_of_produce_cedo="";
+            this.sell_of_produce_orum="";
+            this.Marketlink="";
+            this.agent_name="";
+            this.produce_transport="";            
+            this.access_to_agric_ext_services="";
+            this.extension_type_channel_receive=[];
+            this.adopted_practices=[];
+            this.most_mostadoptedpractice="";
+            this.Rate_services_training="";
+            this.frequently_access_ext_svcs="";
+            this.benefits_of_practices="";
+            this.pay_anything_to_access_ext_svc="";
+            this.How_accurate_is_the_info;
+            this.Variety_of_mainenterprise=""; //it should be after main crop enterprisehhplanting_decision;
+            this.Variety2_of_mainenterprise="";
+            this.landsize_main_crop_enterprise=null;
+            this.season_of_planting="",
+            this.hhproductionphase_decision=""; 
+            this.hhpostharvet_decision="";
+            this.hhmarketing_decision="";
+            this.hhincome_decision="";
+            this.meals_a_day="";
+            this.Vegetables=""; 
+            this.Carbohydrates="";
+            this.fruits="";
+            this.proteins="";
+      this.router.navigate(['/casaupdate']);
+      }
+  }
+ 
 
   async presentAlert(a) {
     const alert = await this.alertCtrl.create({
@@ -1104,6 +1178,13 @@ export class CasaupdatePage implements OnInit {
       header: a,
       backdropDismiss: false,
       buttons: [
+        {
+          text: 'Save and submit when online',
+          handler: () => {
+            this.addDetailsUpdate(this.farmer_id, this.farmers_name,  this.do_you_have_disability, this.disability_type, this.tel_no1,this.nin, this.What_is_your_gender,  this.farmer_org,this.name_of_farmer_org, this.year_services, this.Main_crop_enterprise, this.Variety_of_mainenterprise, this.Variety2_of_mainenterprise, this.landsize_main_crop_enterprise, this.season_of_planting, this.crops_grown_last_season, this.how_much_seed, this.crop_commercial, this.involved_in_marketing, this.sell_of_produce_Nyakyera, this.sell_of_produce_green, this.sell_of_produce_equator, this.sell_of_produce_liraresort, this.sell_of_produce_cedo, this.sell_of_produce_orum, this.Marketlink, this.agent_name, this.produce_transport, this.access_to_agric_ext_services, this.extension_type_channel_receive, this.adopted_practices, this.most_mostadoptedpractice, this.Rate_services_training, this.frequently_access_ext_svcs, this.benefits_of_practices, this.pay_anything_to_access_ext_svc, this.How_accurate_is_the_info, this.hhplanting_decision, this.hhproductionphase_decision, this.hhpostharvet_decision, this.hhmarketing_decision, this.hhincome_decision, this.meals_a_day, this.Vegetables, this.Carbohydrates, this.fruits, this.proteins
+);
+          }
+        },
         {
           text: 'Try Again',
           handler: () => {

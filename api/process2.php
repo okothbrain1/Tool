@@ -254,9 +254,9 @@ if($postjson['aski']=="submit"){
     file_put_contents($file1, $image_base64);
 
     $image_type2 = $postjson['ID_photo_url'];
-    $imagebase64 = base64_decode($image_type2);
+    $imagebase64_id = base64_decode($image_type2);
     $file2 = UPLOAD_DIR . uniqid() . '.png';
-    file_put_contents($file2, $imagebase64);
+    file_put_contents($file2, $imagebase64_id);
     //Obtaining the device MAC address
     $MAC = exec('getmac');
     $MAC = strtok($MAC, ' ');

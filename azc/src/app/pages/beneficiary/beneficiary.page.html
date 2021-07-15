@@ -219,7 +219,15 @@
        <ion-label class="ion-text-wrap" position="floating">What is {{next_of_kin}} phone number?</ion-label>
       <ion-input placeholder="Start with 7" [attr.maxlength]="9" type = "text" [(ngModel)]="next_of_kin_phone_no"clear-input="true"></ion-input>
     </ion-item>
-    <ion-item class="ion-margin">
+    <!--REGION, DISTRICT AND SUBCOUNTY-->
+    <ion-searchbar placeholder="Search for Either District, Subcounty or Region(but all)" [(ngModel)]="term" animated="true"></ion-searchbar>
+    <ion-item class="ion-margin" *ngIf="term">
+      <ion-label class="ion-text-wrap">District and Subcounty and Region</ion-label>
+     <ion-select   [(ngModel)]="region_dist_subcounty">
+     <ion-select-option *ngFor="let item of district_data | filter:term"  value="{{item.District}},{{item.Subcounty}},{{item.Region}}">{{item.District}},{{item.Subcounty}},{{item.Region}} region</ion-select-option>
+     </ion-select>
+    </ion-item>
+  <!--  <ion-item class="ion-margin">
        <ion-label class="ion-text-wrap" position="floating">region</ion-label>
         <ion-select [(ngModel)]="region">
           <ion-select-option value="central">central</ion-select-option>
@@ -239,9 +247,9 @@
     <ion-item class="ion-margin" *ngIf="distr=='other'">
       <ion-label position="floating" >specify other district</ion-label><br/>
       <ion-input type = "text" [(ngModel)]="other_district"clear-in put="true"></ion-input>
-    </ion-item>
+    </ion-item>-->
     <!--I need to figure out the logic for not equal to for distr below-->
-    <ion-item class="ion-margin" *ngIf="distr">
+    <!--<ion-item class="ion-margin" *ngIf="distr">
        <ion-label class="ion-text-wrap" position="floating">subcounty</ion-label>
       <ion-select  [(ngModel)]="subcounty">
         <ion-select-option *ngFor="let subcounty of subcounties" value="{{subcounty}}">{{subcounty}}</ion-select-option>
@@ -254,7 +262,7 @@
     <ion-item class="ion-margin" *ngIf="other_district">
        <ion-label class="ion-text-wrap" position="floating">Specify subcounty other district</ion-label>
       <ion-input type = "text" [(ngModel)]="subcounty_other_district"clear-input="true" ></ion-input>
-    </ion-item>
+    </ion-item>-->
     <!--
     <ion-item class="ion-margin">
        <ion-label class="ion-text-wrap" position="floating">soil type</ion-label>

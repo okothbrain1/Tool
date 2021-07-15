@@ -15,7 +15,7 @@ export class NotsentPage implements OnInit {
   id: number;
   fo: string="";
   disabledButton;
-
+  farmer_id: number=null; //added
   consent:boolean=false;
   farmers_name:string="";
   do_you_have_disability:string="";
@@ -337,12 +337,26 @@ details: DetailsInterface[];
       .then(data => this.details = data);
       this.presentToast("You have deleted this form");
   }
+//Delete for casa Update
+  deleteDetailsUpdate(id: number) {
+    this.db.deleteDetailsUpdate(id)
+      .then(data => this.details = data);
+      this.presentToast("You have deleted this form");
+  }
 
   dismissOnSubmit(id: number){
     this.db.deleteDetails(id)
       .then(data => this.details = data);
       this.presentToast("You Form has been submitted successfully");
   }
+//Dismiss for casaUpdate
+  dismissOnSubmitUpdate(id: number){
+    this.db.deleteDetailsUpdate(id)
+      .then(data => this.details = data);
+      this.presentToast("You Form has been submitted successfully");
+  }
+
+    
   //submitting data that is stored locally, more columns to be added. 
   async SubmitOfflineData(id: number, consent: boolean, farmers_name:string, do_you_have_disability:string,disability_type:string, own_a_mobile_phone:string,What_type_of_phone_do_you_own:string,No_of_contacts:number,tel_no1:string,tel_No_2:string,service_provider:string,Specify_svc_provider:string,mm_reg_status:string,registered_mm_number:string,nin:string,ID_photo_url:string,Photo_url:string,occupation:string,specify_other_occupation:string,Martial_status:string,What_is_your_gender:string,name_of_husband:string,number_of_wives_husbands:string,name_first_wife:string,name_second_wife:string,status_in_a_family:string,next_of_kin:string,next_of_kin_has_contact:string,	next_of_kin_phone_no:string,region:string,distr:string,other_district:string,subcounty:string,other_subcounty:string,subcounty_other_district:string,soiltype:string,parish: string,village:string,nearest_town:string,resident_since:string,Description_of_location:string,DOB:string,level_of_education:string,head_of_the_household:string,la1:string,lo1:string,acc1:string,Mobile_literacy:string,any_dependants:string,dependant_no:string,dependants_age_bracket:any[],farmer_org:string,name_of_farmer_org:string,belong_farmergp:string,name_farmergp:string, year_services:string,position_in_FO:string,Your_position_in_the_fo:string,male_members_in_FO:string,female_members_in_FO:string,Affiliation:string,Name_of_connected_ACE_or_DFA:string,main_income_source:string,mainincome_since:string,sector:string,main_income_relaibility:string,main_income_amount:string,annual_income:number,other_income_sources:string,other_income_activity:string,years_of_experince:string,other_income_reliability:string,amount:number,income_trend:string,access_to_Health_services:string,health_expense:number,school_going_children:string,no_of_school_going_children:number,school_fees_expense:string,what_is_the_land_tenor:string,Specify_other:string,value_of_land:string,own_any_farm_machinery:any[],house_ownership:string,house_structure:string,Farm_size:number,total_land_size:number,Main_crop_enterprise:string,Variety_of_mainenterprise:string,Variety2_of_mainenterprise:string,landsize_main_crop_enterprise:number,additional_land_main_enterprise:number,season_of_planting:string,yield_expected_main_enterprise:string,farm_at_residence:string,la2:string,lo2:string,acc2:string,postharvest_mgt:string,produce_storage:string,preservation:string,crops_for_new_season:any[],other_crops_intended:string,landsize_cropselected:any[],yield_per_acre:any[],in_business_since:any[],number_of_employees:string,livestock:any[],specify_livestock:string,cattle_number:number,goat_number:number,sheep_number:number,chicken_number:number,pigs_number:number,donkey_number:number,Did_you_plant_last_season:string,crops_grown_last_season:any[],Specify_other_crops_grown:string,yield_of_maize_with_adequate_rain_per_acre:number,yield_of_beans_with_adequate_rain_per_acre:number,yield_of_sesame_with_adequate_rain_per_acre:number,yield_of_soyabean_with_adequate_rain_per_acre:number,yield_of_rice_with_adequate_rain_per_acre:number,yield_of_millet_with_adequate_rain_per_acre:number,yield_of_sorghum_with_adequate_rain_per_acre:number,yield_of_irish_potatoes_with_adequate_rain_per_acre:number,yield_of_cotton_with_adequate_rain_per_acre:number,yield_of_sweet_potatoes_with_adequate_rain_per_acre:number,yield_of_sunflower_with_adequate_rain_per_acre:number,yield_of_groundnuts_with_adequate_rain_per_acre:number,yield_of_coffee_with_adequate_rain_per_acre:number,yield_of_banana_with_adequate_rain_per_acre:number,yield_of_cassava_with_adequate_rain_per_acre:number,  crops_stored_from_last_season:string,storage_time:string,disturbances_in_storage:string,Specify_others:string,yield_last_season:any[],yield_with_drought:any[],year_of_severe_drought:string,how_much_seed:any[],maize_per_kg: number,beans_per_kg:number,rice_per_kg: number,sesame_per_kg: number,soyabean_per_kg:number,millet_per_kg: number,sorghum_per_kg: number,irish_potatoes_per_kg:number,cotton_per_kg:number,sweet_potatoes_per_kg:number,sunflower_per_kg: number,ground_nuts_per_kg: number,coffee_per_kg: number,Banana_per_bunch:number,cassava_per_kg: number,seed_variety:any[],Did_you_apply_fertilizer:string,Specify_the_type:string,organic_specify:string,Specify_other_organic:string,inorganic_Specify:any[],fertilizer_type:any[],fertilizer_amount:any[],use_pesticides_or_herbicides:string,Please_specify_which_one:string,pesticide_effectiveness:string,crop_use:string,crop_subsistence:any[],crop_commercial:any[],income_from_crops:any[],involved_in_marketing:string,sell_of_produce_Nyakyera:string,sell_of_produce_green:string,sell_of_produce_equator:string,sell_of_produce_liraresort:string,sell_of_produce_cedo:string,sell_of_produce_orum:string,Marketlink:string,agent_name:string,produce_transport:string,employ_any_farm_labour:string,Specify_their_task:any[],Who_assisted_you:any[],How_much_did_you_pay_them:number,Are_you_aware_of_climate_shock:string,which_ones_you_are_aware_of:string,training_on_addressing_climate:string,Please_specify:any[],Which_crops_for_rotation:string,_1st_choice:string,_2nd_choice:string,_3rd_choice:string,knoledge_of_rain_date:string,heard_of_agri_insurance:string,access_to_agri_insurance:string,Please_specify_the_agri_insurance_type:any[],Specify_the_insurance_provider: string,fair_charge_for_insurance: string,prefer_ordinary_or_az_bunlde: string,challenges_last_season: any[],Specify: string,What_type_of_pests: string,type_of_weather_and_effect: string,Do_you_have_a_bank_account: string,financial_access: string,transaction_monthly_costs: string,Specify_other_monthly_transaction_costs: string,travel_distance:string,specify_other_travel_distance:string,Have_you_ever_received_credit: string,no_of_times_borrowed: string,loanoutstanding: string,How_much_repayment_was_made_per_month: string,delay_time_for_repayment: string,How_do_you_keep_your_money: any[],financial_transaction_challeng: any[],Specify_Other_financial_transaction_challeng: string,action_access_to_financial_svc: string,access_to_agric_ext_services: string,How_do_you_access_Agric_ext_sv: any[],extension_type_channel_receive: any[],adopted_practices: any[],most_mostadoptedpractice: string,Rate_services_training: string,frequently_access_ext_svcs: string,is_information_provided_accurt: string,trainingappropriate: string,benefits_of_practices: string,pay_anything_to_access_ext_svc: string,training: any[],pay_per_season: string,pest_fertilizer_pesticide_info: any[],Do_you_receive_weather_data: string,access_to_weather_data:any[],How_accurate_is_the_info: string,most_harmful_info: string,biggest_prob_in_data_access: string,spend_on_your_phone_monthly: string,main_phone_use: any[],Voice_calling_and_receiving:string,SMS:string,Internet:string,Social_media:string,subscribed_to_info_svces_on_ph: string,services_suscribed_to:any[],training_on_using_phone_servic:string,training_on_weather_alerts: string,Who_provided_the_training_on_weather_alerts: string,trainig_on_insurance: string,Who_provided_the_training_on_insurance: string,probs_of_using_cellphone: any[],hhplanting_decision:string,hhproductionphase_decision:string,hhpostharvet_decision:string,hhmarketing_decision:string,hhincome_decision:string,meals_a_day:string,Vegetables:string,Carbohydrates:string,fruits:string,proteins:string,farmers_cooperation_responding:string,how_well_agent_knows_beneficiary:string,accuracy_of_info_collected:string,data_quality:string
 ){
@@ -953,6 +967,145 @@ details: DetailsInterface[];
     });
 
 } 
+//submit offline for casaUpdate
+async SubmitOfflineDataUpdate(id: number, farmer_id :number, farmers_name :string,  do_you_have_disability :string, disability_type :string, tel_no1 :string, nin :string,farmer_org:string, What_is_your_gender :string,  name_of_farmer_org :string, year_services :string, Main_crop_enterprise :string, Variety_of_mainenterprise :string, Variety2_of_mainenterprise :string, landsize_main_crop_enterprise :number, season_of_planting :string, crops_grown_last_season :any[], how_much_seed:any, crop_commercial :any[], involved_in_marketing :string, sell_of_produce_Nyakyera :string, sell_of_produce_green :string, sell_of_produce_equator :string, sell_of_produce_liraresort :string, sell_of_produce_cedo :string, sell_of_produce_orum :string, Marketlink :string, agent_name :string, produce_transport :string, access_to_agric_ext_services :string, extension_type_channel_receive :any[], adopted_practices :any[], most_mostadoptedpractice :string, Rate_services_training :string, frequently_access_ext_svcs :string, benefits_of_practices :string, pay_anything_to_access_ext_svc :string, How_accurate_is_the_info :string, hhplanting_decision :string, hhproductionphase_decision :string, hhpostharvet_decision :string, hhmarketing_decision :string, hhincome_decision :string, meals_a_day :string, Vegetables :string, Carbohydrates :string, fruits :string, proteins:string
+){
+    this.disabledButton = true;
+    const loader = await this.loadingCtrl.create({
+      message: 'please wait as we submit your form',
+    });
+    loader.present();
+
+    return new Promise(resolve => {
+        let body = {
+          aski:'update',
+          id: farmer_id,
+          farmers_name:farmers_name,
+          What_is_your_gender:What_is_your_gender,
+          do_you_have_disability:do_you_have_disability,
+          disability_type:disability_type,              
+          tel_no1:tel_no1,
+          nin:nin,
+          farmer_org:farmer_org,
+          name_of_farmer_org:name_of_farmer_org, 
+          year_services:year_services,
+          Main_crop_enterprise:Main_crop_enterprise,
+          Variety_of_mainenterprise:Variety_of_mainenterprise,
+          Variety2_of_mainenterprise:Variety2_of_mainenterprise,
+          landsize_main_crop_enterprise:landsize_main_crop_enterprise,
+          season_of_planting:season_of_planting,
+          crops_grown_last_season:crops_grown_last_season, //not part              
+          how_much_seed:how_much_seed, 
+          crop_commercial:crop_commercial,
+          involved_in_marketing:involved_in_marketing,
+          sell_of_produce_Nyakyera:sell_of_produce_Nyakyera,
+          sell_of_produce_green:sell_of_produce_green,
+          sell_of_produce_equator:sell_of_produce_equator,
+        sell_of_produce_liraresort:sell_of_produce_liraresort,
+        sell_of_produce_cedo:sell_of_produce_cedo,
+        sell_of_produce_orum:sell_of_produce_orum,
+        Marketlink:Marketlink,
+
+        agent_name:agent_name,
+        produce_transport:produce_transport,
+        
+        access_to_agric_ext_services:access_to_agric_ext_services,
+        extension_type_channel_receive:extension_type_channel_receive,
+        adopted_practices:adopted_practices,
+        most_mostadoptedpractice:most_mostadoptedpractice,
+        Rate_services_training:Rate_services_training,
+        frequently_access_ext_svcs:frequently_access_ext_svcs,
+        benefits_of_practices:benefits_of_practices,
+        pay_anything_to_access_ext_svc:pay_anything_to_access_ext_svc,
+        How_accurate_is_the_info:How_accurate_is_the_info,
+        hhplanting_decision:hhplanting_decision,
+        hhproductionphase_decision:hhproductionphase_decision,
+        hhpostharvet_decision:hhpostharvet_decision,
+        hhmarketing_decision:hhmarketing_decision,
+        hhincome_decision:hhincome_decision,
+        meals_a_day:meals_a_day,
+        Vegetables:Vegetables,
+        Carbohydrates:Carbohydrates,
+        fruits:fruits,
+        proteins:proteins,
+        field_officer:this.fo
+
+          }
+          this.accsPrvds.postData(body, 'process2.php').subscribe((res:any)=> {
+                      if(res.success==true){
+                          loader.dismiss();
+                          this.disabledButton = false;
+                          this.presentToast(res.msg);
+                          this.router.navigate(['/notsent']);
+                          this.dismissOnSubmit(id);
+                          this.farmer_id=null;
+                          this.farmers_name="";
+                          this.What_is_your_gender="";
+                          this.do_you_have_disability="";
+                          this.disability_type="";              
+                          this.tel_no1="";
+                          this.nin="";
+                          //Casa Data 
+                          this.farmer_org="";
+                          this.name_of_farmer_org="";
+                          this.year_services="";              
+                          //expenditure
+                          //this.Main_crop_enterprise;              
+                          this.Main_crop_enterprise="";
+
+                          this.how_much_seed=[];
+
+                        this.crop_commercial=[];  
+                        this.involved_in_marketing="";
+                        this.sell_of_produce_Nyakyera="";
+                        this.sell_of_produce_green="";
+                        this.sell_of_produce_equator="";
+                        this.sell_of_produce_liraresort="";
+                        this.sell_of_produce_cedo="";
+                        this.sell_of_produce_orum="";
+                        this.Marketlink="";
+                        this.agent_name="";
+                        this.produce_transport="";            
+                        this.access_to_agric_ext_services="";
+                        this.extension_type_channel_receive=[];
+                        this.adopted_practices=[];
+                        this.most_mostadoptedpractice="";
+                        this.Rate_services_training="";
+                        this.frequently_access_ext_svcs="";
+                        this.benefits_of_practices="";
+                        this.pay_anything_to_access_ext_svc="";
+                        this.How_accurate_is_the_info;
+                        this.Variety_of_mainenterprise=""; //it should be after main crop enterprisehhplanting_decision;
+                        this.Variety2_of_mainenterprise="";
+                        this.landsize_main_crop_enterprise=null;
+                        this.season_of_planting="",
+                        this.hhproductionphase_decision=""; 
+                        this.hhpostharvet_decision="";
+                        this.hhmarketing_decision="";
+                        this.hhincome_decision="";
+                        this.meals_a_day="";
+                        this.Vegetables=""; 
+                        this.Carbohydrates="";
+                        this.fruits="";
+                        this.proteins="";
+
+                      }else{
+                        loader.dismiss();
+                        this.disabledButton = false;
+                        this.presentToast(res.msg);
+                      }
+                },(err)=>{
+                  loader.dismiss();
+                  this.disabledButton = false;
+                  this.AlertforOfflineSubmission('Check your internet');
+                  console.log('Error ', err);
+          });
+
+    });
+
+} 
+
+
 //More column names to be added
 async AlertforOfflineSubmission(a) {
   const alert = await this.alertCtrl.create({
@@ -981,7 +1134,34 @@ async AlertforOfflineSubmission(a) {
 
   await alert.present();
 }
-async presentAlertforDelete(a:string, id:number) {
+
+async AlertforOfflineSubmissionUpdate(a) {
+  const alert = await this.alertCtrl.create({
+    cssClass: 'my-custom-class',
+    header: a,
+    backdropDismiss: false,
+    buttons: [
+       {
+        text: 'Try Again',
+        handler: () => {
+          //More columns to be added
+          this.SubmitOfflineDataUpdate(this.id, this.farmer_id , this.farmers_name ,  this.do_you_have_disability , this.disability_type , this.tel_no1 , this.nin ,this.farmer_org, this.What_is_your_gender ,  this.name_of_farmer_org , this.year_services , this.Main_crop_enterprise , this.Variety_of_mainenterprise , this.Variety2_of_mainenterprise , this.landsize_main_crop_enterprise , this.season_of_planting , this.crops_grown_last_season , this.how_much_seed, this.crop_commercial , this.involved_in_marketing , this.sell_of_produce_Nyakyera , this.sell_of_produce_green , this.sell_of_produce_equator , this.sell_of_produce_liraresort , this.sell_of_produce_cedo , this.sell_of_produce_orum , this.Marketlink , this.agent_name , this.produce_transport , this.access_to_agric_ext_services , this.extension_type_channel_receive , this.adopted_practices , this.most_mostadoptedpractice , this.Rate_services_training , this.frequently_access_ext_svcs , this.benefits_of_practices , this.pay_anything_to_access_ext_svc , this.How_accurate_is_the_info , this.hhplanting_decision , this.hhproductionphase_decision , this.hhpostharvet_decision , this.hhmarketing_decision , this.hhincome_decision , this.meals_a_day , this.Vegetables , this.Carbohydrates , this.fruits , this.proteins);
+        }
+      },
+      {
+        text: 'Cancel',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+          
+        }
+      }
+      
+    ]
+  });
+
+  await alert.present();
+}
+async presentAlertforDeleteUpdate(a:string, id:number) {
       const alert = await this.alertCtrl.create({
         cssClass: 'my-custom-class',
         header: a,
@@ -991,7 +1171,7 @@ async presentAlertforDelete(a:string, id:number) {
           {
             text: 'Yes, Delete',
             handler: () => {
-              this.deleteDetails(id);
+              this.deleteDetailsUpdate(id);
             }
           },
            {

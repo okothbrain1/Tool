@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 
 export interface DetailsInterface {
  //iNTERFACE FOR CASA DATA
+  farmer_id:number; //added
   consent:boolean;	//same as check agree.
   farmers_name:string;
   do_you_have_disability:string;
@@ -610,7 +611,88 @@ export class DatabaseService {
       return details;
     });
   }
+//
+async getAllDetailsUpdate() {
+  let details: DetailsInterface[] = [];
+  return this.sqlite.create({ name: 'dataUpdate.db', location: 'default' }).then(
+    (db) => {
+      this.dbInstance = db; 
+      db.executeSql('CREATE TABLE IF NOT EXISTS '
+        + 'DETAILS(id INTEGER PRIMARY KEY AUTOINCREMENT,'
+        +'farmer_id TEXT,'
+        +'farmers_name TEXT,'
+        +'do_you_have_disability TEXT,'
+        +'disability_type TEXT,'
+        +'tel_no1 TEXT,'
+        +'mm_reg_status TEXT,'
+        +'nin TEXT,'
+        +'What_is_your_gender TEXT,'
+        +'farmer_org TEXT,'         
+        +'name_of_farmer_org TEXT,'
+        +'year_services TEXT,'
+        +'Main_crop_enterprise TEXT,'
+        +'Variety_of_mainenterprise TEXT,'
+        +'Variety2_of_mainenterprise TEXT,'
+        +'landsize_main_crop_enterprise TEXT,'
+        +'season_of_planting TEXT,'
+        +'crops_grown_last_season TEXT,'
+        +'how_much_seed TEXT,'
+        +'crop_commercial TEXT,'
+        +'involved_in_marketing TEXT,'
+        +'sell_of_produce_Nyakyera TEXT,'
+        +'sell_of_produce_green TEXT,'
+        +'sell_of_produce_equator TEXT,'
+        +'sell_of_produce_liraresort TEXT,'
+        +'sell_of_produce_cedo TEXT,'
+        +'sell_of_produce_orum TEXT,'
+        +'Marketlink TEXT,'
+        +'agent_name TEXT,'
+        +'produce_transport TEXT,'
+        +'access_to_agric_ext_services TEXT,'
+        +'extension_type_channel_receive TEXT,'
+        +'adopted_practices TEXT,'
+        +'most_mostadoptedpractice TEXT,'
+        +'Rate_services_training TEXT,'
+        +'frequently_access_ext_svcs TEXT,'
+        +'benefits_of_practices TEXT,'
+        +'pay_anything_to_access_ext_svc TEXT,'
+        +'How_accurate_is_the_info TEXT,'
+        +'hhplanting_decision TEXT,'
+        +'hhproductionphase_decision TEXT,'
+        +'hhpostharvet_decision TEXT,'
+        +'hhmarketing_decision TEXT,'
+        +'hhincome_decision TEXT,'
+        +'meals_a_day TEXT,'
+        +'Vegetables TEXT,'
+        +'Carbohydrates TEXT,'
+        +'fruits TEXT,'
+        +'proteins TEXT)',
+        [])
+        .catch(e => console.log(e));
+      details = this.getAllRecordsUpdate();
+    }
+  ).catch().then((e) => {
+    console.log(e);
+    return details;
+  });
+}
+
+
+
   private getAllRecords(): DetailsInterface[] {
+    let details: DetailsInterface[] = [];
+    this.dbInstance.executeSql('select * from DETAILS', []).then(
+      (res) => {
+        for(var x=0; x<res.rows.length; x++)
+          details.push(res.rows.item(x));
+      }
+    ).catch(e => {
+      console.log(e);
+    });
+    return details;
+  }
+
+  private getAllRecordsUpdate(): DetailsInterface[] {
     let details: DetailsInterface[] = [];
     this.dbInstance.executeSql('select * from DETAILS', []).then(
       (res) => {
@@ -634,11 +716,28 @@ async addDetails(consent: boolean, farmers_name:string, do_you_have_disability:s
     return this.getAllRecords();
 }
 
+async addDetailsUpdate(farmer_id :number, farmers_name :string,  do_you_have_disability :string, disability_type :string, tel_no1 :string, nin :string, What_is_your_gender :string, farmer_org:string, name_of_farmer_org :string, year_services :string, Main_crop_enterprise :string, Variety_of_mainenterprise :string, Variety2_of_mainenterprise :string, landsize_main_crop_enterprise :number, season_of_planting :string, crops_grown_last_season :any[], how_much_seed :any[], crop_commercial :any[], involved_in_marketing :string, sell_of_produce_Nyakyera :string, sell_of_produce_green :string, sell_of_produce_equator :string, sell_of_produce_liraresort :string, sell_of_produce_cedo :string, sell_of_produce_orum :string, Marketlink :string, agent_name :string, produce_transport :string, access_to_agric_ext_services :string, extension_type_channel_receive :any[], adopted_practices :any[], most_mostadoptedpractice :string, Rate_services_training :string, frequently_access_ext_svcs :string, benefits_of_practices :string, pay_anything_to_access_ext_svc :string, How_accurate_is_the_info :string, hhplanting_decision :string, hhproductionphase_decision :string, hhpostharvet_decision :string, hhmarketing_decision :string, hhincome_decision :string, meals_a_day :string, Vegetables :string, Carbohydrates :string, fruits :string, proteins:string
+ 
+) {
+    let data = [farmer_id, farmers_name,  do_you_have_disability, disability_type, tel_no1, nin, What_is_your_gender,  farmer_org,name_of_farmer_org, year_services, Main_crop_enterprise, Variety_of_mainenterprise, Variety2_of_mainenterprise, landsize_main_crop_enterprise, season_of_planting, crops_grown_last_season, how_much_seed, crop_commercial, involved_in_marketing, sell_of_produce_Nyakyera, sell_of_produce_green, sell_of_produce_equator, sell_of_produce_liraresort, sell_of_produce_cedo, sell_of_produce_orum, Marketlink, agent_name, produce_transport, access_to_agric_ext_services, extension_type_channel_receive, adopted_practices, most_mostadoptedpractice, Rate_services_training, frequently_access_ext_svcs, benefits_of_practices, pay_anything_to_access_ext_svc, How_accurate_is_the_info, hhplanting_decision, hhproductionphase_decision, hhpostharvet_decision, hhmarketing_decision, hhincome_decision, meals_a_day, Vegetables, Carbohydrates, fruits, proteins
+
+    ];
+    this.dbInstance.executeSql('insert into DETAILS(farmer_id, farmers_name,  do_you_have_disability, disability_type, tel_no1, nin, What_is_your_gender,  farmer_org, name_of_farmer_org, year_services, Main_crop_enterprise, Variety_of_mainenterprise, Variety2_of_mainenterprise, landsize_main_crop_enterprise, season_of_planting, crops_grown_last_season, how_much_seed, crop_commercial, involved_in_marketing, sell_of_produce_Nyakyera, sell_of_produce_green, sell_of_produce_equator, sell_of_produce_liraresort, sell_of_produce_cedo, sell_of_produce_orum, Marketlink, agent_name, produce_transport, access_to_agric_ext_services, extension_type_channel_receive, adopted_practices, most_mostadoptedpractice, Rate_services_training, frequently_access_ext_svcs, benefits_of_practices, pay_anything_to_access_ext_svc, How_accurate_is_the_info, hhplanting_decision, hhproductionphase_decision, hhpostharvet_decision, hhmarketing_decision, hhincome_decision, meals_a_day, Vegetables, Carbohydrates, fruits, proteins) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', data).catch(e => console.log(e));
+      this.router.navigate(['/casaupdate']);
+    return this.getAllRecordsUpdate();
+}
+
 async deleteDetails(id: number) {
     this.dbInstance.executeSql('DELETE FROM DETAILS WHERE ID=?', [id])
       .catch(e => console.log(e));
     return this.getAllRecords();
     
+}
+async deleteDetailsUpdate(id: number) {
+  this.dbInstance.executeSql('DELETE FROM DETAILS WHERE ID=?', [id])
+    .catch(e => console.log(e));
+  return this.getAllRecordsUpdate();
+  
 }
 
 }

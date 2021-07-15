@@ -19,7 +19,7 @@
 <!--Questionaire starts here-->
 <ion-item class="ion-margin">
   <ion-label position="floating">Farmer ID</ion-label>
- <ion-input type = "number" [(ngModel)]="id"clear-input="true"></ion-input>
+ <ion-input type = "number" [(ngModel)]="farmer_id"clear-input="true"></ion-input>
 </ion-item>
 <ion-item class="ion-margin">
   <ion-label position="floating">Name of the farmer</ion-label>
@@ -137,10 +137,10 @@
    <ion-input type="number"[(ngModel)]="how_much_seed[i]" ></ion-input>
   </ion-item>
 </div>
-<div *ngIf="crop_use=='commercial'">
+<div>
   <div *ngFor="let commercial of crops_grown_last_season; let i=index" >
     <ion-item class="ion-margin">
-      <ion-label class="ion-text-wrap" position="floating">Please specify the volume for subsistence for {{commercial}} (kgs)?</ion-label>
+      <ion-label class="ion-text-wrap" position="floating">Please specify the volume for Commercial for {{commercial}} (kgs)?</ion-label>
      <ion-input type="text" [(ngModel)]="crop_commercial[i]"></ion-input>
     </ion-item>
   </div>

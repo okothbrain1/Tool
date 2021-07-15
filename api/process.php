@@ -96,6 +96,7 @@ elseif($postjson['aski']=="update"){
       $crops.= $crop_grown . ",";
       $crops_count +=1;
     }
+    
     $commercial=$postjson['crop_commercial'];
     $commercial_volume="";
     $count_comm=0;
@@ -120,7 +121,7 @@ elseif($postjson['aski']=="update"){
       $practice.= $prac . ",";
     }
 
-    $id = $postjson['id'];
+    $id = $postjson['id']; //remove error
     $update = mysqli_query($mysqli, "UPDATE cptupdated SET 
             farmers_name = '$postjson[farmers_name]',
             What_is_your_gender='$postjson[What_is_your_gender]',
@@ -180,8 +181,9 @@ elseif($postjson['aski']=="update"){
     }else{
         $result = json_encode(array('success'=>false, 'msg'=>'Update FAILED'.mysqli_error($mysqli).''));     
     }
-    
+
     echo $result;
+
     }
 
 /* Counting the total number of submissions for each user*/

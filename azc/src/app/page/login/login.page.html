@@ -3,7 +3,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
 <div>
   <ion-img class="image" src="/assets/icon/user-circle.svg"></ion-img><br/>  
 
@@ -15,7 +14,12 @@
 
   <ion-item class="ion-margin" >
     <ion-label  position="floating" >Password</ion-label>
-    <ion-input type = "password" placeholder="sshhh....." clear-input="true" [(ngModel)]="password" ></ion-input>
+    <ion-input type = "password" placeholder="sshhh..." clear-input="true" [(ngModel)]="password" ></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label  position="floating" >Token</ion-label>
+    <ion-input type = "text" placeholder="8 characters..." clear-input="true" [(ngModel)]="token" ></ion-input>
   </ion-item>
 
   <ion-button expand="full"class="ion_padding" (click)="tryLogin()">Login</ion-button>

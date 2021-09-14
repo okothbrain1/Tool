@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="newsurvey"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Farmer Group Profiling Tool</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="success" size="medium" (click)="Submit()">
+        <ion-icon name="add-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-button [routerLink]="['/notsent']" fill="outline">Go To Finalized Forms</ion-button>
+</ion-header>
+<ion-content>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="bookmark"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top" (click)="storeData()">
+      <ion-fab-button><ion-icon name="save"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="bottom" (click)="restoreData()">
+      <ion-fab-button><ion-icon name="refresh"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Farmer Group Name</ion-label>
+    <ion-input type="text" [(ngModel)]="farmer_group_name"></ion-input>
+  </ion-item>
+
+  <!--District and subcounty are put together as one string-->
+<ion-searchbar placeholder="Search for Either District, Subcounty or Region(but not all)" [(ngModel)]="term" animated="true"></ion-searchbar>
+<!--DISTRICTS AND SUBCOUNTY APPEARS HERE-->
+<ion-item class="ion-margin" *ngIf="term">
+  <ion-label class="ion-text-wrap">District and Subcounty</ion-label>
+ <ion-select   [(ngModel)]="district_subcounty_fg" interface="action-sheet">
+ <ion-select-option *ngFor="let item of data | filter:term"  value="{{item.District}},{{item.Subcounty}}">{{item.District}},{{item.Subcounty}}</ion-select-option>
+ </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Parish</ion-label>
+  <ion-input type="text" [(ngModel)]="parish_fg"></ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Village</ion-label>
+  <ion-input type="text" [(ngModel)]="village_fg"></ion-input>
+</ion-item>
+  
+  
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Meeting Venue</ion-label>
+    <ion-input type="text" [(ngModel)]="meeting_venue"></ion-input>
+  </ion-item>
+  
+  <ion-label class="notice">Please make sure your device location is on</ion-label>
+  <ion-button (click)="getCurrentCoordinates()" expand="block">GPS Location</ion-button>
+  <ion-item class="ion-margin">
+     <ion-label class="ion-text-wrap" position="floating">Longitude</ion-label>
+  <ion-input type="text"[(ngModel)]="longitude_group" value="{{longitude}}"readonly></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Latitude</ion-label>
+   <ion-input type="text"[(ngModel)]="latitude_group" value="{{latitude}}"readonly></ion-input>
+ </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Group Chairperson</ion-label>
+    <ion-input type="text" [(ngModel)]="group_chairperson"></ion-input>
+  </ion-item>
+   
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Chairperson's Contact</ion-label>
+    <ion-input type="text" [(ngModel)]="chairperson_contact"></ion-input>
+  </ion-item>
+  
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Secretary</ion-label>
+    <ion-input type="text" [(ngModel)]="secretary"></ion-input>
+  </ion-item>
+   
+ <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Secretary Contact</ion-label>
+    <ion-input type="text" [(ngModel)]="secretary_contact"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" >Do you have a Farmer group database/list</ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="have_farmer_db" interface="action-sheet">
+      <ion-select-option value="Yes">Yes</ion-select-option>
+      <ion-select-option value="No">No</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Number of farmers</ion-label>
+    <ion-input type="number" [(ngModel)]="number_of_farmers"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Females</ion-label>
+    <ion-input type="number" [(ngModel)]="females"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Males</ion-label>
+    <ion-input type="number" [(ngModel)]="males"></ion-input>
+  </ion-item>
+
+ <ion-label class="ion-text-wrap" position="floating"><b>List of farmers Captured</b></ion-label>
+  <ion-list lines="none">
+    <form [formGroup]="myForm">
+      <ion-item *ngFor="let control of myForm.controls | keyvalue">
+        <ion-input required type="text"  [formControlName]="control.key"  formControlName="fieldspace1" placeHolder="Firstname Surname PhoneNumber"></ion-input>
+        <ion-icon (click)="removeControl(control)" name="close-circle"></ion-icon>
+      </ion-item>
+    </form>
+  </ion-list>
+  <ion-button expand="full" color="light" (click)="addControl()">Add Farmer Details to the List</ion-button>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">How many members have been in the group for at least the past three years</ion-label>
+    <ion-input type="number" [(ngModel)]="members_in_group"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating"> Main Enterprise</ion-label>
+    <ion-input type="text" [(ngModel)]="main_enterprise"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating"> Type of group records kept</ion-label>
+    <ion-input type="text" [(ngModel)]="type_of_group_records"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" >  Does the group obtain a VSLA </ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="group_obtain_VSLA" interface="action-sheet">
+      <ion-select-option value="Yes">Yes</ion-select-option>
+      <ion-select-option value="No">No</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating"> How many people took a loan in the last season</ion-label>
+    <ion-input type="number" [(ngModel)]="people_took_loan"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">On percentage, How many people paid back 100% of their loan</ion-label>
+   <ion-select   [(ngModel)]="payback_percentage" interface="action-sheet">
+   <ion-select-option *ngFor="let payback of paybacks " value="{{payback}}">{{payback}}</ion-select-option>
+   </ion-select>
+  </ion-item>
+   
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">What was the member's mode of payment</ion-label>
+   <ion-select   [(ngModel)]="mode_of_payment" interface="action-sheet">
+   <ion-select-option *ngFor="let mode of mode_payment " value="{{mode}}">{{mode}}</ion-select-option>
+   </ion-select>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Group Total loan requested</ion-label>
+    <ion-input type="number" [(ngModel)]="group_total_loan"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label>Name of Field Officer</ion-label>
+    <ion-input type="text" [(ngModel)]="fo" value="{{name}}"readonly></ion-input>
+  </ion-item>
+  <ion-button (click)="Submit()" expand="block">
+    Submit
+</ion-button>
+</ion-content>

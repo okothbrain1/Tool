@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="newsurvey"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Details</ion-title>
+    <ion-buttons slot="end" >
+      <ion-button fill="solid" color="success" size="medium" (click)="SubmitUpdate()">
+        <ion-icon name="add-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">1. Name of the farmer(Hint: As it appears on the National ID)</ion-label>
+   <ion-input  type = "text" [(ngModel)]="farmers_name" clear-input="true" ></ion-input>
+ </ion-item>
+ <ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">2. What is your National id number (NIN)?</ion-label><br/>
+ <ion-input placeholder="14 characters start with CF or CM" type = "text" [attr.maxlength]="14" [(ngModel)]="nin" clear-in put="false" (ngModelChange)="nin = $event.toLocaleUpperCase()"></ion-input>
+</ion-item>
+
+<ion-button name="camera" (click)="takePictureID()" expand="block">3. Capture ID photo</ion-button>
+<ion-item>
+<img [src]="currentImageID">
+</ion-item>  
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap"  position="floating">Photo ID Image Url</ion-label>
+  <ion-textarea type="text" rows="1" [(ngModel)]="ID_photo_url" value="{{im}}" readonly></ion-textarea>
+</ion-item>
+
+<ion-button name="camera" (click)="takePicture()" expand="block">4.Capture Farmer photo</ion-button>
+<ion-item>
+  <img [src]="currentImage">
+</ion-item>  
+<ion-item class="ion-margin">
+  <ion-label  class="ion-text-wrap" position="floating">Farmer Photo url</ion-label>
+  <ion-textarea type="text" rows="1" [(ngModel)]="Photo_url" value="{{ib}}"  readonly></ion-textarea>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <!--<ion-button expand="block" fill="outline" (click)="launchapp()"></ion-button>-->
+  <ion-button shape="round" (click)="launchapp()" color="light">Launch ODK to get the geoshape</ion-button>
+  <ion-label class="ion-text-wrap" position="floating">5.Paste the Geoshape values here.(Hint: Long character generated after walking the land)</ion-label><br/>
+  <ion-input type = "text" [(ngModel)]="geoshape" ></ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">6.Copy and paste here Acreage obtained after waking the land in ODK</ion-label><br/>
+  <ion-input type = "number" [(ngModel)]="acreage" ></ion-input>
+</ion-item>
+
+<ion-button  (click)="SubmitUpdate()" expand="block">Submit</ion-button>
+</ion-content>
+
+

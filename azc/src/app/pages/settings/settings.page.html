@@ -43,12 +43,17 @@
     <h2>{{phone}}</h2>
   </ion-label>
   </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label>
+      <p>Current ID Token</p>
+      <h2>{{token}}</h2>
+    </ion-label>
+  </ion-item> 
 
-
-<div>
-  <ion-button expand="block" (click)="processlogout()">
-    Sign Out
-  </ion-button>
-</div>
+  <ion-item class="ion-margin">
+    <ion-button expand="block" (click)="processlogout()">
+      Sign Out
+    </ion-button>
+  </ion-item> 
 
 </ion-content>

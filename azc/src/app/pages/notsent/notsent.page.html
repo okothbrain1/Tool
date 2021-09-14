@@ -1,129 +1,101 @@
 <ion-header >
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Finalized Forms</ion-title>
+    <ion-title>Not Sent</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-      <ion-list>
-        <ion-item>
-          <h6>Forms that were not submitted are saved here</h6>
-        </ion-item>
-        <ion-item lines="inset" *ngFor="let detail of details;index as slNo">
-         <!--<ion-label ngStyle>
-            <p>ID: {{detail.id}}</p>
-            <p>Consent: {{detail.consent}}</p>
-            <p>Farmers Name: {{detail.farmers_name}}</p>
-            <p>Do you have disability{{detail.do_you_have_disability}}</p>
-            <p>Disability type: {{detail.disability_type}}</p>
-            <p>Own Mobile Phone:{{detail.own_a_mobile_phone}}</p>
-            <p>What Type of Phone:{{detail.What_type_of_phone_do_you_own}}</p>
-            <p>No of Contacts:{{detail.No_of_contacts}}</p>
-            <p>Tel No1:{{detail.tel_no1}}</p>
-            <p>Tel No2:{{detail.tel_No_2}}</p>
-            <p>Service provider:{{detail.service_provider}}</p>
-            <p>Other Service provider: {{detail.Specify_svc_provider}}</p>
-            <p>Registered for mobile Money:{{detail.mm_reg_status}}</p>
-            <p>Registered MM no:{{detail.registered_mm_number}}</p>
-            <p>NIN:{{detail.nin}}</p>
-            <p>URL:{{detail.ID_photo_url}}</p>
-            <p>photo_url:{{detail.Photo_url}}</p>
-            <p>Occupation:{{detail.occupation}}</p>
-            <p>Other_occ:{{detail.specify_other_occupation}}</p>
-            <p>M_status:{{detail.Martial_status}}</p>
-            <p>Gender:{{detail.What_is_your_gender}}</p>
-            <p>Name Hus:{{detail.name_of_husband}}</p>
-            <p>No of wives:{{detail.number_of_wives_husbands}}</p>
-            <p>1st wife:{{detail.name_first_wife}}</p>
-            <p>2nd wife:{{detail.name_second_wife}}</p>
-            <p>StatusFamily:{{detail.status_in_a_family}}</p>
-            <p>Next of kin:{{detail.next_of_kin}}</p>
-            <p>kin contact:{{detail.next_of_kin_has_contact}}</p>
-            <p>Kin No:{{detail.next_of_kin_phone_no}}</p>
-            <p>Region:{{detail.region}}</p>
-            <p>#### 30- 43####</p>
-            <p>distr:{{detail.distr}}</p>
-            <p>Otherdistr:{{detail.other_district}}</p>
-            <p>subcounty:{{detail.subcounty}}</p>
-            <p>other sub:{{detail.other_subcounty}}</p>
-            <p>subotherdistr:{{detail.subcounty_other_district}}</p>
-            <p>soiltype:{{detail.soiltype}}</p>
-            <p>parish:{{detail.parish}}</p>
-            <p>village:{{detail.village}}</p>
-            <p>Nearest T:{{detail.nearest_town}}</p>
-            <p>resident_since:{{detail.resident_since}}</p>
-            <p>Desc Loc:{{detail.Description_of_location}}</p>
-            <p>DOB:{{detail.DOB}}</p>
-            <p>levEduc:{{detail.level_of_education}}</p>
-            <p>Headofhouse:{{detail.head_of_the_household }}</p>
-            <p>#### 44- 100####</p>
-            <p>la1:{{detail.la1}}</p>
-            <p>lo1:{{detail.lo1}}</p>
-
-            <p>acc1:{{detail.acc1}}</p>
-            <p>Mobile_lit:{{detail.Mobile_literacy}}</p>
-            <p>any_dep:{{detail.any_dependants}}</p>
-
-            <p>Dep_No:{{detail.dependant_no}}</p>
-            <p>Dep Age:{{detail.dependants_age_bracket}}</p>
-            <p>Farmer_org:{{detail.farmer_org}}</p>
-            <p>Name_farmer:{{detail.name_of_farmer_org}}</p>
-            --> 
-<!--displaying from belong_farmgp to specify_others
-            <p>List of saved:{{detail.year_services}}</p>
-            <p>{{detail.Specify_other}}</p>-->
-<!--displaying from value_of_land to acc2
-            <p>{{detail.value_of_land}}</p>
-            <p>{{detail.acc2}}</p> -->
-<!--displaying from postharvest to crops for new season 
-            <p>{{detail.postharvest_mgt}}</p>
-            <p>{{detail.produce_storage}}</p> 
-            <p>{{detail.preservation}}</p>
-            <p>{{detail.crops_for_new_season}}</p>-->
-<!--displaying from other_crops_intended to specify_other_crops_grown
-            <p>{{detail.other_crops_intended}}</p>
-            <p>Donkey:{{detail.donkey_number}}</p>
-            <p>{{detail.Specify_other_crops_grown}}</p> -->
-<!--displaying from yield maize to yield cassava   
-            <p>Donkey:{{detail.yield_of_maize_with_adequate_rain_per_acre}}</p>
-            <p>{{detail.yield_of_cassava_with_adequate_rain_per_acre}}</p>-->     
-<!--displaying from yield maize to yield cassava 
-            <p>Crops stored:{{detail.crops_stored_from_last_season}}</p>
-            <p>cassavaKg:{{detail.cassava_per_kg}}</p>  -->  
-<!--displaying from yield maize to end  
-            <p>last:{{detail.data_quality}}</p> 
-          </ion-label>   --> 
-          {{detail.id}}:{{detail.farmers_name}}
+  <!--<ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>SME REGISTRATION SAVED FORMS</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item lines="inset" *ngFor="let detail of details;index as slNo">
+        {{detail.id}}:{{detail.Name_of_enterprise}}
           <ion-img src="/assets/icon/cloud.png"></ion-img>
           <ion-button color="danger" (click)="presentAlertforDelete('Are you sure?', detail.id)" slot="end">
             <ion-icon name="trash-sharp"></ion-icon>
           </ion-button>
-          <ion-button color="primary" (click)="SubmitOfflineData(detail.id,detail.consent, detail.farmers_name, detail.do_you_have_disability,detail.disability_type,detail.own_a_mobile_phone,detail.What_type_of_phone_do_you_own,detail.No_of_contacts,detail.tel_no1,detail.tel_No_2,detail.service_provider,detail.Specify_svc_provider,detail.mm_reg_status,detail.registered_mm_number,detail.nin,detail.ID_photo_url,detail.Photo_url,detail.occupation,detail.specify_other_occupation,detail.Martial_status,detail.What_is_your_gender,detail.name_of_husband,detail.number_of_wives_husbands,detail.name_first_wife,detail.name_second_wife,detail.status_in_a_family,	detail.next_of_kin,	detail.next_of_kin_has_contact,detail.next_of_kin_phone_no,detail.region,detail.distr,detail.other_district,detail.subcounty,detail.other_subcounty,detail.subcounty_other_district,detail.soiltype,detail.parish,detail.village,detail.nearest_town,detail.resident_since,detail.Description_of_location,detail.DOB,detail.level_of_education,detail.head_of_the_household,detail.la1,detail.lo1,detail.acc1,detail.Mobile_literacy,detail.any_dependants,detail.dependant_no,detail.dependants_age_bracket,detail.farmer_org,detail.name_of_farmer_org,detail.belong_farmergp,detail.name_farmergp,detail.year_services,detail.position_in_FO,detail.Your_position_in_the_fo,detail.male_members_in_FO,detail.female_members_in_FO,detail.Affiliation,detail.Name_of_connected_ACE_or_DFA,detail.main_income_source,detail.mainincome_since,detail.sector,detail.main_income_relaibility,detail.main_income_amount,detail.annual_income,detail.other_income_sources,detail.other_income_activity,detail.years_of_experince,detail.other_income_reliability,detail.amount,detail.income_trend,detail.access_to_Health_services,detail.health_expense,detail.school_going_children,detail.no_of_school_going_children,detail.school_fees_expense,detail.what_is_the_land_tenor,detail.Specify_other,detail.value_of_land,detail.own_any_farm_machinery,detail.house_ownership,detail.house_structure,detail.Farm_size,detail.total_land_size,detail.Main_crop_enterprise,detail.Variety_of_mainenterprise,detail.Variety2_of_mainenterprise,detail.landsize_main_crop_enterprise,detail.additional_land_main_enterprise,detail.season_of_planting,detail.yield_expected_main_enterprise,detail.farm_at_residence,detail.la2,detail.lo2,detail.acc2,detail.postharvest_mgt,detail.produce_storage,detail.preservation,detail.crops_for_new_season,detail.other_crops_intended,detail.landsize_cropselected,detail.yield_per_acre,detail.in_business_since,detail.number_of_employees,detail.livestock,detail.specify_livestock,detail.cattle_number,detail.goat_number,detail.sheep_number,detail.chicken_number,detail.pigs_number,detail.donkey_number,detail.Did_you_plant_last_season,detail.crops_grown_last_season,detail.Specify_other_crops_grown,detail.yield_of_maize_with_adequate_rain_per_acre,detail.yield_of_beans_with_adequate_rain_per_acre,detail.yield_of_sesame_with_adequate_rain_per_acre,detail.yield_of_soyabean_with_adequate_rain_per_acre,detail.yield_of_rice_with_adequate_rain_per_acre,detail.yield_of_millet_with_adequate_rain_per_acre,detail.yield_of_sorghum_with_adequate_rain_per_acre,detail.yield_of_irish_potatoes_with_adequate_rain_per_acre,detail.yield_of_cotton_with_adequate_rain_per_acre,detail.yield_of_sweet_potatoes_with_adequate_rain_per_acre,detail.yield_of_sunflower_with_adequate_rain_per_acre,detail.yield_of_groundnuts_with_adequate_rain_per_acre,detail.yield_of_coffee_with_adequate_rain_per_acre,detail.yield_of_banana_with_adequate_rain_per_acre,detail.yield_of_cassava_with_adequate_rain_per_acre,detail.crops_stored_from_last_season,detail.storage_time,detail.disturbances_in_storage,detail.Specify_others,detail.yield_last_season,detail.yield_with_drought,detail.year_of_severe_drought,detail.how_much_seed,detail.maize_per_kg,detail.beans_per_kg,detail.rice_per_kg,detail.sesame_per_kg,detail.soyabean_per_kg,detail.millet_per_kg,detail.sorghum_per_kg,detail.irish_potatoes_per_kg,detail.cotton_per_kg,detail.sweet_potatoes_per_kg,detail.sunflower_per_kg,detail.ground_nuts_per_kg,detail.coffee_per_kg,detail.Banana_per_bunch,detail.cassava_per_kg,detail.seed_variety,detail.Did_you_apply_fertilizer,detail.Specify_the_type,detail.organic_specify,detail.Specify_other_organic,detail.inorganic_Specify,detail.fertilizer_type,detail.fertilizer_amount,detail.use_pesticides_or_herbicides,detail.Please_specify_which_one,detail.pesticide_effectiveness,detail.crop_use,detail.crop_subsistence,detail.crop_commercial,detail.income_from_crops,detail.involved_in_marketing,detail.sell_of_produce_Nyakyera,detail.sell_of_produce_green,detail.sell_of_produce_equator,detail.sell_of_produce_liraresort,detail.sell_of_produce_cedo,detail.sell_of_produce_orum,detail.Marketlink,detail.agent_name,detail.produce_transport,detail.employ_any_farm_labour,detail.Specify_their_task,detail.Who_assisted_you,detail.How_much_did_you_pay_them,detail.Are_you_aware_of_climate_shock,detail.which_ones_you_are_aware_of,detail.training_on_addressing_climate,detail.Please_specify,detail.Which_crops_for_rotation,detail._1st_choice,detail._2nd_choice,detail._3rd_choice,detail.knoledge_of_rain_date,detail.heard_of_agri_insurance,detail.access_to_agri_insurance,detail.Please_specify_the_agri_insurance_type,detail.Specify_the_insurance_provider,detail.fair_charge_for_insurance,detail.prefer_ordinary_or_az_bunlde,detail.challenges_last_season,detail.Specify,detail.What_type_of_pests,detail.type_of_weather_and_effect,detail.Do_you_have_a_bank_account,detail.financial_access,detail.transaction_monthly_costs,detail.Specify_other_monthly_transaction_costs,detail.travel_distance,detail.specify_other_travel_distance,detail.Have_you_ever_received_credit,detail.no_of_times_borrowed,detail.loanoutstanding,detail.How_much_repayment_was_made_per_month,detail.delay_time_for_repayment,detail.How_do_you_keep_your_money,detail.financial_transaction_challeng,detail.Specify_Other_financial_transaction_challeng,detail.action_access_to_financial_svc,detail.access_to_agric_ext_services,detail.How_do_you_access_Agric_ext_sv,detail.extension_type_channel_receive,detail.adopted_practices,detail.most_mostadoptedpractice,detail.Rate_services_training,detail.frequently_access_ext_svcs,detail.is_information_provided_accurt,detail.trainingappropriate,detail.benefits_of_practices,detail.pay_anything_to_access_ext_svc,detail.training,detail.pay_per_season,detail.pest_fertilizer_pesticide_info,detail.Do_you_receive_weather_data,detail.access_to_weather_data,detail.How_accurate_is_the_info,detail.most_harmful_info,detail.biggest_prob_in_data_access,detail.spend_on_your_phone_monthly,detail.main_phone_use,detail.Voice_calling_and_receiving,detail.SMS,detail.Internet,detail.Social_media,detail.subscribed_to_info_svces_on_ph,detail.services_suscribed_to,detail.training_on_using_phone_servic,detail.training_on_weather_alerts,detail.Who_provided_the_training_on_weather_alerts,detail.trainig_on_insurance,detail.Who_provided_the_training_on_insurance,detail.probs_of_using_cellphone,detail.hhplanting_decision,detail.hhproductionphase_decision,detail.hhpostharvet_decision,detail.hhmarketing_decision,detail.hhincome_decision,detail.meals_a_day,detail.Vegetables,detail.Carbohydrates,detail.fruits,detail.proteins,detail.farmers_cooperation_responding,detail.how_well_agent_knows_beneficiary,detail.accuracy_of_info_collected,detail.data_quality)" slot="end">
+          <ion-button color="primary" (click)="SubmitOfflineData(detail.id,detail.Name_of_enterprise,detail.region,detail.district,detail.specify_other_districts,detail.street_address,detail.lo,detail.la,detail.acc,detail.business_telephone,detail.website,detail.email,detail.year_established,detail.number_of_employees,detail.business_sector,detail.business_activity,detail.list_of_pdts_svcs,detail.name_contact_person,detail.contact_person_mobile,detail.title_of_contact_person,detail.references_main_customers,detail.total_investment,detail.total_assets_value,detail.gross_annual_sales,detail.annual_export_turnover,detail.needs_or_challenges,detail.business_type,detail.company_reg_status,detail.company_registration_number_allocated,detail.submittername,detail.title,detail.fo, detail.phone_, detail.do_export, detail.token)" slot="end">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>-->
+  <!--<ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>YAPP SAVED FORMS</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item lines="inset" *ngFor="let detail_yapp of details2;index as slNo">
+        {{detail_yapp.id2}}:{{detail_yapp.Name}}
+          <ion-img src="/assets/icon/cloud.png"></ion-img>
+          <ion-button color="danger" (click)="presentAlertforDelete2('Are you sure?', detail_yapp.id2)" slot="end">
+            <ion-icon name="trash-sharp"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" (click)="SubmitOfflineData_yapp(detail_yapp.id2,detail_yapp.Name,detail_yapp.gender,detail_yapp.age,detail_yapp.phone,detail_yapp.email,detail_yapp.live,detail_yapp.nearest_township,detail_yapp.select_qualification,detail_yapp.specify_qualification,detail_yapp.institution,detail_yapp.qualification,detail_yapp.year_of_q,detail_yapp.work_experience,detail_yapp.specify_areas_of_experience,detail_yapp.position,detail_yapp.employers,detail_yapp.interest,detail_yapp.specify_interest,detail_yapp.skills,detail_yapp.other_skills,detail_yapp.recommend,detail_yapp.fo,detail_yapp.token)" slot="end">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
           </ion-button>
         </ion-item>
-      </ion-list>
+    </ion-card-content>
+  </ion-card>-->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-wrap">AGRIBULKER FORMS</ion-card-subtitle>
+    </ion-card-header>
   
-  <ion-list>
-      <ion-item lines="inset" *ngFor="let detail of details;index as slNo">
-       <ion-label ngStyle>
-          <p>ID: {{detail.id}}</p>
-          <p>Consent: {{detail.consent}}</p>
-          <p>Farmers Name: {{detail.farmers_name}}</p>
-          <p>Do you have disability{{detail.do_you_have_disability}}</p>
-          <p>Disability type: {{detail.disability_type}}</p>
-      </ion-label>
-        <ion-img src="/assets/icon/cloud.png"></ion-img>
-        <ion-button color="danger" (click)="presentAlertforDeleteUpdate('Are you sure?', detail.id)" slot="end">
-          <ion-icon name="trash-sharp"></ion-icon>
-        </ion-button>
-        <ion-button color="primary" (click)="SubmitOfflineDataUpdate(detail.id,detail.consent, detail.farmers_name, detail.do_you_have_disability,detail.disability_type,detail.own_a_mobile_phone,detail.What_type_of_phone_do_you_own,detail.No_of_contacts,detail.tel_no1,detail.tel_No_2,detail.service_provider,detail.Specify_svc_provider,detail.mm_reg_status,detail.registered_mm_number,detail.nin,detail.ID_photo_url,detail.Photo_url,detail.occupation,detail.specify_other_occupation,detail.Martial_status,detail.What_is_your_gender,detail.name_of_husband,detail.number_of_wives_husbands,detail.name_first_wife,detail.name_second_wife,detail.status_in_a_family,	detail.next_of_kin,	detail.next_of_kin_has_contact,detail.next_of_kin_phone_no,detail.region,detail.distr,detail.other_district,detail.subcounty,detail.other_subcounty,detail.subcounty_other_district,detail.soiltype,detail.parish,detail.village,detail.nearest_town,detail.resident_since,detail.Description_of_location,detail.DOB,detail.level_of_education,detail.head_of_the_household,detail.la1,detail.lo1,detail.acc1,detail.Mobile_literacy,detail.any_dependants,detail.dependant_no,detail.dependants_age_bracket,detail.farmer_org,detail.name_of_farmer_org,detail.belong_farmergp,detail.name_farmergp,detail.year_services,detail.position_in_FO,detail.Your_position_in_the_fo,detail.male_members_in_FO,detail.female_members_in_FO,detail.Affiliation,detail.Name_of_connected_ACE_or_DFA,detail.main_income_source,detail.mainincome_since,detail.sector,detail.main_income_relaibility,detail.main_income_amount,detail.annual_income,detail.other_income_sources,detail.other_income_activity,detail.years_of_experince,detail.other_income_reliability,detail.amount,detail.income_trend,detail.access_to_Health_services,detail.health_expense,detail.school_going_children,detail.no_of_school_going_children,detail.school_fees_expense,detail.what_is_the_land_tenor,detail.Specify_other,detail.value_of_land,detail.own_any_farm_machinery,detail.house_ownership,detail.house_structure,detail.Farm_size,detail.total_land_size,detail.Main_crop_enterprise,detail.Variety_of_mainenterprise,detail.Variety2_of_mainenterprise,detail.landsize_main_crop_enterprise,detail.additional_land_main_enterprise,detail.season_of_planting,detail.yield_expected_main_enterprise,detail.farm_at_residence,detail.la2,detail.lo2,detail.acc2,detail.postharvest_mgt,detail.produce_storage,detail.preservation,detail.crops_for_new_season,detail.other_crops_intended,detail.landsize_cropselected,detail.yield_per_acre,detail.in_business_since,detail.number_of_employees,detail.livestock,detail.specify_livestock,detail.cattle_number,detail.goat_number,detail.sheep_number,detail.chicken_number,detail.pigs_number,detail.donkey_number,detail.Did_you_plant_last_season,detail.crops_grown_last_season,detail.Specify_other_crops_grown,detail.yield_of_maize_with_adequate_rain_per_acre,detail.yield_of_beans_with_adequate_rain_per_acre,detail.yield_of_sesame_with_adequate_rain_per_acre,detail.yield_of_soyabean_with_adequate_rain_per_acre,detail.yield_of_rice_with_adequate_rain_per_acre,detail.yield_of_millet_with_adequate_rain_per_acre,detail.yield_of_sorghum_with_adequate_rain_per_acre,detail.yield_of_irish_potatoes_with_adequate_rain_per_acre,detail.yield_of_cotton_with_adequate_rain_per_acre,detail.yield_of_sweet_potatoes_with_adequate_rain_per_acre,detail.yield_of_sunflower_with_adequate_rain_per_acre,detail.yield_of_groundnuts_with_adequate_rain_per_acre,detail.yield_of_coffee_with_adequate_rain_per_acre,detail.yield_of_banana_with_adequate_rain_per_acre,detail.yield_of_cassava_with_adequate_rain_per_acre,detail.crops_stored_from_last_season,detail.storage_time,detail.disturbances_in_storage,detail.Specify_others,detail.yield_last_season,detail.yield_with_drought,detail.year_of_severe_drought,detail.how_much_seed,detail.maize_per_kg,detail.beans_per_kg,detail.rice_per_kg,detail.sesame_per_kg,detail.soyabean_per_kg,detail.millet_per_kg,detail.sorghum_per_kg,detail.irish_potatoes_per_kg,detail.cotton_per_kg,detail.sweet_potatoes_per_kg,detail.sunflower_per_kg,detail.ground_nuts_per_kg,detail.coffee_per_kg,detail.Banana_per_bunch,detail.cassava_per_kg,detail.seed_variety,detail.Did_you_apply_fertilizer,detail.Specify_the_type,detail.organic_specify,detail.Specify_other_organic,detail.inorganic_Specify,detail.fertilizer_type,detail.fertilizer_amount,detail.use_pesticides_or_herbicides,detail.Please_specify_which_one,detail.pesticide_effectiveness,detail.crop_use,detail.crop_subsistence,detail.crop_commercial,detail.income_from_crops,detail.involved_in_marketing,detail.sell_of_produce_Nyakyera,detail.sell_of_produce_green,detail.sell_of_produce_equator,detail.sell_of_produce_liraresort,detail.sell_of_produce_cedo,detail.sell_of_produce_orum,detail.Marketlink,detail.agent_name,detail.produce_transport,detail.employ_any_farm_labour,detail.Specify_their_task,detail.Who_assisted_you,detail.How_much_did_you_pay_them,detail.Are_you_aware_of_climate_shock,detail.which_ones_you_are_aware_of,detail.training_on_addressing_climate,detail.Please_specify,detail.Which_crops_for_rotation,detail._1st_choice,detail._2nd_choice,detail._3rd_choice,detail.knoledge_of_rain_date,detail.heard_of_agri_insurance,detail.access_to_agri_insurance,detail.Please_specify_the_agri_insurance_type,detail.Specify_the_insurance_provider,detail.fair_charge_for_insurance,detail.prefer_ordinary_or_az_bunlde,detail.challenges_last_season,detail.Specify,detail.What_type_of_pests,detail.type_of_weather_and_effect,detail.Do_you_have_a_bank_account,detail.financial_access,detail.transaction_monthly_costs,detail.Specify_other_monthly_transaction_costs,detail.travel_distance,detail.specify_other_travel_distance,detail.Have_you_ever_received_credit,detail.no_of_times_borrowed,detail.loanoutstanding,detail.How_much_repayment_was_made_per_month,detail.delay_time_for_repayment,detail.How_do_you_keep_your_money,detail.financial_transaction_challeng,detail.Specify_Other_financial_transaction_challeng,detail.action_access_to_financial_svc,detail.access_to_agric_ext_services,detail.How_do_you_access_Agric_ext_sv,detail.extension_type_channel_receive,detail.adopted_practices,detail.most_mostadoptedpractice,detail.Rate_services_training,detail.frequently_access_ext_svcs,detail.is_information_provided_accurt,detail.trainingappropriate,detail.benefits_of_practices,detail.pay_anything_to_access_ext_svc,detail.training,detail.pay_per_season,detail.pest_fertilizer_pesticide_info,detail.Do_you_receive_weather_data,detail.access_to_weather_data,detail.How_accurate_is_the_info,detail.most_harmful_info,detail.biggest_prob_in_data_access,detail.spend_on_your_phone_monthly,detail.main_phone_use,detail.Voice_calling_and_receiving,detail.SMS,detail.Internet,detail.Social_media,detail.subscribed_to_info_svces_on_ph,detail.services_suscribed_to,detail.training_on_using_phone_servic,detail.training_on_weather_alerts,detail.Who_provided_the_training_on_weather_alerts,detail.trainig_on_insurance,detail.Who_provided_the_training_on_insurance,detail.probs_of_using_cellphone,detail.hhplanting_decision,detail.hhproductionphase_decision,detail.hhpostharvet_decision,detail.hhmarketing_decision,detail.hhincome_decision,detail.meals_a_day,detail.Vegetables,detail.Carbohydrates,detail.fruits,detail.proteins,detail.farmers_cooperation_responding,detail.how_well_agent_knows_beneficiary,detail.accuracy_of_info_collected,detail.data_quality)" slot="end">
-          <ion-icon name="checkmark-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
-  </ion-list>
+    <ion-card-content>
+      <ion-item lines="inset" *ngFor="let detail_agri of details3;index as slNo">
+        {{detail_agri.id3}}:{{detail_agri.name_of_agribulker}}
+          <ion-img src="/assets/icon/cloud.png"></ion-img>
+          <ion-button color="danger" (click)="presentAlertforDelete3('Are you sure?', detail_agri.id3)" slot="end">
+            <ion-icon name="trash-sharp"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" (click)="SubmitOfflineData_agri(detail_agri.id3,detail_agri.name_of_agribulker,detail_agri.registered_as,detail_agri.registered_as_others,detail_agri.longitude_agri,detail_agri.latitude_agri,detail_agri.agri_street_address,detail_agri.agri_website,detail_agri.email_address,detail_agri.business_telephone,detail_agri.name_contact_person,detail_agri.proprietor_the_contact_person,detail_agri.name_of_proprietor,detail_agri.contact_photo_url,detail_agri.gender_of_proprietor,detail_agri.title_of_proprietor,detail_agri.contact_person_mobile,detail_agri.education_level,detail_agri.available_docs,detail_agri.business_reg_status,detail_agri.reg_number,detail_agri.institute_organogram,detail_agri.annual_meetings,detail_agri.management_committee_meetings, detail_agri.management_meetings, detail_agri.mgt_from_board,detail_agri.regular_elections, detail_agri.guiding_policy_doc, detail_agri.no_of_tech_team,detail_agri.size_of_land,detail_agri.land_ownership,detail_agri.office_ownership,detail_agri.bulking_unit, detail_agri.org_charged_over,detail_agri.business_type,detail_agri.business_type_others, detail_agri.existing_db,detail_agri.average_acreage,detail_agri.farmer_groups_no,detail_agri.groups_submitted,detail_agri.number_of_members,detail_agri.know_no_of, detail_agri.members_in_previous_years_2018,detail_agri.members_in_previous_years_2019,detail_agri.members_in_previous_years_2020,detail_agri.members_in_previous_years_2021,detail_agri.have_membership_fee,detail_agri.members_paid_uptodate,detail_agri.provision_for_inclusion, detail_agri.conduct_membership_satisfaction,detail_agri.source_of_revenue, detail_agri.major_funding_source,detail_agri.total_investment, detail_agri.total_cost_operation,detail_agri.total_annual_sales,detail_agri.total_asset, detail_agri.mode_of_remittances,detail_agri.record_of_sales, detail_agri.financial_mgt,detail_agri.internal_audit,detail_agri.are_audits_done,detail_agri.agency_audit, detail_agri.when_was_audit,detail_agri.other_sources_of_income, detail_agri.minute_book,detail_agri.bank_book,detail_agri.bank_account,detail_agri.ME_system,detail_agri.credit_facility,detail_agri.credit_facility_due_date,detail_agri.financial_statement_photo, detail_agri.main_business_sector, detail_agri.main_customers,detail_agri.crops_bulked,detail_agri.Quantity_bulked_2017,detail_agri.Quantity_bulked_2018,detail_agri.Quantity_bulked_2019,detail_agri.Quantity_bulked_2020,detail_agri.total_sales_bulked_2017,detail_agri.total_sales_bulked_2018,detail_agri.total_sales_bulked_2019,detail_agri.total_sales_bulked_2020, detail_agri.calculated_cost_per_kg,detail_agri.sales_in_inputs,detail_agri.storage_facility,detail_agri.value_addition_facility, detail_agri.value_addition_levels,detail_agri.collect_products,detail_agri.facilitate_access_credit,detail_agri.extend_credit_services,detail_agri.no_of_loans_2017,detail_agri.no_of_loans_2018,detail_agri.no_of_loans_2019,detail_agri.no_of_loans_2020,detail_agri.loan_interest_rate,detail_agri.year_of_establishment,detail_agri.main_challenges,detail_agri.major_impact_on_people,detail_agri.public_partnership,detail_agri.services_you_access,detail_agri.services_you_access_specify,detail_agri.partnerships_with_donors,detail_agri.access_information,detail_agri.technology_uptake,detail_agri.technology_uptake_others,detail_agri.training,detail_agri.access_to_electricity,detail_agri.other_forms_of_energy,detail_agri.access_to_water,detail_agri.location_name,detail_agri.village_agri,detail_agri.fo,detail_agri.token)" slot="end">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-wrap">FARMER GROUP FORMS</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item lines="inset" *ngFor="let detail_farmer_gp of details4;index as slNo">
+        {{detail_farmer_gp.id4}}:{{detail_farmer_gp.farmer_group_name}}
+          <ion-img src="/assets/icon/cloud.png"></ion-img>
+          <ion-button color="danger" (click)="presentAlertforDelete4('Are you sure?', detail_farmer_gp.id4)" slot="end">
+            <ion-icon name="trash-sharp"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" (click)="SubmitOfflineData_farmer_gp(detail_farmer_gp.id4,detail_farmer_gp.farmer_group_name,detail_farmer_gp.district_subcounty_fg,detail_farmer_gp.parish_fg,detail_farmer_gp.village_fg,detail_farmer_gp.meeting_venue,detail_farmer_gp.longitude_group,detail_farmer_gp.latitude_group,detail_farmer_gp.group_chairperson,detail_farmer_gp.chairperson_contact,detail_farmer_gp.secretary,detail_farmer_gp.secretary_contact,detail_farmer_gp.have_farmer_db,detail_farmer_gp.number_of_farmers,detail_farmer_gp.females,detail_farmer_gp.males,detail_farmer_gp.list_of_farmers,detail_farmer_gp.members_in_group,detail_farmer_gp.main_enterprise,detail_farmer_gp.type_of_group_records,detail_farmer_gp.group_obtain_VSLA,detail_farmer_gp.people_took_loan,detail_farmer_gp.payback_percentage,detail_farmer_gp.mode_of_payment,detail_farmer_gp.group_total_loan,detail_farmer_gp.fo,detail_farmer_gp.token)" slot="end">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+    </ion-card-content>
+  </ion-card>
 
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-wrap">FARMER PROFILE FORMS</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="inset" *ngFor="let detail_fpt of details5;index as slNo">
+        {{detail_fpt.id5}}:{{detail_fpt.farmers_name}}
+          <ion-img src="/assets/icon/cloud.png"></ion-img>
+          <ion-button color="danger" (click)="presentAlertforDelete5('Are you sure?', detail_fpt.id5)" slot="end">
+            <ion-icon name="trash-sharp"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" (click)="SubmitOfflineData_farmer_pt(detail_fpt.id5,detail_fpt.consent, detail_fpt.farmers_name, detail_fpt.do_you_have_disability,detail_fpt.disability_type,detail_fpt.own_a_mobile_phone,detail_fpt.What_type_of_phone_do_you_own,detail_fpt.No_of_contacts,detail_fpt.tel_no1,detail_fpt.tel_No_2,detail_fpt.service_provider,detail_fpt.Specify_svc_provider,detail_fpt.mm_reg_status,detail_fpt.registered_mm_number,detail_fpt.nin,detail_fpt.ID_photo_url,detail_fpt.Photo_url,detail_fpt.occupation,detail_fpt.specify_other_occupation,detail_fpt.Martial_status,detail_fpt.What_is_your_gender,detail_fpt.name_of_husband,detail_fpt.number_of_wives_husbands,detail_fpt.name_first_wife,detail_fpt.name_second_wife,detail_fpt.status_in_a_family,detail_fpt.next_of_kin,detail_fpt.next_of_kin_has_contact,detail_fpt.next_of_kin_phone_no,detail_fpt.region,detail_fpt.distr,detail_fpt.other_district,detail_fpt.subcounty,detail_fpt.other_subcounty,detail_fpt.subcounty_other_district,detail_fpt.soiltype,detail_fpt.parish,detail_fpt.village,detail_fpt.nearest_town,detail_fpt.Local_council1_name,detail_fpt.resident_since,detail_fpt.Description_of_location,detail_fpt.DOB,detail_fpt.level_of_education,detail_fpt.head_of_the_household,detail_fpt.la1,detail_fpt.lo1,detail_fpt.acc1,detail_fpt.Mobile_literacy,detail_fpt.any_dependants,detail_fpt.dependant_no,detail_fpt.dependants_age_bracket,detail_fpt.belong_farmergp,detail_fpt.name_farmergp,detail_fpt.position_in_FO,detail_fpt.Your_position_in_the_fo,detail_fpt.male_members_in_FO,detail_fpt.female_members_in_FO,detail_fpt.Affiliation,detail_fpt.Name_of_connected_ACE_or_DFA,detail_fpt.main_income_source,detail_fpt.mainincome_since,detail_fpt.sector,detail_fpt.main_income_relaibility,detail_fpt.main_income_amount,detail_fpt.annual_income,detail_fpt.other_income_sources,detail_fpt.other_income_activity,detail_fpt.years_of_experince,detail_fpt.other_income_reliability,detail_fpt.amount,detail_fpt.income_trend,detail_fpt.access_to_Health_services,detail_fpt.health_expense,detail_fpt.school_going_children,detail_fpt.no_of_school_going_children,detail_fpt.school_fees_expense,detail_fpt.what_is_the_land_tenor,detail_fpt.Specify_other,detail_fpt.value_of_land,detail_fpt.own_any_farm_machinery,detail_fpt.house_ownership,detail_fpt.house_structure,detail_fpt.Farm_size,detail_fpt.total_land_size,detail_fpt.Main_crop_enterprise,detail_fpt.landsize_main_crop_enterprise,detail_fpt.additional_land_main_enterprise,detail_fpt.yield_expected_main_enterprise,detail_fpt.farm_at_residence,detail_fpt.la2,detail_fpt.lo2,detail_fpt.acc2,detail_fpt.crops_for_new_season,detail_fpt.other_crops_intended,detail_fpt.in_business_since,detail_fpt.number_of_employees,detail_fpt.livestock,detail_fpt.specify_livestock,detail_fpt.cattle_number,detail_fpt.goat_number,detail_fpt.sheep_number,detail_fpt.chicken_number,detail_fpt.pigs_number,detail_fpt.Did_you_plant_last_season,detail_fpt.crops_grown_last_season,detail_fpt.crops_grown_last_season2,detail_fpt.Specify_other_crops_grown,detail_fpt.yield_of_maize_with_adequate_rain_per_acre,detail_fpt.yield_of_beans_with_adequate_rain_per_acre,detail_fpt.yield_of_sesame_with_adequate_rain_per_acre,detail_fpt.yield_of_soyabean_with_adequate_rain_per_acre,detail_fpt.yield_of_rice_with_adequate_rain_per_acre,detail_fpt.yield_of_millet_with_adequate_rain_per_acre,detail_fpt.yield_of_sorghum_with_adequate_rain_per_acre,detail_fpt.yield_of_irish_potatoes_with_adequate_rain_per_acre,detail_fpt.yield_of_cotton_with_adequate_rain_per_acre,detail_fpt.yield_of_sweet_potatoes_with_adequate_rain_per_acre,detail_fpt.yield_of_sunflower_with_adequate_rain_per_acre,detail_fpt.yield_of_groundnuts_with_adequate_rain_per_acre,detail_fpt.yield_of_coffee_with_adequate_rain_per_acre,detail_fpt.yield_of_banana_with_adequate_rain_per_acre,detail_fpt.yield_of_cassava_with_adequate_rain_per_acre,detail_fpt.crops_stored_from_last_season,detail_fpt.storage_time,detail_fpt.disturbances_in_storage,detail_fpt.Specify_others,detail_fpt.yield_last_season,detail_fpt.yield_last_season2,detail_fpt.yield_with_drought,detail_fpt.year_of_severe_drought,detail_fpt.how_much_seed,detail_fpt.maize_per_kg,detail_fpt.beans_per_kg,detail_fpt.rice_per_kg,detail_fpt.sesame_per_kg,detail_fpt.soyabean_per_kg,detail_fpt.millet_per_kg,detail_fpt.sorghum_per_kg,detail_fpt.irish_potatoes_per_kg,detail_fpt.cotton_per_kg,detail_fpt.sweet_potatoes_per_kg,detail_fpt.sunflower_per_kg,detail_fpt.ground_nuts_per_kg,detail_fpt.coffee_per_kg,detail_fpt.Banana_per_bunch,detail_fpt.cassava_per_kg,detail_fpt.seed_variety,detail_fpt.Did_you_apply_fertilizer,detail_fpt.Specify_the_type,detail_fpt.organic_specify,detail_fpt.Specify_other_organic,detail_fpt.inorganic_Specify,detail_fpt.fertilizer_type,detail_fpt.fertilizer_amount,detail_fpt.use_pesticides_or_herbicides,detail_fpt.Please_specify_which_one,detail_fpt.crop_use,detail_fpt.crop_subsistence,detail_fpt.crop_commercial,detail_fpt.income_from_crops,detail_fpt.employ_any_farm_labour,detail_fpt.Specify_their_task,detail_fpt.Who_assisted_you,detail_fpt.How_much_did_you_pay_them,detail_fpt.Are_you_aware_of_climate_shock,detail_fpt.which_ones_you_are_aware_of,detail_fpt.training_on_addressing_climate,detail_fpt.Please_specify,detail_fpt.Which_crops_for_rotation,detail_fpt._1st_choice,detail_fpt._2nd_choice,detail_fpt._3rd_choice,detail_fpt.knoledge_of_rain_date,detail_fpt.heard_of_agri_insurance,detail_fpt.access_to_agri_insurance,detail_fpt.Please_specify_the_agri_insurance_type,detail_fpt.Specify_the_insurance_provider,detail_fpt.fair_charge_for_insurance,detail_fpt.prefer_ordinary_or_az_bunlde,detail_fpt.challenges_last_season,detail_fpt.Specify,detail_fpt.What_type_of_pests,detail_fpt.type_of_weather_and_effect,detail_fpt.Do_you_have_a_bank_account,detail_fpt.financial_access,detail_fpt.transaction_monthly_costs,detail_fpt.Specify_other_monthly_transaction_costs,detail_fpt.travel_distance,detail_fpt.specify_other_travel_distance,detail_fpt.Have_you_ever_received_credit,detail_fpt.no_of_times_borrowed,detail_fpt.loanoutstanding,detail_fpt.How_much_repayment_was_made_per_month,detail_fpt.delay_time_for_repayment,detail_fpt.How_do_you_keep_your_money,detail_fpt.financial_transaction_challeng,detail_fpt.Specify_Other_financial_transaction_challeng,detail_fpt.action_access_to_financial_svc,detail_fpt.access_to_agric_ext_services,detail_fpt.How_do_you_access_Agric_ext_sv,detail_fpt.extension_type_channel_receive,detail_fpt.Do_you_receive_weather_data,detail_fpt.access_to_weather_data,detail_fpt.How_accurate_is_the_info,detail_fpt.most_harmful_info,detail_fpt.biggest_prob_in_data_access,detail_fpt.spend_on_your_phone_monthly,detail_fpt.main_phone_use,detail_fpt.Voice_calling_and_receiving,detail_fpt.SMS,detail_fpt.Internet,detail_fpt.Social_media,detail_fpt.subscribed_to_info_svces_on_ph,detail_fpt.services_suscribed_to,detail_fpt.training_on_using_phone_servic,detail_fpt.training_on_weather_alerts,detail_fpt.Who_provided_the_training_on_weather_alerts,detail_fpt.Who_provided_the_training_on_insurance,detail_fpt.probs_of_using_cellphone,detail_fpt.farmers_cooperation_responding,detail_fpt.how_well_agent_knows_beneficiary,detail_fpt.accuracy_of_info_collected,detail_fpt.data_quality,detail_fpt.sell_of_produce,detail_fpt.date_of_harvest,detail_fpt.specify_crops_for_new_season,detail_fpt.rabbit_number,detail_fpt.farm_size_husbandry,detail_fpt.livestock_breed,detail_fpt.livestock_pdts,detail_fpt.livestock_record,detail_fpt.livestock_added,detail_fpt.livestock_sold,detail_fpt.livestock_sold_price,detail_fpt.livestock_milk_produced,detail_fpt.livestock_sales_income,detail_fpt.fooder_produce,detail_fpt.suppliment_livestock,detail_fpt.concentrates_feeding,detail_fpt.livestock_feeding_cost,detail_fpt.livestock_healthsvcs,detail_fpt.livestock_healthsvcs_arrival,detail_fpt.livestock_healthsvcs_types,detail_fpt.livestock_death,detail_fpt.livestock_death_cause,detail_fpt.livestock_health_cost,detail_fpt.livestock_type,detail_fpt.preservation_mtds,detail_fpt.planting_season,detail_fpt.effective_sell_channel,detail_fpt.reason_for_channel,detail_fpt.need_loan,detail_fpt.loan_amount,detail_fpt.loan_security,detail_fpt.loan_purpose,detail_fpt.specify_loan_ammount,detail_fpt.first_payment_date,detail_fpt.loan_period_xpctd,detail_fpt.la_security,detail_fpt.lo_security,detail_fpt.loan_failure_strategy,detail_fpt.agric_ext_provider,detail_fpt.other_extension_channel_receive,detail_fpt.specify_training_mobilephones,detail_fpt.mostusedapp_mobilephones,detail_fpt.agribulker_belong,detail_fpt.group_belong,detail_fpt.fo,detail_fpt.token,detail_fpt.spouse_name,detail_fpt.DOB_spouse,detail_fpt.first_child_name,detail_fpt.dob_first_child,detail_fpt.second_child_name,detail_fpt.dob_second_child,detail_fpt.third_child_name,detail_fpt.dob_third_child,detail_fpt.forth_child_name,detail_fpt.dob_forth_child,detail_fpt.geoshape,detail_fpt.acreage)" slot="end">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

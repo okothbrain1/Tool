@@ -14,6 +14,7 @@ export class LoginPage implements OnInit {
   email: string = "";
   //proj_id: string = "";
   password: string = "";
+  token: string="";
   disabledButton
 
   constructor(
@@ -38,7 +39,11 @@ export class LoginPage implements OnInit {
         this.presentToast('Your email is required');
     }else if(this.password==""){
       this.presentToast('Your password is required');
-    }else{
+    }
+    else if(this.token==""){
+      this.presentToast('The token is required');
+    }
+    else{
       this.disabledButton = true;
       const loader = await this.loadingCtrl.create({
         message: 'please wait ...',
@@ -49,7 +54,8 @@ export class LoginPage implements OnInit {
           let body = {
             aski:'process_login',
             email:this.email,
-            password:this.password
+            password:this.password,
+            token:this.token
             }
                   this.accsPrvds.postData(body, 'process.php').subscribe((res:any)=> {
                         if(res.success==true){
@@ -61,7 +67,7 @@ export class LoginPage implements OnInit {
                         }else{
                           loader.dismiss();
                           this.disabledButton = false;
-                          this.presentToast('Email or Password is wrong');
+                          this.presentToast('Email or Password or token is wrong');
                         }
                   },(err)=>{
                     loader.dismiss();
@@ -82,4 +88,6 @@ export class LoginPage implements OnInit {
 openRegister(){
   this.router.navigate(['/register']);
 }
+
+//Getting access to the system with a code.
 }

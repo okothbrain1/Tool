@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CasaupdatePageRoutingModule } from './casaupdate-routing.module';
+import { EditsentformPageRoutingModule } from './editsentform-routing.module';
 
-import { CasaupdatePage } from './casaupdate.page';
+import { EditsentformPage } from './editsentform.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CasaupdatePageRoutingModule
+    EditsentformPageRoutingModule
   ],
-  declarations: [CasaupdatePage]
+  declarations: [EditsentformPage]
 })
-export class CasaupdatePageModule {}
+export class EditsentformPageModule {}

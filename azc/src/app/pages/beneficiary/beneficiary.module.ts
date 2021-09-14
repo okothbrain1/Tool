@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { BeneficiaryPageRoutingModule } from './beneficiary-routing.module';
 
 import { BeneficiaryPage } from './beneficiary.page';
+
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
@@ -16,8 +17,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    BeneficiaryPageRoutingModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    BeneficiaryPageRoutingModule
   ],
   declarations: [BeneficiaryPage]
 })

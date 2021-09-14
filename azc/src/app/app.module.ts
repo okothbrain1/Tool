@@ -35,11 +35,13 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 
 import { DatabaseService} from './services/database.service';
+import { Database2Service} from './services/database2.service';
+import { AppLauncher } from '@ionic-native/app-launcher/ngx';
 
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
-
-import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import {MediaCapture} from '@ionic-native/media-capture/ngx';
+import {SocialSharing} from '@ionic-native/social-sharing/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -72,14 +74,14 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     SQLitePorter,
     SQLite,
     DatabaseService,
-    NativeStorage,
-    BackgroundGeolocation,
-    LocalNotifications,
-
+    Database2Service,
+    AppLauncher,
+    MediaCapture,
+    SocialSharing,
+    Base64,
+    Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule{
-  
-}
+export class AppModule {}

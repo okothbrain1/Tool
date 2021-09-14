@@ -1,0 +1,941 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="presentAlertBack('Save your Data')">
+      <ion-back-button defaultHref="newsurvey"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Agri-Bulker Profiling Tool</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="success" size="medium" (click)="Submit()">
+        <ion-icon name="add-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-button [routerLink]="['/notsent']" fill="outline">View Locally Saved Forms</ion-button>
+</ion-header>
+<ion-content>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="bookmark"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top" (click)="storeData()">
+      <ion-fab-button><ion-icon name="save"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="bottom" (click)="restoreData()">
+      <ion-fab-button><ion-icon name="refresh"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <p><b>1.Business Info</b></p>
+  <!--New-->
+  <!--ok-->
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">a)	Name of Agri-bulker</ion-label>
+    <ion-input type = "text" [(ngModel)]="name_of_agribulker"clear-input="true"></ion-input>
+  </ion-item>
+  
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" > b)	Registration status – registered as? </ion-label>
+    <ion-select placeholder="Select One"  [(ngModel)]="registered_as">
+      <ion-select-option *ngFor="let reg of reg_as" value="{{reg}}">{{reg}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <!--Added an input when some one selects other-->
+  <ion-item class="ion-margin" *ngIf="registered_as=='Others'">
+    <ion-label class="ion-text-wrap" position="floating">Specify Other Registration Status.</ion-label>
+   <ion-input type="text"[(ngModel)]="registered_as_others"></ion-input>
+ </ion-item>
+
+  <ion-label class="notice">Please make sure your device location is on</ion-label>
+  <ion-button (click)="getCurrentCoordinates()" expand="block">
+  c)  Get GPS of location</ion-button>
+  <ion-item class="ion-margin">
+     <ion-label class="ion-text-wrap" position="floating">Longitude</ion-label>
+  <ion-input type="text"[(ngModel)]="longitude_agri" value="{{longitude}}"readonly></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+     <ion-label class="ion-text-wrap" position="floating">Latitude</ion-label>
+    <ion-input type="text"[(ngModel)]="latitude_agri" value="{{latitude}}"readonly></ion-input>
+  </ion-item>
+	 
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">c)	Street address</ion-label>
+    <ion-input type = "text" [(ngModel)]="agri_street_address"clear-input="true"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">d)	Website  </ion-label>
+    <ion-input type = "text" [(ngModel)]="agri_website "clear-input="true"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">e)	Email address </ion-label>
+    <ion-input type = "text" [(ngModel)]="email_address"clear-input="true"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">f)	Business telephone contact</ion-label>
+    <ion-input type="number" placeholder="Start with 7.."
+    [(ngModel)]="business_telephone" 
+    name="userCount" 
+    [attr.maxlength]="9"
+    (keypress)="numberOnlyValidation($event)">
+    </ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">  g)	Name of contact person</ion-label>
+    <ion-input type = "text" [(ngModel)]="name_contact_person"clear-input="true"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" > h)	Is the proprietor the contact person? </ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="proprietor_the_contact_person">
+      <ion-select-option value="Yes">Yes</ion-select-option>
+      <ion-select-option value="No">No</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="ion-margin" *ngIf="proprietor_the_contact_person=='No'">
+    <ion-label class="ion-text-wrap" position="floating">i)	Name of Proprietor</ion-label>
+    <ion-input type = "text" [(ngModel)]="name_of_proprietor"clear-input="true"></ion-input>
+  </ion-item>
+  
+  <!--To be worked on start-->
+  <ion-button name="camera" (click)="takePicture()" expand="block">j)Take Photo of contact Person</ion-button>
+  <ion-item>
+    <img [src]="currentImage" >
+  </ion-item>  
+  <ion-item class="ion-margin">
+    <ion-label  position="floating">Contact Person/Proprietor Photo url</ion-label>
+    <ion-textarea type="text" rows="1" [(ngModel)]="contact_photo_url" value="{{ib}}"  readonly></ion-textarea>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" > k)	Gender of proprietor</ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="gender_of_proprietor">
+      <ion-select-option value="Male">Male</ion-select-option>
+      <ion-select-option value="Female">Female</ion-select-option>
+    </ion-select>
+  </ion-item>
+ 
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">  l)	Title of proprietor/contact person</ion-label>
+    <ion-input type = "text" [(ngModel)]="title_of_proprietor"clear-input="true"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">m)	Mobile number of Contact person</ion-label>
+    <ion-input type="number" placeholder="Start with 7.."
+    [(ngModel)]="contact_person_mobile" 
+    name="userCount" 
+    [attr.maxlength]="9"
+    (keypress)="numberOnlyValidation($event)">
+    </ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" > n)	Highest level of education of proprietor or contact person  </ion-label>
+    <ion-select placeholder="Select One"  [(ngModel)]="education_level">
+      <ion-select-option *ngFor="let educ of level_of_educ" value="{{educ}}">{{educ}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" > o)	Confirm possession of the following documents</ion-label>
+    <ion-select placeholder="Select many"  [(ngModel)]="available_docs" multiple="true">
+      <ion-select-option *ngFor="let docs of necessary_docs" value="{{docs}}">{{docs}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+<p><b>2.Administration and Government</b> </p>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >a.	Business/Company registration status </ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="business_reg_status">
+    <ion-select-option *ngFor="let reg_status of registration_status" value="{{reg_status}}">{{reg_status}}</ion-select-option>
+  </ion-select>
+</ion-item>
+ 
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">b.Business/Company	Registration number</ion-label>
+  <ion-input type = "text" [(ngModel)]="reg_number"clear-input="true"></ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >c. Institution organogram available (Tick as applicable as per organogram have) </ion-label>
+  <ion-select placeholder="Select many"  [(ngModel)]="institute_organogram" multiple>
+    <ion-select-option *ngFor="let organogram of institute_organo" value="{{organogram}}">{{organogram}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >d.	Do you hold Annual General meeting?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="annual_meetings">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >e.	Do you conduct any management/committee meetings? (Yes/No)</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="management_committee_meetings">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >f.	How often do you conduct internal management meetings?</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="management_meetings">
+    <ion-select-option *ngFor="let meeting of mgt_meeting" value="{{meeting}}">{{meeting}}</ion-select-option>
+  </ion-select>
+</ion-item> 
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >g.	Do you separate the management form board?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="mgt_from_board">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+ 
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >h.	Do you hold regular elections?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="regular_elections">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >i.	Which of the internal guiding policy documents exist and are applied to this organization tick all that have access to, </ion-label>
+  <ion-select placeholder="Select many"  [(ngModel)]="guiding_policy_doc" multiple>
+    <ion-select-option *ngFor="let policy_doc of policy_docs" value="{{policy_doc}}">{{policy_doc}}</ion-select-option>
+  </ion-select>
+</ion-item>
+ 
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">j.	Do you have technical team of employees please indicate the number,</ion-label>
+  <ion-input type="number"
+  [(ngModel)]="no_of_tech_team" 
+  name="userCount" 
+  [attr.maxlength]="3"
+  (keypress)="numberOnlyValidation($event)">
+</ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">k.	Size of land on which the business premises stand(In Acres)</ion-label>
+  <ion-input type="number"
+  [(ngModel)]="size_of_land" 
+  name="userCount" 
+  [attr.maxlength]="4"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >l.	Ownership of land on which the offices are privately owned</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="land_ownership">
+    <ion-select-option *ngFor="let ownership of ownership_land" value="{{ownership}}">{{ownership}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >m.	Ownership of offices building</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="office_ownership" >
+    <ion-select-option *ngFor="let ownership_off of ownership_office" value="{{ownership_off}}">{{ownership_off}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >n.	Availability of producing bulking unit</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="bulking_unit">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+    <ion-select-option value="Not Applicable">Not Applicable</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >o.	Has the organization ever been implicated, investigated or charged over any case or on any of the following tick whichever applies?</ion-label>
+  <ion-select placeholder="Select Many"  [(ngModel)]="org_charged_over" multiple="true">
+    <ion-select-option *ngFor="let  charged of charge_over" value="{{charged}}">{{charged}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<p><b>3. Ownership & Membership Participation</b></p>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >a.	Business type</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="business_type" >
+    <ion-select-option *ngFor="let  bus_type of type_of_business" value="{{bus_type}}">{{bus_type}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="business_type=='Others specify'">
+  <ion-label class="ion-text-wrap" position="floating">Specify Other business type</ion-label>
+  <ion-input type = "text" [(ngModel)]="business_type_others"clear-input="true"></ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >b.	Do you have an Existing Database of members/subscribers</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="existing_db">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">c.	How many farmer groups does the organization serve?</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="farmer_groups_no" 
+  name="userCount" 
+  [attr.maxlength]="6"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<!--Add as many groups as possible-->
+<ion-label class="ion-text-wrap" position="floating"><b>List of Farmer Groups Captured</b></ion-label>
+<ion-list lines="none">
+  <form [formGroup]="myForm">
+    <ion-item *ngFor="let control of myForm.controls | keyvalue">
+      <ion-input required type="text"  [formControlName]="control.key"  formControlName="control" placeHolder="Group Name and Group leader PhoneNumber" ></ion-input>
+      <ion-icon (click)="removeControl(control)" name="close-circle"></ion-icon>
+    </ion-item>
+  </form>
+</ion-list>
+<ion-button expand="full" color="light" (click)="addControl()">Add Farmer Group to the List</ion-button>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">	What the average acreage of the members</ion-label>
+  <ion-input type="number" placeholder="Acres"
+  [(ngModel)]="average_acreage" 
+  name="userCount" 
+  [attr.maxlength]="6"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">d.	What is Total number of members served in the groups </ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="number_of_members" 
+  name="userCount" 
+  [attr.maxlength]="8"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+
+<!--<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >e.Do you know the number of;</ion-label>
+  <ion-select placeholder="Select many"  [(ngModel)]="know_no_of" multiple>
+    <ion-select-option *ngFor="let  people of people_type" value="{{people}}">{{people}}</ion-select-option>
+  </ion-select>
+</ion-item>-->
+<!--Adding the previous ion-select into a loop-->
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">e. Do you know the number of Women</ion-label>
+    <ion-input type="number" [(ngModel)]="know_no_of[0]">
+    </ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">e. Do you know the number of Men  </ion-label>
+    <ion-input type="number"
+    [(ngModel)]="know_no_of[1]">
+    </ion-input>
+  </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating"> e. Do you know the number of Youth</ion-label>
+    <ion-input type="number" [(ngModel)]="know_no_of[2]">
+    </ion-input>
+  </ion-item>
+
+<!---arranging-->
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">f.	How many member(groups) did you have in the previous years (2018)</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="members_in_previous_years_2018" 
+  name="userCount" 
+  [attr.maxlength]="8"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">f.	How many member(groups) did you have in the previous years (2019)</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="members_in_previous_years_2019" 
+  name="userCount" 
+  [attr.maxlength]="8"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">f.	How many member(groups) did you have in the previous years (2020)</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="members_in_previous_years_2020" 
+  name="userCount" 
+  [attr.maxlength]="8"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">f.	How many member(groups) did you have in the previous years (2021)</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="members_in_previous_years_2021" 
+  name="userCount"
+  [attr.maxlength]="8"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >g. Do you have membership fee for the group</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="have_membership_fee">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">h.	How many members are paid up to date.</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="members_paid_uptodate" 
+  name="userCount" 
+  [attr.maxlength]="8"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >i.	Do you have a provision for the inclusion special interest groups including the youth, women and PWDs you business environment?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="provision_for_inclusion">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >j.	If you have members, Do you conduct membership satisfaction assessments</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="conduct_membership_satisfaction">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<p><b>4.Financial management</b></p> 
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >a. What is your major source of funding (Main source of Revenue)</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="source_of_revenue" >
+    <ion-select-option *ngFor="let  source of revenue_source" value="{{source}}">{{source}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >b. What was your major source of funding in the past 12 months? </ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="major_funding_source">
+    <ion-select-option *ngFor="let  fund of source_funding" value="{{fund}}">{{fund}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">c.	What is the total investment?</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="total_investment" 
+  name="userCount" 
+  [attr.maxlength]="12"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">d.	What is the Total cost of operation of business (Current liabilities)</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="total_cost_operation" 
+  name="userCount" 
+  [attr.maxlength]="12"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">e.	Total Annual sales</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="total_annual_sales" 
+  name="userCount" 
+  [attr.maxlength]="12"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">f.	Total Asset Value</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="total_asset" 
+  name="userCount" 
+  [attr.maxlength]="12"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >g.	Mode of remittances</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="mode_of_remittances" >
+    <ion-select-option *ngFor="let  modes of remit_modes" value="{{modes}}">{{modes}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >h.	Do you have record of sales?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="record_of_sales">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >i.	Is financial management computerized? </ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="financial_mgt">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >j.	Do you have internal audit solutions packages/Enterprise?  </ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="internal_audit">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="internal_audit=='Yes'">
+  <ion-label class="ion-text-wrap" >k.	How often are audits done in the organization</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="are_audits_done" >
+    <ion-select-option *ngFor="let  audit of are_audits" value="{{audit}}">{{audit}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="internal_audit=='Yes'">
+  <ion-label class="ion-text-wrap"> l.	Is your annual audit provided by an outside agency?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="agency_audit">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+<!--this does not appear in the updated version-->
+<ion-item class="ion-margin" *ngIf="internal_audit=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">	When was the most recent audit done? </ion-label>
+  <!--<ion-input type = "date" [(ngModel)]="when_was_audit"clear-input="true"></ion-input>-->
+  <ion-datetime displayFormat="YYYY/MM/DD" [(ngModel)]="when_was_audit" min="1920" max="2021"></ion-datetime>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >m.	Do you have any other sources of income</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="other_sources_of_income">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >n.	Do you have a minute’s book register?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="minute_book">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+    <ion-select-option value="Not Applicable">Not Applicable</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >o.	Do you have a bank book register?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="bank_book">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >p.	Is the Bank account you hold in the names of the business</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="bank_account">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >q.	Do you have an M&E system</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="ME_system">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >r.	Do you have any performing credit facility?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="credit_facility">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="credit_facility=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">s.	If yes when is it due</ion-label>
+  <!--<ion-input type = "date" [(ngModel)]="credit_facility_due_date"clear-input="true"></ion-input>-->
+  <ion-datetime displayFormat="YYYY/MM/DD" [(ngModel)]="credit_facility_due_date" min="1920" max="2025"></ion-datetime>
+</ion-item>
+<label>t.	Can share your 6 months most recent financial statement (Photo add page)</label> 
+<ion-button name="camera" (click)="takePicture_fs()" expand="block">Take financial statement Photo</ion-button>
+<ion-item>
+  <img [src]="currentImage_fs" >
+</ion-item>  
+<ion-item class="ion-margin">
+  <ion-label  position="floating">financial statement Photo url</ion-label>
+  <ion-textarea type="text" rows="1" [(ngModel)]="financial_statement_photo" value="{{fs}}"  readonly></ion-textarea>
+</ion-item>
+
+<p><b>5. Business and Services</b></p> 
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >a.	Main business sector </ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="main_business_sector" >
+    <ion-select-option *ngFor="let  business of business_sectors" value="{{business}}">{{business}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >b. Main customers</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="main_customers">
+    <ion-select-option value="Farmers">Farmers</ion-select-option>
+    <ion-select-option value="Local market">Local market</ion-select-option>
+    <ion-select-option value="Cooperate entities">Cooperate entities</ion-select-option>
+    <ion-select-option value="Export trading">Export trading</ion-select-option>
+  </ion-select>
+</ion-item>
+<!--More clarity needed on these Begin-->
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >c.	Crops bulked (Select major crops)  </ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="crops_bulked" multiple>
+    <ion-select-option *ngFor="let  crop of crops" value="{{crop}}">{{crop}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<div *ngIf="crops_bulked">
+  <div *ngFor="let crop_bulk of crops_bulked; let i=index" >
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">d.i) Quantity bulked for {{crop_bulk}} value chains 2017</ion-label>
+      <ion-input type="number"
+      [(ngModel)]="Quantity_bulked_2017[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">d.ii) Quantity bulked for {{crop_bulk}} value chains 2018</ion-label>
+      <ion-input type="number"
+      [(ngModel)]="Quantity_bulked_2018[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">d.iii) Quantity bulked for {{crop_bulk}} value chains 2019</ion-label>
+      <ion-input type="number"
+      [(ngModel)]="Quantity_bulked_2019[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">d. iv) Quantity bulked for {{crop_bulk}} value chains 2020</ion-label>
+      <ion-input type="number"
+      [(ngModel)]="Quantity_bulked_2020[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+  </div>
+</div>
+<div *ngIf="crops_bulked">
+  <div *ngFor="let crop_bulk of crops_bulked; let i=index" >
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">e.	Total sales from crops bulked (for {{crop_bulk}}) 2017</ion-label>
+      <ion-input type="number" 
+      [(ngModel)]="total_sales_bulked_2017[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">e.	Total sales from crops bulked (for {{crop_bulk}}) 2018</ion-label>
+      <ion-input type="number" 
+      [(ngModel)]="total_sales_bulked_2018[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">e.	Total sales from crops bulked (for {{crop_bulk}}) 2019</ion-label>
+      <ion-input type="number" 
+      [(ngModel)]="total_sales_bulked_2019[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">e.	Total sales from crops bulked (for {{crop_bulk}}) 2020</ion-label>
+      <ion-input type="number" 
+      [(ngModel)]="total_sales_bulked_2020[i]" 
+      name="userCount" 
+      [attr.maxlength]="12"
+      (keypress)="numberOnlyValidation($event)">
+      </ion-input>
+    </ion-item>
+  </div>
+</div>
+
+<div *ngIf="crops_bulked">
+  <div *ngFor="let crop_bulk of crops_bulked; let i=index" >
+    <ion-item class="ion-margin">
+      <ion-label class="ion-text-wrap" position="floating">f.	Calculated cost per kg of {{crop_bulk}}</ion-label>
+      <ion-input type="number" [(ngModel)]="calculated_cost_per_kg[i]">
+      </ion-input>
+    </ion-item>
+  </div>
+</div>
+
+<!--More clarity needed on these End-->
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">g.	Total annual sales in inputs or equipment</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="sales_in_inputs" 
+  name="userCount" 
+  [attr.maxlength]="12"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >h.	Availability of Storage facility</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="storage_facility">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+    <ion-select-option value="Not Applicable">Not Applicable</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >i.	Value addition facility</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="value_addition_facility">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+    <ion-select-option value="Not Applicable">Not Applicable</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="value_addition_facility=='Yes'">
+  <ion-label class="ion-text-wrap" >j.	Value addition levels</ion-label>
+  <ion-select placeholder="Select Many"  [(ngModel)]="value_addition_levels" multiple>
+    <ion-select-option *ngFor="let  addition_level of addition_levels" value="{{addition_level}}">{{addition_level}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >k.	How do you collect products from your members</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="collect_products" >
+    <ion-select-option *ngFor="let  prod_col of products_collection" value="{{prod_col}}">{{prod_col}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >l. Do you facilitate access to Credit/Insurance services to you members/?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="facilitate_access_credit">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item> 
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >m.	Do you extend credit services to the members?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="extend_credit_services">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!--to be added in the skip logic-->
+<ion-item class="ion-margin" *ngIf="extend_credit_services=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">n.	If yes, what’s Number of Loans provided in the 2017</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="no_of_loans_2017" 
+  name="userCount" 
+  [attr.maxlength]="7"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="extend_credit_services=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">n.	If yes, what’s Number of Loans provided in the 2018</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="no_of_loans_2018" 
+  name="userCount" 
+  [attr.maxlength]="7"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="extend_credit_services=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">n.	If yes, what’s Number of Loans provided in the 2019</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="no_of_loans_2019" 
+  name="userCount" 
+  [attr.maxlength]="7"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="extend_credit_services=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">n.	If yes, what’s Number of Loans provided in the 2020</ion-label>
+  <ion-input type="number" 
+  [(ngModel)]="no_of_loans_2020" 
+  name="userCount" 
+  [attr.maxlength]="7"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+<ion-item class="ion-margin" *ngIf="extend_credit_services=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">o.	Loan interest rates (out of 100%)</ion-label>
+  <ion-input type="number"
+  [(ngModel)]="loan_interest_rate" 
+  name="userCount" 
+  [attr.maxlength]="3"
+  (keypress)="numberOnlyValidation($event)">
+  </ion-input>
+</ion-item>
+
+<p><b>6. Maturity and partnership and business linkages</b></p>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">a.	Year of establishment </ion-label>
+  <!--<ion-input type = "date" [(ngModel)]="year_of_establishment"clear-input="true"></ion-input>-->
+  <ion-datetime displayFormat="YYYY" [(ngModel)]="year_of_establishment" min="1920" max="2021"></ion-datetime>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >b.	 Main challenge face by the business</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="main_challenges" >
+    <ion-select-option *ngFor="let  impact of challenges" value="{{impact}}">{{impact}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >c.	What major impact has this business; association had on the people around/ with whom it has been doing business (options)</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="major_impact_on_people" >
+    <ion-select-option *ngFor="let  impact of major_impact" value="{{impact}}">{{impact}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >d. Do you have any partnership with public sector?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="public_partnership">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+<!--Skip logic if yes on d-->
+ 
+<ion-item class="ion-margin" *ngIf="public_partnership=='Yes'">
+  <ion-label class="ion-text-wrap" >e.	 If yes what services do you access</ion-label>
+  <ion-select placeholder="Select many"  [(ngModel)]="services_you_access" multiple>
+    <ion-select-option *ngFor="let  service of services_access" value="{{service}}">{{service}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<!--Added others option-->
+<div *ngFor="let count of services_access; let i=index">
+<ion-item class="ion-margin" *ngIf="services_you_access[i]=='Others specify'">
+  <ion-label class="ion-text-wrap" position="floating">Specify the other service you access</ion-label>
+  <ion-input type = "text" [(ngModel)]="services_you_access_specify"clear-input="true"></ion-input>
+</ion-item>
+</div>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >f.	Do you have any partnerships with donors/NGOs/Others</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="partnerships_with_donors">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<p><b>7. Others</b></p>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >a.	By what means do you mainly access information</ion-label>
+  <ion-select placeholder="Select One"  [(ngModel)]="access_information" >
+    <ion-select-option *ngFor="let  info of information" value="{{info}}">{{info}}</ion-select-option>
+  </ion-select>
+</ion-item>
+ 
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >b. Do you have any form of technology uptake for enhancing internal and external communication? </ion-label>
+  <ion-select placeholder="Select Many"  [(ngModel)]="technology_uptake" multiple>
+    <ion-select-option *ngFor="let  tec of technology" value="{{tec}}">{{tec}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<!--Included the other option-->
+<div *ngFor="let count of technology; let i=index">
+  <ion-item class="ion-margin" *ngIf="technology_uptake[i]=='Others'">
+    <ion-label class="ion-text-wrap" position="floating">Specify the other form of technology uptake</ion-label>
+    <ion-input type = "text" [(ngModel)]="technology_uptake_others"clear-input="true"></ion-input>
+  </ion-item>
+</div>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >c. Training</ion-label>
+  <ion-select placeholder="Select many"  [(ngModel)]="training" multiple>
+    <ion-select-option *ngFor="let  train of trainings" value="{{train}}">{{train}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >d.Resource’s access (Energy, water): i.	Do you have access to electricity?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="access_to_electricity">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="access_to_electricity=='No'">
+  <ion-label class="ion-text-wrap" >e. If not what other forms of energy resources is at your disposal</ion-label>
+  <ion-select placeholder="Select many"  [(ngModel)]="other_forms_of_energy" multiple>
+    <ion-select-option *ngFor="let  energy of energy_resources" value="{{energy}}">{{energy}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >f.	Do you have access to water with in 1km?</ion-label>
+  <ion-select placeholder="Select One" [(ngModel)]="access_to_water">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-searchbar placeholder="Search for Either District, Subcounty or Region(but not all)" [(ngModel)]="term" animated="true"></ion-searchbar>
+<ion-item class="ion-margin" *ngIf="term">
+  <ion-label class="ion-text-wrap">District and Subcounty and Region</ion-label>
+ <ion-select   [(ngModel)]="location_name">
+ <ion-select-option *ngFor="let item of district_data | filter:term"  value="{{item.District}},{{item.Subcounty}},{{item.Region}}">{{item.District}},{{item.Subcounty}},{{item.Region}} region</ion-select-option>
+ </ion-select>
+</ion-item> 
+<!--Village-->
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Village</ion-label>
+  <ion-input type="text" [(ngModel)]="village_agri" clear-input="true">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label>Name of Field Officer</ion-label>
+  <ion-input type="text" [(ngModel)]="fo" value="{{name}}"readonly></ion-input>
+</ion-item>
+<!--<app-multi-file-upload ></app-multi-file-upload>-->
+
+<ion-button (click)="Submit()" expand="block">
+    Submit
+</ion-button>
+</ion-content>

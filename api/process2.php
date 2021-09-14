@@ -32,14 +32,13 @@ if($postjson['aski']=="submit"){
     foreach($specify_tasks as $specify_task){
       $task.= $specify_task . ",";
     }
-      
     //Getting the multiple values for in_organic
     $inorganics=$postjson['inorganic_Specify'];
     $inorgan="";
     foreach($inorganics as $inorganic){
       $inorgan.= $inorganic . ",";
     }
-    
+    //Repeat itempost1
     $crops_grown_last=$postjson['crops_grown_last_season'];
     $crops="";
     $crops_count=0;
@@ -152,9 +151,7 @@ if($postjson['aski']=="submit"){
     foreach($for_new as $x){
       $new_season.= $x . ",";
       $count_crop_new_season+=1;
-    }
-
-    
+    }  
     $agri=$postjson['Please_specify_the_agri_insurance_type'];
     $insurance="";
     foreach($agri as $x){
@@ -247,22 +244,128 @@ if($postjson['aski']=="submit"){
     $much.= $x . ",";
   }
 
-    define('UPLOAD_DIR', 'upload/');
+
+  //*******New Data has been added start.
+$live=$postjson['livestock_healthsvcs_types'];
+$livestocked="";
+foreach($live as $y){
+  $livestocked.= $y . ",";
+}
+
+$ls=$postjson['loan_security'];
+$loan_s="";
+foreach($ls as $y){
+  $loan_s.= $y . ",";
+}
+
+$lp=$postjson['loan_purpose'];
+$loan_p="";
+foreach($lp as $y){
+  $loan_p.= $y . ",";
+}
+
+$agr_ext=$postjson['agric_ext_provider'];
+$agrextp="";
+foreach($agr_ext as $y){
+  $agrextp.= $y . ",";
+}
+
+$in_business="";
+if($postjson['in_business_since']){
+  $in_business = implode(",", $postjson['in_business_since']);
+}
+
+$Please_specify_the_agri_insurance_type="";
+if($postjson['Please_specify_the_agri_insurance_type']){
+  $Please_specify_the_agri_insurance_type = implode(",", $postjson['Please_specify_the_agri_insurance_type']);
+}
+//splint the agribulker name and ID into an array separated word into an array
+$myString = $postjson['agribulker_belong'];
+$agriArray = explode(',', $myString);
+//splint the group name and ID into an array
+$mygroup = $postjson['group_belong'];
+$myGroupArray = explode(',', $mygroup);
+
+//splint the region into region, district and subcounty
+$myregion = $postjson['region'];
+$myregionArray = explode(',', $myregion);
+
+//specify_loan_ammount
+$specify_loan_ammount="";
+if($postjson['specify_loan_ammount']){
+  $specify_loan_ammount = implode(",", $postjson['specify_loan_ammount']);
+}
+//Obtaining the device MAC address
+$MAC = exec('getmac');
+$MAC = strtok($MAC, ' ');
+
+//expenditure
+// $int_value = (int) $string;
+$exp = (int)$postjson['health_expense'] + ((int)$postjson['school_fees_expense'] * (int)$postjson['no_of_school_going_children']);
+
+//displsable income
+$disp = $postjson['annual_income'] - $exp;
+
+//animal production cost calculation cost of feeding +cost of health
+$animalpdcost = (int)$postjson['livestock_feeding_cost'] + (int)$postjson['livestock_health_cost'];
+
+//livestock annual revenue calculation animals sold * amount per animal 
+$lirevenue = (int)$postjson['livestock_sold'] * (int)$postjson['livestock_sold_price'];
+
+//livestock profitability  calculation annual revienue -total cost of production
+$liprofitability = $lirevenue - $animalpdcost;
+
+include "cs.php";
+
+//Concatenating the GPs of the location
+$la1 = $postjson['la1'];
+$lo1 =  $postjson['lo1'];
+$_location = $la1.",".$lo1;
+
+//Concatenating the Gps values for the main crop enterprise
+$la2=$postjson['la2'];
+$lo2=$postjson['lo2'];
+$gps_main= $la2.",".$lo2;
+
+
+$farmer_token_id = uniqid();
+
+define('UPLOAD_DIR', 'upload/');
     $image_type1 = $postjson['Photo_url'];
     $image_base64 = base64_decode($image_type1);
     $file1 = UPLOAD_DIR . uniqid() . '.png';
     file_put_contents($file1, $image_base64);
 
     $image_type2 = $postjson['ID_photo_url'];
-    $imagebase64_id = base64_decode($image_type2);
+    $imagebase64 = base64_decode($image_type2);
     $file2 = UPLOAD_DIR . uniqid() . '.png';
-    file_put_contents($file2, $imagebase64_id);
-    //Obtaining the device MAC address
+    file_put_contents($file2, $imagebase64);
+
+    $rs = $postjson['resident_since'];
+    //$rsreal = STR_TO_DATE($rs,'%y-%m-%d');
+   // $datetime = new DateTime();
+    //$datetime1=toString($datetime);
+    $date = new DateTime();
+    $dateresult = $date->format('Y-m-d H:i:s');
+    //Generating the random number to be concatenated to the submission ID
+    $id_rand = random_int(100000, 999999);
+
+    $district_id="";
+    if($postjson['region']){
+      $myregion = $postjson['region'];
+      $myRegionArray = explode(',', $myregion);
+
+      $first4_letters_district = $myRegionArray[1];
+      $district_id=substr($first4_letters_district, 0, 4);
+    }
     $MAC = exec('getmac');
     $MAC = strtok($MAC, ' ');
 
 
     $rs = $postjson['resident_since'];
+  //******New Data has been added stop
+    //Obtaining the device MAC address
+
     
     $insert = mysqli_query($mysqli, "INSERT INTO cpt SET
         SubmissionDate='$today',
@@ -300,10 +403,10 @@ if($postjson['aski']=="submit"){
         next_of_kin='$postjson[next_of_kin]',
         next_of_kin_has_contact='$postjson[next_of_kin_has_contact]',
         next_of_kin_phone_no='$postjson[next_of_kin_phone_no]',
-        region= '$postjson[region]',
-        district='$postjson[distr]',
-        other_district='$postjson[other_district]',
-        subcounty='$postjson[other_district]',
+        region= '$myregionArray[0]',
+        district='$myregionArray[1]',
+        other_district='',
+        subcounty='$myregionArray[2]',
         other_subcounty='$postjson[other_subcounty]',
         subcounty_other_district='$postjson[subcounty_other_district]',
         soiltype='$postjson[soiltype]',
@@ -578,11 +681,11 @@ if($postjson['aski']=="submit"){
         Who_provided_the_training_on_insurance='$postjson[Who_provided_the_training_on_insurance]',
         probs_of_using_cellphone='$probs_of_using',
         /**Gender equality start*/
-        gender_equality_hhplanting_decision='$postjson[hhplanting_decision]',
-        gender_equality_hhproductionphase_decision='$postjson[hhproductionphase_decision]',
-        gender_equality_hhpostharvet_decision='$postjson[hhpostharvet_decision]',
-        gender_equality_hhmarketing_decision='$postjson[hhmarketing_decision]',
-        gender_equality_hhincome_decision='$postjson[hhincome_decision]',
+        /*gender_equality_hhplanting_decision='',
+        gender_equality_hhproductionphase_decision='',
+        gender_equality_hhpostharvet_decision='',
+        gender_equality_hhmarketing_decision='',
+        gender_equality_hhincome_decision='',
         /**Gender equality end */
         /** Nutrition start*/
         Nutrition_meals_a_day='$postjson[meals_a_day]',
@@ -595,68 +698,99 @@ if($postjson['aski']=="submit"){
         response_assessmetn_how_well_agent_knows_beneficiary='$postjson[how_well_agent_knows_beneficiary]',
         response_assessmetn_accuracy_of_info_collected='$postjson[accuracy_of_info_collected]',
         response_assessmetn_data_quality='$postjson[data_quality]',
-        maize='',
-        beans ='',
-        sesame ='',
-        soyabean ='',
-        rice ='',
-        millet='',
-        sorghum='',
-        irish_potatoes ='',
-        cotton ='',
-        sweet_potatoes ='',
-        sunflower  ='',
-        ground_nuts  ='',
-        coffee  ='',
-        bananas  ='',
-        cassava  ='',
-        enterprise_value_maize  ='',
-        enterprise_value_beans ='',
-        enterprise_value_sesame  ='',
-        enterprise_value_soyabean ='',
-        enterprise_value_rice ='',
-        enterprise_value_millet ='',
-        enterprise_value_sorghum ='',
-        enterprise_value_irish_potatoes ='',
-        enterprise_value_cotton  ='',
-        enterprise_value_sweet_potatoes  ='',
-        enterprise_value_sunflower  ='',
-        enterprise_value_ground_nuts  ='',
-        enterprise_value_coffee  ='',
-        enterprise_value_bananas  ='',
-        enterprise_value_cassava ='',
-        social_score ='',
-        land_score ='',
-        hh_econ_score  ='',
-        prd_score  ='',
-        fin_score  ='',
-        info_score  ='',
-        insur_score ='',
-        market_score  ='',
-        Others_score  ='',
-        social_scorePer ='',
-        land_scorePer ='',
-        hh_econ_scorePer ='',
-        prd_scorePer ='',
-        fin_scorePer ='',
-        insur_scorePer ='',
-        info_scorePer ='',
-        market_scorePer ='',
-        other_scorePer ='',
-        calculation ='',
-        creditscore ='',
-        total_return ='',
-        return_X_Farmsize ='',
-        credit_worth ='',
-        Credit_Worth_cred_e_creditscore  ='',
-        __version__ ='',
-        _version_ ='',
-        meta_instanceID ='',
-        key_ ='',
-        SubmitterID ='',
-        SubmitterName ='$postjson[field_officer]',
-        AttachmentsPresent ='',
-        AttachmentsExpected=''
+
+
+        sell_of_produce='$postjson[sell_of_produce]',
+        date_of_harvest='$postjson[date_of_harvest]',
+        specify_crops_for_new_season='$postjson[specify_crops_for_new_season]',
+        rabbit_number='$postjson[rabbit_number]',
+        farm_size_husbandry='$postjson[farm_size_husbandry]',
+        livestock_breed='$postjson[livestock_breed]',
+        livestock_record='$postjson[livestock_record]',
+        livestock_added='$postjson[livestock_added]',
+        livestock_sold='$postjson[livestock_sold]',
+        livestock_sold_price='$postjson[livestock_sold_price]',
+        livestock_milk_produced='$postjson[livestock_milk_produced]',
+        livestock_sales_income='$postjson[livestock_sales_income]',
+        fooder_produce='$postjson[fooder_produce]',
+        suppliment_livestock='$postjson[suppliment_livestock]',
+        concentrates_feeding='$postjson[concentrates_feeding]',
+        livestock_feeding_cost='$postjson[livestock_feeding_cost]',
+        livestock_healthsvcs='$postjson[livestock_healthsvcs]',
+        livestock_healthsvcs_arrival='$postjson[livestock_healthsvcs_arrival]',
+        livestock_healthsvcs_types='$livestocked',
+        livestock_death='$postjson[livestock_death]',
+        livestock_death_cause='$postjson[livestock_death_cause]',
+        livestock_health_cost='$postjson[livestock_health_cost]',
+        livestock_type='$postjson[livestock_type]',
+        preservation_mtds='$postjson[preservation_mtds]',
+        planting_season='$postjson[planting_season]',
+        effective_sell_channel='$postjson[effective_sell_channel]',
+        reason_for_channel='$postjson[reason_for_channel]',
+        need_loan='$postjson[need_loan]',
+        loan_amount='$postjson[loan_amount]',
+        loan_security='$loan_s',
+        loan_purpose='$loan_p',
+        specify_loan_ammount='$specify_loan_ammount',
+        first_payment_date='$postjson[first_payment_date]',
+        loan_period_xpctd='$postjson[loan_period_xpctd]',
+        la_security='$postjson[la_security]',
+        lo_security='$postjson[lo_security]',
+        loan_failure_strategy='$postjson[loan_failure_strategy]',
+        agric_ext_provided='$agrextp',
+        other_extension_channel_receive='$postjson[other_extension_channel_receive]',
+        specify_training_mobilephones='$postjson[specify_training_mobilephones]',
+        mostusedapp_mobilephones='$postjson[mostusedapp_mobilephones]',
+        
+        agribulker_belong='$agriArray[0]',
+        agribulker_id='$agriArray[1]',
+        /*agribulker_id*/
+        group_belong='$myGroupArray[0]',
+        group_id='$myGroupArray[1]',
+        /*group_id*/
+        animal_productioncost = '$animalpdcost',
+        livestockannual_revenue = '$lirevenue',
+        livestock_profitability = '$liprofitability',
+
+        social_score ='$sscore',
+        land_score ='$lfscore',
+        hh_econ_score ='$hhscore',
+        prdcrop_score = '$pcscore',
+        prdanimal_score ='$pascore',
+        fin_score =' $fscore',
+        info_score ='$iacsscore',
+        insur_score ='$iscore',
+        market_score ='$mscore',
+        Others_score ='$oscore',
+
+        social_scorePer ='$sscoreper',
+        land_scorePer ='$lfscoreper',
+        hh_econ_scorePer ='$hhscoreper',
+        prdcrop_scorePer ='$pcscoreper',
+        prdanimal_scorePer = '$pascoreper',
+        fin_scorePer ='$fscoreper',
+        insur_scorePer ='$iscoreper',
+        info_scorePer ='$iacsscoreper',
+        market_scorePer ='$mscoreper',
+        other_scorePer ='$oscoreper',
+        calculation ='$tscore',
+        creditscore ='$tscoreper',
+        total_return ='$cu_tr',
+        return_X_Farmsize ='$rXfs',
+        credit_worth ='$cworth',
+        meta_instanceID='AZF$district_id$id_rand',
+        SubmitterName='$postjson[field_officer]',
+        /**Added more 10 columns*/
+        DOB_spouse='$postjson[DOB_spouse]',
+        first_child_name='$postjson[first_child_name]',
+        dob_first_child='$postjson[dob_first_child]',
+        second_child_name='$postjson[second_child_name]',
+        dob_second_child='$postjson[dob_second_child]',
+        third_child_name='$postjson[third_child_name]',
+        dob_third_child='$postjson[dob_third_child]',
+        forth_child_name='$postjson[forth_child_name]',
+        dob_forth_child='$postjson[dob_forth_child]'
+        
 ");
 
 if($insert){ 

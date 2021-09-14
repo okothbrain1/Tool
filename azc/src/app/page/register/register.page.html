@@ -35,7 +35,7 @@
 
    <ion-item class="ion-margin">
     <ion-label  position="floating">Phone</ion-label>
-   <ion-input type = "number" placeholder="call me on" [(ngModel)]="phone"></ion-input>
+   <ion-input type = "tel" [attr.maxlength]="10" placeholder="Enter 10 digits number" [(ngModel)]="phone"></ion-input>
    </ion-item>
 
    <!--<ion-text>Project id</ion-text>

@@ -63,14 +63,29 @@ const routes: Routes = [
     path: 'modal-popup',
     loadChildren: () => import('./modal-popup/modal-popup.module').then( m => m.ModalPopupPageModule)
   },
-  //{
-    //path: 'casaupdate',
-    //loadChildren: () => import('./casaupdate/casaupdate.module').then( m => m.CasaupdatePageModule)
-  //},
   {
-    path: 'casaupdate',
-    loadChildren: () => import('./pages/casaupdate/casaupdate.module').then( m => m.CasaupdatePageModule)
+    path: 'agribulker',
+    loadChildren: () => import('./pages/agribulker/agribulker.module').then( m => m.AgribulkerPageModule)
   },
+  {
+    path: 'farmergroup',
+    loadChildren: () => import('./pages/farmergroup/farmergroup.module').then( m => m.FarmergroupPageModule)
+  },
+  {
+    path: 'farmerprofile',
+    loadChildren: () => import('./pages/farmerprofile/farmerprofile.module').then( m => m.FarmerprofilePageModule)
+  },
+  {
+    path: 'editsentform',
+    loadChildren: () => import('./pages/editsentform/editsentform.module').then( m => m.EditsentformPageModule)
+  },
+
+  {
+    path: 'updatesb',
+    loadChildren: () => import('./pages/updatesb/updatesb.module').then( m => m.UpdatesbPageModule)
+  },
+
+
 ];
 
 @NgModule({

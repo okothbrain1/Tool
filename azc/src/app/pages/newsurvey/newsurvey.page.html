@@ -1,35 +1,57 @@
 <ion-header >
-  <!--  <ion-toolbar>
-      <ion-buttons slot="start" [routerLink]="['/home']">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title>New Activities</ion-title>
-    </ion-toolbar>
-  -->
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Available tools</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="solid" color="success" size="medium"[routerLink]="['/home']">
-        <ion-icon name="home"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  </ion-header>
-<ion-app>
-  <ion-content>
-    <ion-card [routerLink]="['/beneficiary']" class="ion-margin">
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="home"></ion-back-button>
+  </ion-buttons>
+  <ion-title class="ion-text-wrap">Available Forms</ion-title>
+  <ion-buttons slot="end">
+    <ion-button fill="solid" color="success" size="medium"[routerLink]="['/home']">
+      <ion-icon name="home"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card class="ion-margin" [routerLink]="['/agribulker']">
       <ion-card-header>
-       <h5><center>CASA Profiling Tool</center></h5> 
+       <p class="ion-text-wrap">AGRIBULKER TOOL</p>
+      </ion-card-header>
+    </ion-card>  
+    <ion-card class="ion-margin" [routerLink]="['/farmergroup']">
+      <ion-card-header>
+        <p class="ion-text-wrap">GROUP PROFILING TOOL</p>
+      </ion-card-header>
+    </ion-card>
+    
+    <ion-card class="ion-margin" [routerLink]="['/farmerprofile']">
+      <ion-card-header>
+        <p class="ion-text-wrap">FARMER PROFILING TOOL</p>
       </ion-card-header>
     </ion-card>
 
-    <ion-card [routerLink]="['/casaupdate']" class="ion-margin">
+    <ion-card class="ion-margin" [routerLink]="['/updatesb']">
       <ion-card-header>
-       <h5><center>CASA Update Tool</center></h5> 
+        <p class="ion-text-wrap">UPDATE TOOL</p>
       </ion-card-header>
     </ion-card>
-    </ion-content>
-  </ion-app>
+  <!--<ion-card class="ion-margin" [routerLink]="['/beneficiary']">
+    <ion-card-header>
+     <h5><center>SME REGISTRATION TOOL</center></h5>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card class="ion-margin" [routerLink]="['/agent']">
+    <ion-card-header>
+      <h5><center>YAPP TOOL</center></h5>
+     </ion-card-header>
+  </ion-card>
+
+  <ion-card class="ion-margin">
+    <ion-card-header>
+      <h5><center>SME PROFILING TOOL</center></h5>
+    </ion-card-header>
+  </ion-card>-->
+  </ion-list>
+</ion-content>

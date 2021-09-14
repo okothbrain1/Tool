@@ -1,170 +1,154 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="newsurvey"></ion-back-button>
     </ion-buttons>
-    <ion-title>Field Agent Registration</ion-title>
-    </ion-toolbar>
+    <ion-title>Youth Apprentership Programme Tool</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="success" size="medium" (click)="Submit()">
+        <ion-icon name="add-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-button [routerLink]="['/notsent']" fill="outline">View not-sent Activities</ion-button>
 </ion-header>
-
 <ion-content>
-  <form [formGroup]="developer" (ngSubmit)="submit()">
-    <ion-item>
-      <ion-label>Region</ion-label>
-      <ion-select formControlName="country" (ionChange)="onCountryChange()" placeholder="Select One" interface="popover">
-        <ion-select-option *ngFor="let country of countries" [value]="country">{{country}}</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <!--New-->
 
-    <ion-item>
-      <ion-label>District</ion-label>
-      <ion-select formControlName="state" placeholder="Select One" interface="popover" (ionChange)="onStateChange()">
-        <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Name</ion-label>
+    <ion-input type = "text" [(ngModel)]="Name"clear-input="true"></ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-label>Subcounty</ion-label>
-      <ion-select formControlName="subcounty" placeholder="Select One" interface="popover">
-        <ion-select-option *ngFor="let subcounty of subcounties" [value]="subcounty">{{subcounty}}</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" >Gender</ion-label>
+    <ion-select placeholder="Select One" interface="popover"[(ngModel)]="gender">
+      <ion-select-option value="Male">Male</ion-select-option>
+      <ion-select-option value="Female">Female</ion-select-option>
+    </ion-select>
+  </ion-item>
 
-    
-    <ion-item>
-      <ion-label position="floating">Name of the field officer</ion-label>
-      <ion-input type = "text" formControlName="name"></ion-input>
-    </ion-item>
- <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Name is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Name should be min 2 chars long.
-</span>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Age</ion-label><br/>
+    <ion-input type = "number" [(ngModel)]="age" ></ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Phone number</ion-label>
-      <ion-input type = "number" formControlName="phone"></ion-input>
-    </ion-item>
-     <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Phone number is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
- Phone number should be numerical.
-</span>
+  <ion-item class="ion-margin">
+    <ion-label class="ion-text-wrap" position="floating">Phone</ion-label><br/>
+    <ion-input type = "tel"  [attr.maxlength]="10" placeholder="Enter 10 digits" [(ngModel)]="phone" ></ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Number of Bsp's</ion-label>
-      <ion-input type = "number" formControlName="bsps"></ion-input>
-    </ion-item>
-     <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Number of BSP's is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Number of BSP's should be numerical.
-</span>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Email</ion-label><br/>
+  <ion-input type = "email" [(ngModel)]="email" ></ion-input>
+</ion-item>
 
-   <ion-item>
-     <ion-label position="floating">Number of VSLA's and farmer groups</ion-label>
-     <ion-input type = "number" formControlName="vslas"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Name is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Name should be min 2 chars long.
-</span>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap">District</ion-label>
+ <ion-select   [(ngModel)]="nearest_township">
+ <ion-select-option *ngFor="let ntr of nearest_townships" value="{{ntr}}">{{ntr}}</ion-select-option>
+ </ion-select>
+</ion-item>
 
-   <ion-item>
-     <ion-label position="floating">Number of MIYCAN Groups</ion-label>
-     <ion-input type = "number" formControlName="miycan"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Number of MIYCAN groups is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Number of MIYCAN groups should be numerical.
-</span>
+<!--<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">District of residence </ion-label>
+  <ion-input type="text"[(ngModel)]="nearest_township"></ion-input>
+</ion-item>-->
 
-   <ion-item>
-     <ion-label position="floating">Number of VHTs</ion-label>
-     <ion-input type = "number" formControlName="vhts"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Number of VHT's is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Number of VHTs should be numerical.
-</span>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Parish of residence</ion-label>
+  <ion-input type="text"[(ngModel)]="live"></ion-input>
+</ion-item>
 
-   <ion-item>
-      <ion-label position="floating">Number of DDMC's OR Subcounty DMC's</ion-label>
-      <ion-input type = "number" formControlName="ddmcs"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Number of ddmc's is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Number of DDMS's should be numerical.
-</span>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >Please select your qualification</ion-label>
+  <ion-select placeholder="Select One" interface="popover"[(ngModel)]="select_qualification">
+    <ion-select-option *ngFor="let qual of qualifications" value="{{qual}}">{{qual}}</ion-select-option>
+  </ion-select>
+</ion-item>
 
-   <ion-item>
-       <ion-label position="floating">Number of current structures(Leaders working with)</ion-label>
-       <ion-input type = "number" formControlName="cstructures"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Name is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Name should be min 2 chars long.
-</span>
+<ion-item class="ion-margin" *ngIf="select_qualification=='specify'">
+  <ion-label class="ion-text-wrap" position="floating">Specify Other</ion-label>
+  <ion-input type="text"[(ngModel)]="specify_qualification"></ion-input>
+</ion-item>
 
-   <ion-item>
-       <ion-label position="floating">Number of ICAN champions</ion-label>
-       <ion-input type = "number" formControlName="champions"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Number of Ican champions is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Number of Ican champions should be numerical.
-</span>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Name Of institution</ion-label>
+  <ion-input type="text"[(ngModel)]="institution"></ion-input>
+</ion-item>
 
-   <ion-item>
-      <ion-label position="floating">Number of schools</ion-label>
-      <ion-input type = "number" formControlName="schools"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Number of schools is required.
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Number of schools should be numerical.
-</span>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Educational Qualification ie (DEGREE OR DIPLOMA IN ...)</ion-label>
+  <ion-input type="text"[(ngModel)]="qualification"></ion-input>
+</ion-item>
 
-   <ion-item>
-       <ion-label position="floating">Number of Radio Stations</ion-label>
-       <ion-input type = "number" formControlName="radiostations"></ion-input>
-   </ion-item>
-    <!-- Error messages -->
- <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
-  Number of radio stations is required
-</span>
-<span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-  Number of radio stations should be numerical.
-</span>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Year of qualifying</ion-label>
+  <ion-input type="number"[(ngModel)]="year_of_q"></ion-input>
+</ion-item>
 
-   <ion-button type="submit" expand="block">Submit</ion-button>
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >Do you Have any work experience</ion-label>
+  <ion-select placeholder="Select One" interface="popover"[(ngModel)]="work_experience">
+    <ion-select-option value="Yes">Yes</ion-select-option>
+    <ion-select-option value="No">No</ion-select-option>
+  </ion-select>
+</ion-item>
 
-   </form>
+<ion-item class="ion-margin" *ngIf="work_experience=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">Specify the areas of experience</ion-label>
+  <ion-input type="text"[(ngModel)]="specify_areas_of_experience"></ion-input>
+</ion-item>
 
+<ion-item class="ion-margin" *ngIf="work_experience=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">What was your position</ion-label>
+  <ion-input type="text" [(ngModel)]="position"></ion-input>
+</ion-item>
+ 
+<ion-item class="ion-margin" *ngIf="work_experience=='Yes'">
+  <ion-label class="ion-text-wrap" position="floating">Name of employers</ion-label>
+  <ion-input type="text" [(ngModel)]="employers"></ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >If you are interested, Which of the following areas do you think can be of value to a small business</ion-label>
+  <ion-select placeholder="Select One" interface="popover"[(ngModel)]="interest">
+    <ion-select-option *ngFor="let inter of interests" value="{{inter}}">{{inter}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="interest=='Specify other'">
+  <ion-label class="ion-text-wrap" position="floating">Please Specify interest</ion-label>
+  <ion-input type="text" [(ngModel)]="specify_interest"></ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" >What are the areas of skills competences would you be of interest for you to enable you add practical values to SMEs</ion-label>
+  <ion-select placeholder="Select One" interface="popover"[(ngModel)]="skills">
+    <ion-select-option *ngFor="let ski of skillss" value="{{ski}}">{{ski}}</ion-select-option>
+
+  </ion-select>
+</ion-item>
+
+<ion-item class="ion-margin" *ngIf="skills=='Any other'">
+  <ion-label class="ion-text-wrap" position="floating">Specify other </ion-label>
+  <ion-input type="text" [(ngModel)]="other_skills"></ion-input>
+</ion-item>
+
+<ion-item class="ion-margin">
+  <ion-label class="ion-text-wrap" position="floating">Can you recommend other to join the program</ion-label>
+  <ion-input type="text" [(ngModel)]="recommend"></ion-input>
+</ion-item>
+
+
+<ion-item class="ion-margin">
+    <ion-label>Name of Field Officer</ion-label>
+    <ion-input type="text" [(ngModel)]="fo" value="{{name}}"readonly></ion-input>
+</ion-item>
+
+<ion-button (click)="Submit()" expand="block">
+    Submit
+</ion-button>
 </ion-content>
+
+

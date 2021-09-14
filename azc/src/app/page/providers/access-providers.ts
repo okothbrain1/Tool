@@ -8,9 +8,12 @@ import 'rxjs/add/operator/timeout';
 })
 export class AccessProviders {
     //api json
-    server: string ="http://3.12.97.246/cente-api/api/";
-    //server:string ="http://localhost/azcollect/api/";
-    //server:string ="http://3.12.97.246/casa/casa_api/";
+    //server: string ="http://3.12.97.246/ican/azcollect/api/";
+    //server: string ="http://localhost/uiaapp/api/";
+    //server: string ="http://localhost/Agribulker/api/";
+    //server: string="http://3.12.97.246/standard_bank/public/test/";
+    server: string="http://3.12.97.246/standard_bank/public/api/";
+    //server: string ="http://3.12.97.246/uia/uia_api/";
 
     constructor(
         private http: HttpClient

@@ -17,6 +17,7 @@ export class SettingsPage implements OnInit {
   gender:string;
   dob:string;
   phone:string;
+  token:string;
   
 
   constructor(
@@ -40,6 +41,7 @@ export class SettingsPage implements OnInit {
         this.gender = this.datastorage.gender;
         this.dob = this.datastorage.dob;
         this.phone = this.datastorage.phone;
+        this.token= this.datastorage.token;
       });
 }
 
